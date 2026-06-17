@@ -103,9 +103,21 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .risk-card .rv{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
 .risk-card .rb{font-size:12px;font-weight:600;margin-top:2px}
 .rv-low{color:var(--risk-low)}.rv-mod{color:var(--risk-mod)}.rv-high{color:var(--risk-high)}
-.rec-section{margin-bottom:22px}
-.rec-section h3{font-size:14px;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:8px}
-.rec-item{border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:8px;background:var(--card);display:flex;gap:10px;align-items:flex-start}
+.rec-section{margin-bottom:28px}
+.rec-section h3{font-size:15px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.rec-section h3 .sec-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.rec-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;transition:border-color .15s,transform .15s}
+.rec-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.rec-card .rc-top{display:flex;align-items:flex-start;gap:10px}
+.rec-card .rc-icon{width:44px;height:44px;border-radius:11px;flex-shrink:0;display:grid;place-items:center;padding:6px}
+.rc-icon svg{width:28px;height:28px}
+.rc-icon.pri-h{background:#fdecea}.rc-icon.pri-m{background:#fef8e8}.rc-icon.pri-l{background:#e2f5eb}
+.rc-icon.pri-h svg{stroke:#c75444}.rc-icon.pri-m svg{stroke:#b8860b}.rc-icon.pri-l svg{stroke:#007a3d}
+.rec-card .rc-title{font-size:13.5px;font-weight:600;line-height:1.3;color:var(--ink)}
+.rec-card .rc-pri{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-top:2px;display:inline-block}
+.rc-pri.p-h{background:#fdecea;color:#c75444}.rc-pri.p-m{background:#fef8e8;color:#b8860b}.rc-pri.p-l{background:#e2f5eb;color:#007a3d}
+.rec-card .rc-desc{font-size:12px;color:var(--ink-soft);line-height:1.55;flex:1}
 .rec-pri{width:5px;min-height:24px;border-radius:3px;flex-shrink:0;margin-top:3px}
 .pri-h{background:var(--risk-high)}.pri-m{background:var(--risk-mod)}.pri-l{background:var(--accent)}
 .rec-body{flex:1}.rec-body strong{display:block;font-size:13.5px;margin-bottom:2px}
@@ -954,14 +966,73 @@ function renderResults(){
     <p>Yanıtınız kendinize zarar verme düşünceleri olabileceğini gösteriyor. Acil tehlike varsa <b>112</b>'yi arayın.
       Güvendiğiniz birine ulaşın ve bir ruh sağlığı uzmanıyla görüşün.</p></div>`;
 
-  // Recommendations
+  // Recommendations as cards
   const recs=genRecs(b,l,bmi,sc);
-  const secMeta={nutrition:["🥗","Beslenme Önerileri"],exercise:["🏃","Egzersiz Planı"],sleep:["🌙","Uyku Düzeni"],stress:["🧘","Stres Yönetimi"],medical:["🩺","Tıbbi Test Önerileri"]};
+  // SVG line-art icons per recommendation keyword
+  const ICONS={
+    glisemik:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3C14 3 6 12 6 17a8 8 0 0016 0c0-5-8-14-8-14z"/><path d="M10 18h8M12 21h4"/></svg>`,
+    kalp:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 25s-9-6-9-13a5 5 0 019-2 5 5 0 019 2c0 7-9 13-9 13z"/></svg>`,
+    kilo:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="10"/><path d="M14 8v6l4 2"/></svg>`,
+    demir:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21l7-14 7 14"/><path d="M9.5 17h9"/></svg>`,
+    akdeniz:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c-3 4-7 5-7 10a7 7 0 0014 0c0-5-4-6-7-10z"/><path d="M14 12v8M11 16h6"/></svg>`,
+    hareket:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5" r="2.5"/><path d="M14 8v6M10 24l4-10 4 10M8 16h5M15 16h5"/></svg>`,
+    kas:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16c0-3 2-6 4-6s3 2 4 2 2-2 4-2 4 3 4 6"/><path d="M6 16c0 3 2 5 4 5s3-1 4-1 2 1 4 1 4-2 4-5"/></svg>`,
+    uyku:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15A9 9 0 1112 6a7 7 0 009 9z"/></svg>`,
+    saat:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="10"/><path d="M14 8v6l3 3"/></svg>`,
+    psikoloji:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 22c0-3 2-5 5-5s5 2 5 5"/><circle cx="14" cy="11" r="5"/><path d="M12 10h4M12 13h4"/></svg>`,
+    nefes:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l2-5 4 10 2-5h8"/></svg>`,
+    sosyal:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="9" r="3"/><circle cx="18" cy="9" r="3"/><path d="M4 22c0-3 3-5 6-5h0c1.5 0 2.8.5 4 1.2A8.1 8.1 0 0118 17c3 0 6 2 6 5"/></svg>`,
+    hba1c:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h12v6a8 8 0 01-12 0z"/><path d="M10 21h8M14 15v6"/><circle cx="14" cy="8" r="2"/></svg>`,
+    lipid:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="18" height="20" rx="3"/><path d="M9 10h10M9 14h6M9 18h8"/></svg>`,
+    tarama:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M20 20l5 5"/></svg>`,
+    vitamin:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="5"/><path d="M14 3v4M14 21v4M3 14h4M21 14h4M6.3 6.3l2.8 2.8M18.9 18.9l2.8 2.8M6.3 21.7l2.8-2.8M18.9 9.1l2.8-2.8"/></svg>`,
+    bobrek:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5c-4 2-5 7-4 12s4 7 5 7c2 0 3-2 4-2s2 2 4 2 4-2 5-7-1-10-4-12c-2-1-3 1-5 1s-3-2-5-1z"/></svg>`,
+  };
+  // Map each rec to an icon key
+  function recIcon(r){
+    const t=(r.t||"").toLowerCase();
+    if(t.includes("glisemik")||t.includes("şeker"))return ICONS.glisemik;
+    if(t.includes("kalp")||t.includes("dostu"))return ICONS.kalp;
+    if(t.includes("kilo")||t.includes("kalori"))return ICONS.kilo;
+    if(t.includes("demir")||t.includes("b12"))return ICONS.demir;
+    if(t.includes("akdeniz"))return ICONS.akdeniz;
+    if(t.includes("150")||t.includes("hareket")||t.includes("aktivite"))return ICONS.hareket;
+    if(t.includes("kas"))return ICONS.kas;
+    if(t.includes("hijyen")||t.includes("uyku hijyen"))return ICONS.uyku;
+    if(t.includes("saat")||t.includes("7-9"))return ICONS.saat;
+    if(t.includes("psikoloj")||t.includes("profesyonel"))return ICONS.psikoloji;
+    if(t.includes("gevşeme")||t.includes("nefes"))return ICONS.nefes;
+    if(t.includes("sosyal")||t.includes("hobi"))return ICONS.sosyal;
+    if(t.includes("hba1c"))return ICONS.hba1c;
+    if(t.includes("lipid")||t.includes("kolesterol test"))return ICONS.lipid;
+    if(t.includes("tarama")||t.includes("kolorektal")||t.includes("mammo")||t.includes("psa"))return ICONS.tarama;
+    if(t.includes("vitamin"))return ICONS.vitamin;
+    if(t.includes("nefroloji")||t.includes("böbrek"))return ICONS.bobrek;
+    if(r.cat==="nutrition")return ICONS.akdeniz;
+    if(r.cat==="exercise")return ICONS.hareket;
+    if(r.cat==="sleep")return ICONS.uyku;
+    if(r.cat==="stress")return ICONS.nefes;
+    return ICONS.lipid;
+  }
+  const priLabel={h:"Öncelikli",m:"Önerilen",l:"Genel"};
+  const secMeta={nutrition:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c-3 4-7 5-7 10a7 7 0 0014 0c0-5-4-6-7-10z"/><path d="M14 12v8"/></svg>`,title:"Beslenme Önerileri",bg:"#e8f5e9"},
+    exercise:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5" r="2.5"/><path d="M14 8v6M10 24l4-10 4 10M8 16h5M15 16h5"/></svg>`,title:"Egzersiz Planı",bg:"#e3f2fd"},
+    sleep:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15A9 9 0 1112 6a7 7 0 009 9z"/></svg>`,title:"Uyku Düzeni",bg:"#f3e5f5"},
+    stress:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l2-5 4 10 2-5h8"/></svg>`,title:"Stres Yönetimi",bg:"#fff3e0"},
+    medical:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="18" height="20" rx="3"/><path d="M9 10h10M9 14h6M9 18h8"/></svg>`,title:"Tıbbi Test Önerileri",bg:"#fce4ec"}};
   let recHtml="";
-  for(const[cat,[icon,title]]of Object.entries(secMeta)){
+  for(const[cat,meta]of Object.entries(secMeta)){
     const items=recs.filter(r=>r.cat===cat);if(!items.length)continue;
-    recHtml+=`<div class="rec-section"><h3>${icon} ${title}</h3>${items.map(r=>`<div class="rec-item">
-      <div class="rec-pri pri-${r.p}"></div><div class="rec-body"><strong>${r.t}</strong><span>${r.d}</span></div></div>`).join("")}</div>`;
+    recHtml+=`<div class="rec-section">
+      <h3><span class="sec-icon" style="background:${meta.bg}">${meta.icon}</span>${meta.title}</h3>
+      <div class="rec-grid">${items.map(r=>`<div class="rec-card">
+        <div class="rc-top">
+          <div class="rc-icon pri-${r.p}">${recIcon(r)}</div>
+          <div><div class="rc-title">${r.t}</div><span class="rc-pri p-${r.p}">${priLabel[r.p]}</span></div>
+        </div>
+        <div class="rc-desc">${r.d}</div>
+      </div>`).join("")}</div>
+    </div>`;
   }
 
   $("#content").innerHTML=`
