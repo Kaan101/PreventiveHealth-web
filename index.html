@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Good Life — Kişisel Sağlıklı Yaşam Modeli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#1a2e24;--ink-soft:#3a5647;--muted:#6a8a76;--bg:#eef4f0;--card:#fff;
+  --line:#d0e0d6;--line-soft:#e2ede6;--accent:#00a651;--accent-deep:#007a3d;--accent-wash:#e2f5eb;
+  --risk-low:#2e9e8f;--risk-mod:#d99a2b;--risk-high:#c75444;
+  --radius:13px;--shadow:0 1px 3px rgba(0,0,0,.06);
+  --mono:"IBM Plex Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;flex-shrink:0;background:var(--card);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+@media(max-width:800px){.sidebar{display:none}}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.brand-name{font-weight:700;font-size:17px;letter-spacing:-.2px}
+.brand-ml{color:var(--accent)}
+.brand-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.main{flex:1;min-width:0;padding:32px 36px 48px}
+@media(max-width:800px){.main{padding:18px}}
+
+/* Wizard steps sidebar */
+.steps{display:flex;flex-direction:column;gap:2px;flex:1}
+.step-item{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:9px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:all .15s}
+.step-item:hover{background:var(--line-soft)}
+.step-item.active{background:var(--accent-wash);color:var(--accent-deep);font-weight:600}
+.step-item.done{color:var(--accent)}
+.step-item.locked{opacity:.5;cursor:default}
+.step-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .15s}
+.step-item.active .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
+.step-item.done .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
+.sidebar-foot{margin-top:auto;padding-top:16px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+
+/* Common */
+.content{max-width:960px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
+.panel h2{font-size:13px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.btn-primary{font:inherit;font-size:14px;font-weight:600;background:var(--accent);color:#fff;border:0;padding:12px 24px;border-radius:10px;cursor:pointer;transition:background .15s}
+.btn-primary:hover{background:var(--accent-deep)}
+.btn-primary:disabled{opacity:.4;cursor:default}
+.btn-ghost{font:inherit;font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--line);padding:10px 18px;border-radius:10px;cursor:pointer}
+.btn-ghost:hover{background:var(--line-soft)}
+.field{margin-bottom:14px}
+.field-label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:500;margin-bottom:5px}
+.field-unit{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.field input,.field select{width:100%;font:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);transition:border-color .15s}
+.field input:focus,.field select:focus{outline:0;border-color:var(--accent)}
+.toggle{display:flex;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.toggle button{flex:1;font:inherit;font-size:13px;padding:9px 14px;border:0;background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .12s}
+.toggle button.on{background:var(--accent);color:#fff}
+.field.imported input{border-color:var(--accent);background:var(--accent-wash)}
+.enabiz-badge{font-size:9.5px;font-weight:600;letter-spacing:.3px;color:var(--accent-deep);background:var(--accent-wash);border:1px solid #b8dfc7;padding:1px 6px;border-radius:6px;margin-left:7px}
+
+/* Import zone */
+.import-zone{display:flex;align-items:center;gap:12px;border:1.5px dashed var(--line);border-radius:11px;padding:16px;cursor:pointer;transition:all .15s}
+.import-zone:hover,.import-zone.drag{border-color:var(--accent);background:var(--accent-wash)}
+.iz-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-wash);color:var(--accent-deep);display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:600;flex-shrink:0}
+.iz-text strong{font-size:14px;font-weight:600}
+.iz-text span{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+.ir-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ir-chip{font-family:var(--mono);font-size:11px;background:var(--accent-wash);color:var(--accent-deep);padding:3px 9px;border-radius:7px}
+
+/* Completion card */
+.done-card{background:var(--accent-wash);border:1px solid #b8dfc7;border-radius:var(--radius);padding:18px 20px;margin-bottom:20px}
+.done-card h3{margin:0 0 6px;font-size:15px;color:var(--accent-deep);display:flex;align-items:center;gap:8px}
+.done-card p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.done-card .next-hint{margin-top:10px;font-weight:600;color:var(--accent-deep)}
+
+/* Likert runner */
+.q-item{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--card)}
+.q-text{font-size:14px;font-weight:500;margin:0 0 10px}
+.q-text .qnum{font-family:var(--mono);color:var(--muted);margin-right:8px}
+.q-options{display:flex;flex-wrap:wrap;gap:7px}
+.opt{font:inherit;font-size:12.5px;border:1px solid var(--line);background:#fbfdfd;color:var(--ink-soft);padding:7px 13px;border-radius:9px;cursor:pointer;transition:all .12s}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.progress{height:5px;background:var(--line-soft);border-radius:3px;overflow:hidden;margin:14px 0 18px}
+.progress>span{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .25s}
+
+/* Results */
+.res-hero{background:linear-gradient(135deg,#00a651 0%,#007a3d 100%);color:#fff;border-radius:var(--radius);padding:28px 26px;margin-bottom:24px}
+.res-hero h1{font-size:24px;font-weight:700;margin:0 0 6px}
+.res-hero p{margin:0;opacity:.85;font-size:14px}
+.crit-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:6px}
+.crit-table th{text-align:left;font-weight:600;padding:8px 10px;background:var(--line-soft);border-bottom:1px solid var(--line)}
+.crit-table td{padding:8px 10px;border-bottom:1px solid var(--line-soft)}
+.crit-table .val{font-family:var(--mono);font-weight:600}
+.crit-table .ok{color:var(--accent)}.crit-table .warn{color:var(--risk-mod)}.crit-table .bad{color:var(--risk-high)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+@media(max-width:600px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+.risk-card h4{margin:0 0 4px;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.risk-card .rv{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+.risk-card .rb{font-size:12px;font-weight:600;margin-top:2px}
+.rv-low{color:var(--risk-low)}.rv-mod{color:var(--risk-mod)}.rv-high{color:var(--risk-high)}
+.rec-section{margin-bottom:22px}
+.rec-section h3{font-size:14px;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.rec-item{border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:8px;background:var(--card);display:flex;gap:10px;align-items:flex-start}
+.rec-pri{width:5px;min-height:24px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.pri-h{background:var(--risk-high)}.pri-m{background:var(--risk-mod)}.pri-l{background:var(--accent)}
+.rec-body{flex:1}.rec-body strong{display:block;font-size:13.5px;margin-bottom:2px}
+.rec-body span{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+
+/* Crisis */
+.crisis{border:1px solid #e7b9b0;background:#fbeeeb;border-radius:12px;padding:16px 18px;margin:16px 0}
+.crisis h3{margin:0 0 8px;font-size:14px;color:#9a3b2c}
+.crisis p{margin:0 0 8px;font-size:13px;color:var(--ink-soft);line-height:1.55}
+.note{font-size:12px;color:var(--muted);line-height:1.55;background:var(--line-soft);border-radius:10px;padding:12px 14px;margin-top:16px}
+.note b{color:var(--ink-soft)}
+
+.actions{display:flex;gap:10px;margin-top:20px;align-items:center;flex-wrap:wrap}
+.actions .info{font-size:12px;color:var(--muted);margin-left:auto}
+
+/* Split layout: form left, viz right */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.split>.form-col{min-width:0}
+.split>.viz-col{position:sticky;top:32px;display:flex;flex-direction:column;gap:16px}
+.viz-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 16px}
+.viz-card h4{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.bar-label{font-size:11.5px;width:72px;flex-shrink:0;text-align:right;color:var(--ink-soft)}
+.bar-track{flex:1;height:14px;background:var(--line-soft);border-radius:7px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:7px;transition:width .4s}
+.bar-ref{position:absolute;top:0;height:100%;border-left:2px dashed rgba(0,0,0,.2)}
+.bar-val{font-family:var(--mono);font-size:11px;font-weight:600;width:52px;flex-shrink:0}
+.bar-ok{background:var(--accent)}.bar-warn{background:var(--risk-mod)}.bar-bad{background:var(--risk-high)}
+.gauge-svg{display:block;margin:0 auto}
+.gauge-center{font-family:var(--mono);font-weight:700}
+.gauge-label{font-size:12px;color:var(--ink-soft);text-anchor:middle}
+.chip-grid{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11px;padding:4px 10px;border-radius:7px;font-weight:500}
+.chip-ok{background:#e2f5eb;color:#007a3d}.chip-risk{background:#fdecea;color:#c75444}.chip-neutral{background:var(--line-soft);color:var(--muted)}
+.live-score{text-align:center;padding:8px 0}
+.live-score .ls-val{font-family:var(--mono);font-size:42px;font-weight:700;line-height:1}
+.live-score .ls-band{font-size:13px;font-weight:600;margin-top:4px}
+.ls-ok{color:var(--accent)}.ls-warn{color:var(--risk-mod)}.ls-bad{color:var(--risk-high)}
+
+/* Lab detail cards */
+.lab-alert{border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+.lab-alert.alert-bad{background:#fdecea;border:1px solid #f0c4bc}
+.lab-alert.alert-ok{background:#e2f5eb;border:1px solid #b8dfc7}
+.lab-alert .alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.lab-alert .alert-body{flex:1;font-size:13px;line-height:1.5}
+.lab-alert .alert-body b{color:var(--risk-high)}
+.lab-alert.alert-ok .alert-body b{color:var(--accent)}
+.lab-detail{display:flex;flex-direction:column;gap:8px}
+.lab-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);transition:border-color .15s}
+.lab-row.out{border-color:#f0c4bc;background:#fffaf9}
+.lab-row .lr-name{font-size:13px;font-weight:600;flex:1;min-width:0}
+.lab-row .lr-val{font-family:var(--mono);font-size:15px;font-weight:700;text-align:right;min-width:60px}
+.lab-row .lr-ref{font-size:11px;color:var(--muted);text-align:right;min-width:72px}
+.lab-row .lr-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.lr-badge.bg-ok{background:#e2f5eb;color:#007a3d}.lr-badge.bg-lo{background:#fef3cd;color:#856404}.lr-badge.bg-hi{background:#fdecea;color:#c75444}
+.lab-row .lr-bar{width:100%;height:8px;background:var(--line-soft);border-radius:4px;overflow:hidden;position:relative;margin-top:4px}
+.lab-row .lr-fill{height:100%;border-radius:4px}
+
+/* PDF full data table */
+.pdf-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+.pdf-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);padding:7px 8px;background:var(--line-soft);border-bottom:1px solid var(--line)}
+.pdf-table td{padding:7px 8px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.pdf-table tr:hover{background:var(--line-soft)}
+.pdf-table tr.row-matched{background:var(--accent-wash)}
+.pdf-table tr.row-abnormal{background:#fff5f4}
+.pdf-table .tv{font-family:var(--mono);font-weight:600}
+.pdf-table .tv-ok{color:var(--accent)}.pdf-table .tv-bad{color:var(--risk-high)}
+.pdf-table .tag{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap}
+.tag-use{background:var(--accent-wash);color:var(--accent-deep)}
+.tag-hi{background:#fdecea;color:#c75444}.tag-lo{background:#fef3cd;color:#856404}.tag-ok{background:#e2f5eb;color:#007a3d}
+.pdf-table tr.row-bad{background:#fff5f4}
+.pdf-table tr.row-skip{opacity:.55}
+.pdf-table .tv-skip{color:var(--muted)}
+.st-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;display:inline-block;margin:1px 2px}
+.st-ok{background:#e2f5eb;color:#007a3d}.st-hi{background:#fdecea;color:#c75444}.st-lo{background:#fef3cd;color:#856404}
+.st-used{background:var(--accent-wash);color:var(--accent-deep)}.st-na{background:var(--line-soft);color:var(--muted)}
+.pdf-table-wrap{max-height:420px;overflow-y:auto;border:1px solid var(--line);border-radius:9px}
+
+/* Full PDF table */
+.pdf-table-wrap{max-height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:12px}
+.pdf-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.pdf-table th{position:sticky;top:0;background:var(--accent);color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:11px;letter-spacing:.3px;text-transform:uppercase}
+.pdf-table td{padding:7px 10px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.pdf-table tr:hover{background:var(--accent-wash)}
+.pdf-table tr.row-bad{background:#fffaf9}
+.pdf-table tr.row-bad:hover{background:#fff0ed}
+.pdf-table tr.row-skip{opacity:.55}
+.pdf-table .tv{font-family:var(--mono);font-weight:600}
+.pdf-table .tv-ok{color:var(--accent)}.pdf-table .tv-bad{color:var(--risk-high)}.pdf-table .tv-skip{color:var(--muted)}
+.pdf-table .st-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.st-ok{background:#e2f5eb;color:#007a3d}.st-hi{background:#fdecea;color:#c75444}.st-lo{background:#fef3cd;color:#856404}.st-na{background:var(--line-soft);color:var(--muted)}.st-used{background:#e8f0fe;color:#3b6cb5}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 4 15 4 9a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 12-8 12z"/></svg></div>
+      <div class="brand-text"><span class="brand-name">THE GOOD <span class="brand-ml">LIFE</span></span><br><span class="brand-sub">Kişisel Sağlıklı Yaşam Modeli</span></div>
+    </div>
+    <div class="steps" id="steps"></div>
+    <div class="sidebar-foot"><span class="dot"></span> AI destekli proaktif sağlık</div>
+  </aside>
+  <main class="main"><div id="content" class="content"></div></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+// ============ DATA: Screening modules (no preop) ============
+const MODULES=[
+  {id:"ascvd_risk",name:"Kardiyovasküler risk",auroc:.844,base_rate:.12,thresholds:[.075,.20],
+   features:[
+     {key:"age",label:"Yaş",kind:"number",min:30,max:90,step:1,unit:"yıl",def:55,w:1.0},
+     {key:"sex",label:"Cinsiyet",kind:"choice",def:1,w:.4,options:[{v:0,l:"Kadın"},{v:1,l:"Erkek"}]},
+     {key:"sbp",label:"Sistolik KB",kind:"number",min:90,max:220,step:1,unit:"mmHg",def:130,w:.7},
+     {key:"total_chol",label:"Total kolesterol",kind:"number",min:120,max:360,step:1,unit:"mg/dL",def:200,w:.6},
+     {key:"hdl",label:"HDL kolesterol",kind:"number",min:20,max:100,step:1,unit:"mg/dL",def:50,w:-.6},
+     {key:"smoker",label:"Sigara",kind:"binary",def:0,w:.8},
+     {key:"diabetes",label:"Diyabet",kind:"binary",def:0,w:.7},
+     {key:"bp_treated",label:"KB tedavisi",kind:"binary",def:0,w:.3}]},
+  {id:"hypertension_risk",name:"Hipertansiyon riski",auroc:.828,base_rate:.25,thresholds:[.30,.55],
+   features:[
+     {key:"age",label:"Yaş",kind:"number",min:18,max:90,step:1,unit:"yıl",def:45,w:.9},
+     {key:"bmi",label:"BKİ",kind:"number",min:15,max:55,step:.5,unit:"kg/m²",def:26,w:.8},
+     {key:"family_history",label:"Ailede HT",kind:"binary",def:0,w:.7},
+     {key:"diabetes",label:"Diyabet",kind:"binary",def:0,w:.5},
+     {key:"smoker",label:"Sigara",kind:"binary",def:0,w:.4},
+     {key:"activity",label:"Düzenli aktivite",kind:"binary",def:1,w:-.6},
+     {key:"high_chol",label:"Yüksek kolesterol",kind:"binary",def:0,w:.5}]},
+  {id:"diabetes_risk",name:"Tip 2 diyabet riski",auroc:.863,base_rate:.15,thresholds:[.20,.45],
+   features:[
+     {key:"age",label:"Yaş",kind:"number",min:18,max:90,step:1,unit:"yıl",def:50,w:.7},
+     {key:"bmi",label:"BKİ",kind:"number",min:15,max:55,step:.5,unit:"kg/m²",def:28,w:1.0},
+     {key:"waist",label:"Bel çevresi",kind:"number",min:60,max:160,step:1,unit:"cm",def:95,w:.7},
+     {key:"family_history",label:"Ailede diyabet",kind:"binary",def:0,w:.8},
+     {key:"hypertension",label:"Hipertansiyon",kind:"binary",def:0,w:.5},
+     {key:"activity",label:"Düzenli aktivite",kind:"binary",def:1,w:-.6},
+     {key:"fasting_glucose",label:"Açlık glukoz",kind:"number",min:70,max:180,step:1,unit:"mg/dL",def:95,w:1.1}]},
+  {id:"ckd_risk",name:"Kronik böbrek hast. riski",auroc:.877,base_rate:.20,thresholds:[.25,.50],
+   features:[
+     {key:"age",label:"Yaş",kind:"number",min:18,max:95,step:1,unit:"yıl",def:58,w:.7},
+     {key:"diabetes",label:"Diyabet",kind:"binary",def:0,w:.9},
+     {key:"hypertension",label:"Hipertansiyon",kind:"binary",def:0,w:.8},
+     {key:"creatinine",label:"Kreatinin",kind:"number",min:.4,max:6,step:.1,unit:"mg/dL",def:1.0,w:1.2},
+     {key:"egfr",label:"eGFR",kind:"number",min:10,max:130,step:1,unit:"mL/dk/1.73m²",def:85,w:-1.2},
+     {key:"hemoglobin",label:"Hemoglobin",kind:"number",min:6,max:18,step:.1,unit:"g/dL",def:13.5,w:-.5},
+     {key:"proteinuria",label:"Proteinüri",kind:"binary",def:0,w:.8}]}
+];
+
+// ============ Risk scoring (logistic, same weights as train.py) ============
+function featStats(f){
+  if(f.kind==="binary")return{mean:.5,std:.5};
+  if(f.kind==="choice"){const vs=f.options.map(o=>o.v),m=vs.reduce((a,b)=>a+b,0)/vs.length;return{mean:m,std:Math.sqrt(vs.reduce((a,v)=>a+(v-m)**2,0)/vs.length)||1};}
+  return{mean:f.def,std:(f.max-f.min)/5||1};
+}
+function predict(mod,vals){
+  let z=Math.log(mod.base_rate/(1-mod.base_rate));
+  const contribs=[];
+  for(const f of mod.features){const v=vals[f.key]??f.def;const s=featStats(f);const norm=(v-s.mean)/s.std;z+=f.w*norm;contribs.push({key:f.key,label:f.label,c:f.w*norm});}
+  const p=1/(1+Math.exp(-z));
+  const band=p<mod.thresholds[0]?"low":p<mod.thresholds[1]?"moderate":"high";
+  contribs.sort((a,b)=>Math.abs(b.c)-Math.abs(a.c));
+  return{probability:p,band,contribs:contribs.slice(0,4)};
+}
+
+// ============ Lab parser ============
+const LAB_SPECS=[
+  {feature:"fasting_glucose",label:"Glukoz (açlık)",unit:"mg/dL",lo:40,hi:600,patterns:[/açl[ıi]k\s*kan\s*şeker/,/glukoz/,/glikoz/,/glucose/,/kan\s*şeker/]},
+  {feature:"hdl",label:"HDL kolesterol",unit:"mg/dL",lo:10,hi:150,patterns:[/hdl/]},
+  {feature:"total_chol",label:"Total kolesterol",unit:"mg/dL",lo:80,hi:500,patterns:[/total\s*kolesterol/,/\bkolesterol\b/],exclude:/(hdl|ldl|vldl|non)/},
+  {feature:"creatinine",label:"Kreatinin",unit:"mg/dL",lo:.2,hi:15,patterns:[/kreatinin/,/creatinine/]},
+  {feature:"egfr",label:"eGFR",unit:"mL/dk/1.73m²",lo:5,hi:200,patterns:[/e-?gfr/,/tahmini\s*gfr/,/glomer[uü]ler\s*filtrasyon/,/\bgfr\b/]},
+  {feature:"hemoglobin",label:"Hemoglobin",unit:"g/dL",lo:3,hi:22,patterns:[/hemoglobin/,/\bhgb\b/,/\bhb\b/],exclude:/(hba1c|a1c)/},
+  {feature:"albumin",label:"Albümin",unit:"g/dL",lo:1,hi:6,patterns:[/alb[uü]min/]},
+];
+const NUM_RE=/\d{1,4}(?:[.,]\d{1,2})?/g;
+function firstVal(t,lo,hi){for(const tok of (t.match(NUM_RE)||[])){const v=parseFloat(tok.replace(",","."));if(!isNaN(v)&&v>=lo&&v<=hi)return v;}return null;}
+function parseLabs(text){
+  const lines=text.split("\n").map(l=>l.trim()).filter(Boolean),found={},matches=[];
+  for(let i=0;i<lines.length;i++){const low=lines[i].toLowerCase();
+    for(const s of LAB_SPECS){if(s.feature in found)continue;if(s.exclude&&s.exclude.test(low))continue;
+      if(!s.patterns.some(p=>p.test(low)))continue;
+      let val=firstVal(lines[i],s.lo,s.hi);
+      if(val===null)for(let j=i+1;j<Math.min(i+3,lines.length);j++){val=firstVal(lines[j],s.lo,s.hi);if(val!==null)break;}
+      if(val!==null){found[s.feature]=val;matches.push({feature:s.feature,label:s.label,value:val,unit:s.unit});break;}
+    }}
+  return{found,matches};
+}
+// Extract ALL table rows from PDF (including unmatched)
+function parseAllLabRows(text){
+  const rows=[];
+  const lines=text.split("\n").map(l=>l.trim()).filter(Boolean);
+  // Common lab-row pattern: Name ... Number ... Unit ... Reference
+  const numPat=/(\d{1,4}[.,]\d{1,2}|\d{1,4})/g;
+  const skipPat=/^(Tetkik|Parametre|Hasta|T\.C\.|Tarih|Kurum|Sayfa|Page|---)/i;
+  const unitPat=/(mg\/dL|g\/dL|%|U\/L|mL\/dk|mmol|µg|ng|pg|fL|10[³⁶]|mm³)/i;
+  for(const line of lines){
+    if(skipPat.test(line))continue;
+    const nums=(line.match(numPat)||[]).map(n=>parseFloat(n.replace(",",".")));
+    if(!nums.length)continue;
+    // Try to split: name part (before first number), value, rest (unit, reference)
+    const firstNumIdx=line.search(numPat);
+    if(firstNumIdx<3)continue; // line starts with number, probably not a lab name
+    const name=line.substring(0,firstNumIdx).replace(/[:\-–]/g,"").trim();
+    if(!name||name.length<2)continue;
+    const rest=line.substring(firstNumIdx);
+    const value=nums[0];
+    const unitMatch=rest.match(unitPat);
+    const unit=unitMatch?unitMatch[0]:"";
+    // Try to find reference range pattern like "74 - 106" or "< 200" or "> 40"
+    const refMatch=rest.match(/(\d{1,4}[.,]?\d{0,2})\s*[-–]\s*(\d{1,4}[.,]?\d{0,2})/);
+    const refLt=rest.match(/<\s*(\d{1,4}[.,]?\d{0,2})/);
+    const refGt=rest.match(/>\s*(\d{1,4}[.,]?\d{0,2})/);
+    let ref="";
+    if(refMatch)ref=`${refMatch[1]} – ${refMatch[2]}`;
+    else if(refLt)ref=`< ${refLt[1]}`;
+    else if(refGt)ref=`> ${refGt[1]}`;
+    // Check if this row is among our recognized features
+    const low=name.toLowerCase();
+    let matched=null;
+    for(const s of LAB_SPECS){
+      if(s.exclude&&s.exclude.test(low))continue;
+      if(s.patterns.some(p=>p.test(low))){matched=s.feature;break;}
+    }
+    rows.push({name,value,unit,ref,matched,line});
+  }
+  return rows;
+}
+async function pdfToText(file){
+  if(!window.pdfjsLib)throw new Error("PDF kütüphanesi yüklenemedi.");
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+  let out="";
+  for(let p=1;p<=pdf.numPages;p++){const pg=await pdf.getPage(p);const c=await pg.getTextContent();
+    let lastY=null,line="";const lines=[];
+    for(const it of c.items){const y=it.transform[5];if(lastY!==null&&Math.abs(y-lastY)>3){lines.push(line);line="";}line+=it.str+" ";lastY=y;}
+    if(line.trim())lines.push(line);out+=lines.join("\n")+"\n";}
+  return out;
+}
+
+// ============ Instruments (WHO-5, PHQ-9, GAD-7, SF-12, IPAQ) ============
+const OPT_PHQ=[["Hiç",0],["Birkaç gün",1],["Günlerin yarısından fazlası",2],["Neredeyse her gün",3]];
+const OPT_WHO=[["Her zaman",5],["Çoğu zaman",4],["Yarısından fazla",3],["Yarısından az",2],["Bazen",1],["Hiçbir zaman",0]];
+const FREQ5=[["Hiçbir zaman",4],["Nadiren",3],["Bazen",2],["Çoğu zaman",1],["Her zaman",0]];
+const FREQ5R=[["Hiçbir zaman",0],["Nadiren",1],["Bazen",2],["Çoğu zaman",3],["Her zaman",4]];
+const GEN5=[["Mükemmel",4],["Çok iyi",3],["İyi",2],["Orta",1],["Kötü",0]];
+const LIM3=[["Evet, çok kısıtlı",0],["Evet, biraz kısıtlı",1],["Hayır, kısıtlı değil",2]];
+const INST={
+  who5:{name:"WHO-5 Esenlik İndeksi",short:"WHO-5",intro:"Son iki haftada her ifade sizin için ne sıklıkta geçerliydi?",
+    items:["Kendimi neşeli ve keyifli hissettim","Kendimi sakin ve rahat hissettim","Kendimi enerjik ve dinç hissettim","Uyandığımda dinlenmiş hissettim","Günlük yaşamım ilginç şeylerle doluydu"].map(q=>({q,options:OPT_WHO}))},
+  phq9:{name:"PHQ-9 Depresyon Taraması",short:"PHQ-9",intro:"Son iki haftada aşağıdaki sorunlardan ne sıklıkta rahatsız oldunuz?",
+    items:["İlgi veya zevk almama","Kederli, çökkün veya umutsuz hissetme","Uyku güçlüğü veya aşırı uyuma","Yorgunluk veya enerji azlığı","İştahsızlık veya aşırı yeme","Kendinizi kötü hissetme / hayal kırıklığı","Konsantre olmakta güçlük","Yavaş hareket veya huzursuzluk","Kendinize zarar verme düşünceleri"].map(q=>({q,options:OPT_PHQ}))},
+  gad7:{name:"GAD-7 Anksiyete Taraması",short:"GAD-7",intro:"Son iki haftada aşağıdaki sorunlardan ne sıklıkta rahatsız oldunuz?",
+    items:["Gergin veya huzursuz hissetme","Endişelenmeyi durduramama","Aşırı endişelenme","Gevşemekte güçlük","Yerinde duramama","Kolayca sinirlenme","Kötü bir şey olacakmış gibi korku"].map(q=>({q,options:OPT_PHQ}))},
+  sf12:{name:"Genel Sağlık Anketi (VR-12 yapısı)",short:"SF-12",intro:"Genel sağlığınız ve son 4 haftadaki durumunuz hakkında.",
+    items:[
+      {q:"Genel olarak sağlığınız nasıl?",options:GEN5,grp:"P"},
+      {q:"Orta düzey aktiviteler ne ölçüde kısıtlı?",options:LIM3,grp:"P"},
+      {q:"Merdiven çıkmak ne ölçüde kısıtlı?",options:LIM3,grp:"P"},
+      {q:"Fiziksel sağlık nedeniyle başarıdan az yapma",options:FREQ5,grp:"P"},
+      {q:"Fiziksel sağlık nedeniyle aktivite kısıtlanması",options:FREQ5,grp:"P"},
+      {q:"Ağrının işe engel olma derecesi",options:FREQ5,grp:"P"},
+      {q:"Duygusal sorunlar nedeniyle az yapma",options:FREQ5,grp:"M"},
+      {q:"Duygusal sorunlar nedeniyle dikkat azalması",options:FREQ5,grp:"M"},
+      {q:"Sakin ve huzurlu hissettiniz",options:FREQ5,grp:"M"},
+      {q:"Enerji doluydunuz",options:FREQ5,grp:"P"},
+      {q:"Kederli ve karamsar hissettiniz",options:FREQ5R,grp:"M"},
+      {q:"Sosyal aktivitelere engel",options:FREQ5R,grp:"M"}]}
+};
+function scoreLikert(id,ans){
+  if(id==="who5"){const raw=ans.reduce((a,b)=>a+b,0),pct=raw*4;return{score:raw,pct,band:pct>=50?"İyi esenlik":pct>=29?"Düşük esenlik":"Olası depresyon",low:pct<50};}
+  if(id==="phq9"||id==="gad7"){const t=ans.reduce((a,b)=>a+b,0);const mx=id==="phq9"?27:21;
+    const cuts=id==="phq9"?[[4,"Minimal"],[9,"Hafif"],[14,"Orta"],[19,"Orta-ağır"],[27,"Ağır"]]:[[4,"Minimal"],[9,"Hafif"],[14,"Orta"],[21,"Ağır"]];
+    let band="";for(const[c,b]of cuts){if(t<=c){band=b;break;}}
+    return{score:t,pct:Math.round(t/mx*100),band,selfHarm:id==="phq9"&&ans[8]>0};}
+  if(id==="sf12"){const norm=INST.sf12.items.map((it,i)=>({grp:it.grp,v:ans[i]/Math.max(...it.options.map(o=>o[1]))*100}));
+    const avg=g=>{const a=norm.filter(n=>n.grp===g);return Math.round(a.reduce((s,n)=>s+n.v,0)/a.length);};
+    return{pcs:avg("P"),mcs:avg("M"),band:`Fiziksel ${avg("P")} / Mental ${avg("M")}`};}
+}
+function scoreIPAQ(v){
+  const met=8*v.vigMin*v.vigDays+4*v.modMin*v.modDays+3.3*v.walkMin*v.walkDays;
+  const td=v.vigDays+v.modDays+v.walkDays;
+  let cat;if((v.vigDays>=3&&met>=1500)||(td>=7&&met>=3000))cat="Yüksek";
+  else if((v.vigDays>=3&&v.vigMin>=20)||((v.modDays+v.walkDays)>=5&&met>=600))cat="Orta";
+  else cat="Düşük";
+  return{met:Math.round(met),cat,sit:v.sitMin};
+}
+
+// ============ VISUALIZATION HELPERS ============
+function svgGauge(pct,label,size=120){
+  const r=size*.4,cx=size/2,cy=size/2+4;
+  const arc=Math.PI;const len=Math.PI*r;
+  const color=pct<30?"var(--accent)":pct<60?"var(--risk-mod)":"var(--risk-high)";
+  return `<svg class="gauge-svg" viewBox="0 0 ${size} ${size*.62}" width="${size}">
+    <path d="M${cx-r} ${cy} A${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="var(--line-soft)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M${cx-r} ${cy} A${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
+      stroke-dasharray="${len}" stroke-dashoffset="${len*(1-pct/100)}"/>
+    <text x="${cx}" y="${cy-8}" text-anchor="middle" class="gauge-center" font-size="22" fill="${color}">%${Math.round(pct)}</text>
+    <text x="${cx}" y="${cy+12}" class="gauge-label">${label}</text></svg>`;
+}
+function barChart(items){
+  // items: [{label,value,max,refLo,refHi,unit}]
+  return items.map(it=>{
+    const pct=Math.min(it.value/it.max*100,100);
+    const cls=it.refLo!==undefined&&(it.value<it.refLo||it.value>it.refHi)?"bar-bad":it.value>it.refHi*.85?"bar-warn":"bar-ok";
+    const refPct=it.refHi?Math.min(it.refHi/it.max*100,95):0;
+    return `<div class="bar-row"><span class="bar-label">${it.label}</span>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%"></div>${refPct?`<div class="bar-ref" style="left:${refPct}%"></div>`:""}</div>
+      <span class="bar-val ${cls}">${it.value} <small>${it.unit||""}</small></span></div>`;
+  }).join("");
+}
+function riskChips(basics){
+  const b=basics||{};const chips=[];
+  if(b.smoker)chips.push({t:"Sigara ✗",c:"chip-risk"});else chips.push({t:"Sigara ✓",c:"chip-ok"});
+  if(b.diabetes)chips.push({t:"Diyabet ✗",c:"chip-risk"});
+  if(b.hypertension)chips.push({t:"HT ✗",c:"chip-risk"});
+  if(b.high_chol)chips.push({t:"Kolesterol ✗",c:"chip-risk"});
+  if(b.activity)chips.push({t:"Aktif ✓",c:"chip-ok"});else chips.push({t:"İnaktif ✗",c:"chip-risk"});
+  if(b.family_history)chips.push({t:"Aile öyküsü ✗",c:"chip-risk"});
+  return `<div class="chip-grid">${chips.map(c=>`<span class="chip ${c.c}">${c.t}</span>`).join("")}</div>`;
+}
+
+// ============ WIZARD STATE ============
+const W={
+  step:0, // current step index
+  labs:{},   // e-Nabız parsed (matched features)
+  labRows:[], // ALL rows from PDF
+  pdfRows:[], // all rows from PDF
+  basics:{}, // form data
+  scores:{}, // ipaq, who5, sf12, phq9, gad7
+  done:new Set()
+};
+const STEPS=[
+  {id:"labs",   label:"Tahlil Yükleme",    icon:"📄", desc:"e-Nabız PDF"},
+  {id:"basics", label:"Temel Bilgiler",     icon:"👤", desc:"yaş, boy, kilo, hastalıklar"},
+  {id:"ipaq",   label:"Fiziksel Aktivite",  icon:"🏃", desc:"IPAQ kısa form"},
+  {id:"who5",   label:"Esenlik Ölçeği",     icon:"🌿", desc:"WHO-5 (5 soru)"},
+  {id:"sf12",   label:"Genel Sağlık",       icon:"🏥", desc:"SF-12 (12 soru)"},
+  {id:"phq9",   label:"Depresyon Taraması",  icon:"🧠", desc:"PHQ-9 (9 soru)"},
+  {id:"gad7",   label:"Anksiyete Taraması",  icon:"💭", desc:"GAD-7 (7 soru)"},
+  {id:"results",label:"Sonuçlar & Öneriler", icon:"📊", desc:"rapor + plan"},
+];
+
+function renderSteps(){
+  const el=$("#steps");el.innerHTML="";
+  STEPS.forEach((s,i)=>{
+    const cls=W.done.has(s.id)?"done":i===W.step?"active":i<=W.step+1||s.id==="results"?"":"locked";
+    const check=W.done.has(s.id)?"✓":(i+1);
+    const d=document.createElement("div");d.className="step-item "+cls;d.dataset.idx=i;
+    d.innerHTML=`<div class="step-dot">${check}</div><div><div style="font-size:13px">${s.label}</div><div style="font-size:11px;color:var(--muted)">${s.desc}</div></div>`;
+    if(cls!=="locked")d.onclick=()=>{W.step=i;render();};
+    el.appendChild(d);
+  });
+}
+
+function render(){
+  renderSteps();
+  const s=STEPS[W.step];
+  if(s.id==="labs")renderLabStep();
+  else if(s.id==="basics")renderBasicsStep();
+  else if(s.id==="ipaq")renderIPAQStep();
+  else if(s.id==="who5")renderLikertStep("who5");
+  else if(s.id==="sf12")renderLikertStep("sf12");
+  else if(s.id==="phq9")renderLikertStep("phq9");
+  else if(s.id==="gad7")renderLikertStep("gad7");
+  else if(s.id==="results")renderResults();
+}
+
+function completeStep(id,summary){
+  W.done.add(id);
+  const idx=STEPS.findIndex(s=>s.id===id);
+  const next=STEPS[idx+1];
+  const canResults=W.done.has("basics");
+  let html=`<div class="done-card"><h3>✅ ${STEPS[idx].label} — tamamlandı</h3><p>${summary}</p>`;
+  if(next&&next.id!=="results")html+=`<p class="next-hint">Sıradaki: ${next.icon} ${next.label}</p>`;
+  html+=`</div><div class="actions">`;
+  if(next&&next.id!=="results")html+=`<button class="btn-primary" id="go-next">${next.icon} ${next.label}'e ilerle</button>`;
+  if(canResults)html+=`<button class="${next&&next.id!=="results"?"btn-ghost":"btn-primary"}" id="go-results">📊 Sonuçları göster</button>`;
+  html+=`<span class="info">${W.done.size}/${STEPS.length-1} adım tamamlandı</span></div>`;
+  $("#content").innerHTML=html;
+  if($("#go-next"))$("#go-next").onclick=()=>{W.step=idx+1;render();};
+  if($("#go-results"))$("#go-results").onclick=()=>{W.step=STEPS.length-1;render();};
+  renderSteps();
+}
+
+// ============ FULL PDF TABLE ============
+function extractAllPdfRows(text){
+  const rows=[];
+  const lines=text.split("\n").map(l=>l.trim()).filter(Boolean);
+  const skipPat=/^(tetkik|parametre|test\b|sonuç|birim|referans|tarih|hasta|kurum|t\.c\.|örnek|rapor|sayfa|page)/i;
+  const valPat=/\d{1,4}[.,]?\d{0,2}/;
+  for(const line of lines){
+    if(skipPat.test(line))continue;
+    if(!valPat.test(line))continue;
+    const m=line.match(/^(.+?)\s+([\d.,]+)\s+([\w/%²µ·]+(?:\/[\w²µ.]+)*)\s+(.+)$/);
+    if(m){
+      const name=m[1].trim();const val=parseFloat(m[2].replace(",","."));const unit=m[3].trim();const ref=m[4].trim();
+      let refLo=null,refHi=null;
+      const rng=ref.match(/([\d.,]+)\s*[-–]\s*([\d.,]+)/);
+      if(rng){refLo=parseFloat(rng[1].replace(",","."));refHi=parseFloat(rng[2].replace(",","."));}
+      else{const lt=ref.match(/[<>]\s*([\d.,]+)/);if(lt){if(ref.includes("<"))refHi=parseFloat(lt[1].replace(",","."));else refLo=parseFloat(lt[1].replace(",","."));}}
+      const matched=LAB_SPECS.find(s=>s.feature in W.labs&&Math.abs(W.labs[s.feature]-val)<0.01);
+      let status="na";
+      if(refLo!==null&&refHi!==null){status=val>=refLo&&val<=refHi?"ok":(val<refLo?"lo":"hi");}
+      else if(refHi!==null){status=val<=refHi?"ok":"hi";}
+      else if(refLo!==null){status=val>=refLo?"ok":"lo";}
+      rows.push({name,val,unit,ref,refLo,refHi,status,matched:!!matched,matchedKey:matched?.feature});
+    }else{
+      const firstNum=line.search(/\d/);
+      if(firstNum>1){const name=line.substring(0,firstNum).trim();
+        rows.push({name,val:line.substring(firstNum).trim(),unit:"",ref:"",status:"na",raw:true});}
+    }
+  }
+  return rows;
+}
+function renderPdfTable(rows){
+  if(!rows||!rows.length)return "";
+  const trs=rows.map(r=>{
+    const cls=r.status==="hi"||r.status==="lo"?"row-bad":r.raw?"row-skip":"";
+    const valCls=r.raw?"tv-skip":r.status==="ok"?"tv-ok":r.status==="na"?"tv-skip":"tv-bad";
+    let badge;
+    if(r.raw)badge=`<span class="st-badge st-na">—</span>`;
+    else if(r.matched)badge=`<span class="st-badge ${r.status==="ok"?"st-ok":r.status==="hi"?"st-hi":"st-lo"}">${r.status==="ok"?"Normal":r.status==="hi"?"↑ Yüksek":"↓ Düşük"}</span> <span class="st-badge st-used">✓ Risk analizi</span>`;
+    else badge=`<span class="st-badge ${r.status==="ok"?"st-ok":r.status==="hi"?"st-hi":r.status==="lo"?"st-lo":"st-na"}">${r.status==="ok"?"Normal":r.status==="hi"?"↑ Yüksek":r.status==="lo"?"↓ Düşük":"—"}</span>`;
+    if(r.raw)return `<tr class="${cls}"><td>${r.name}</td><td class="tv tv-skip">${r.val}</td><td></td><td></td><td>${badge}</td></tr>`;
+    return `<tr class="${cls}"><td style="font-weight:${r.matched?600:400}">${r.name}</td><td class="tv ${valCls}">${r.val}</td><td>${r.unit}</td><td>${r.ref}</td><td>${badge}</td></tr>`;
+  }).join("");
+  const used=rows.filter(r=>r.matched).length,abnormal=rows.filter(r=>r.status==="hi"||r.status==="lo").length;
+  return `<p style="font-size:12px;color:var(--muted);margin:10px 0 6px">${rows.length} satır okundu · <b>${used}</b> risk analizinde kullanıldı · <b style="color:${abnormal?"var(--risk-high)":"var(--accent)"}">${abnormal} referans dışı</b></p>
+    <div class="pdf-table-wrap"><table class="pdf-table">
+    <tr><th>Tetkik</th><th>Sonuç</th><th>Birim</th><th>Referans</th><th>Durum</th></tr>${trs}</table></div>`;
+}
+
+// ============ STEP: Labs ============
+function renderLabStep(){
+  const hasLabs=Object.keys(W.labs).length>0;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">📄 Tahlil Sonuçlarını Yükleyin</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px;max-width:56ch">e-Nabız PDF'ini yükleyin, değerler otomatik okunacak.</p>
+    <div id="lab-alert-zone"></div>
+    <div class="split">
+      <div class="form-col">
+        <div class="panel">
+          <div class="import-zone" id="iz">
+            <input type="file" accept=".pdf" hidden id="pdf-in">
+            <div class="iz-icon">PDF</div>
+            <div class="iz-text"><strong>${hasLabs?"Yeni PDF yükle (mevcut veriler güncellenir)":"e-Nabız tahlil PDF'i yükle"}</strong><span>Sürükle-bırak veya tıkla</span></div>
+          </div>
+          <div id="lab-result">${hasLabs?(W.labRows.length?renderPdfTable(W.labRows):labChipsSummary()):""}</div>
+        </div>
+        <div class="actions">
+          ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}<button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
+        </div>
+      </div>
+      <div class="viz-col" id="lab-viz"></div>
+    </div>`;
+  // Restore viz if data exists
+  if(hasLabs){updateLabViz();updateLabAlert();}
+  else{$("#lab-viz").innerHTML=`<div class="viz-card"><h4>Okunan değerler</h4><p style="font-size:13px;color:var(--muted)">PDF yüklendiğinde burada tahlil sonuçlarınız referans aralıklarıyla birlikte görünecek.</p></div>`;}
+  const zone=$("#iz"),inp=$("#pdf-in");
+  zone.onclick=()=>inp.click();
+  inp.onchange=()=>{if(inp.files[0])handleLabPdf(inp.files[0]);};
+  zone.ondragover=e=>{e.preventDefault();zone.classList.add("drag");};
+  zone.ondragleave=()=>zone.classList.remove("drag");
+  zone.ondrop=e=>{e.preventDefault();zone.classList.remove("drag");if(e.dataTransfer.files[0])handleLabPdf(e.dataTransfer.files[0]);};
+  $("#skip-labs").onclick=()=>{W.step=1;render();};
+  if($("#lab-next"))$("#lab-next").onclick=()=>{W.done.add("labs");W.step=1;render();};
+}
+function labChipsSummary(){
+  const l=W.labs;
+  return `<p style="margin:12px 0 8px"><b>${Object.keys(l).length} değer</b> yüklü:</p>
+    <div class="ir-chips">${LAB_SPECS.filter(s=>s.feature in l).map(s=>`<span class="ir-chip">${s.label}: ${l[s.feature]} ${s.unit}</span>`).join("")}</div>`;
+}
+// Reference specs for detailed display
+const LAB_REF=[
+  {key:"fasting_glucose",name:"Açlık Glukozu",unit:"mg/dL",lo:74,hi:106,ideal:[74,99],max:250,desc:"Yüksekse: pre-diyabet veya diyabet riski"},
+  {key:"total_chol",name:"Total Kolesterol",unit:"mg/dL",lo:0,hi:200,ideal:[0,199],max:350,desc:"Yüksekse: kardiyovasküler risk artışı"},
+  {key:"hdl",name:"HDL Kolesterol",unit:"mg/dL",lo:40,hi:150,ideal:[40,60],max:100,desc:"Düşükse: koruyucu kolesterol yetersiz"},
+  {key:"creatinine",name:"Kreatinin",unit:"mg/dL",lo:.7,hi:1.3,ideal:[.7,1.2],max:4,desc:"Yüksekse: böbrek fonksiyonu azalmış olabilir"},
+  {key:"egfr",name:"eGFR",unit:"mL/dk/1.73m²",lo:90,hi:200,ideal:[90,120],max:140,desc:"Düşükse: böbrek fonksiyon kaybı"},
+  {key:"hemoglobin",name:"Hemoglobin",unit:"g/dL",lo:12,hi:17,ideal:[13,16],max:20,desc:"Düşükse: anemi riski"},
+  {key:"albumin",name:"Albümin",unit:"g/dL",lo:3.5,hi:5.2,ideal:[3.5,5],max:6,desc:"Düşükse: beslenme yetersizliği/karaciğer"}
+];
+function updateLabAlert(){
+  const l=W.labs;const az=$("#lab-alert-zone");if(!az)return;
+  const outItems=LAB_REF.filter(r=>r.key in l&&(l[r.key]<r.lo||l[r.key]>r.hi));
+  if(!outItems.length){
+    az.innerHTML=`<div class="lab-alert alert-ok"><span class="alert-icon">✅</span><div class="alert-body"><b>Tüm değerler referans aralığında.</b> Detaylı karşılaştırma sağ panelde.</div></div>`;
+    return;
+  }
+  az.innerHTML=`<div class="lab-alert alert-bad"><span class="alert-icon">⚠️</span><div class="alert-body">
+    <b>${outItems.length} parametre referans dışı:</b>
+    ${outItems.map(r=>{const v=l[r.key];const dir=v<r.lo?"↓ düşük":"↑ yüksek";
+      return ` <span style="font-weight:600">${r.name}</span> ${v} ${r.unit} (${dir})`;}).join(" · ")}
+    <br><span style="color:var(--ink-soft)">Detaylı karşılaştırma ve açıklamalar sağ panelde.</span>
+  </div></div>`;
+}
+function updateLabViz(){
+  const l=W.labs;const el=$("#lab-viz");if(!el)return;
+  const rows=LAB_REF.filter(r=>r.key in l).map(r=>{
+    const v=l[r.key];
+    const inRange=v>=r.lo&&v<=r.hi;
+    const inIdeal=r.ideal&&v>=r.ideal[0]&&v<=r.ideal[1];
+    const status=inRange?(inIdeal?"Normal":"Sınırda"):(v<r.lo?"Düşük":"Yüksek");
+    const badgeCls=inRange?(inIdeal?"bg-ok":"bg-lo"):(v<r.lo?"bg-lo":"bg-hi");
+    const fillPct=Math.min(v/r.max*100,100);
+    const fillColor=inRange?"var(--accent)":"var(--risk-high)";
+    const refLoPct=r.lo/r.max*100,refHiPct=Math.min(r.hi/r.max*100,95);
+    return `<div class="lab-row ${inRange?"":"out"}">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+          <span class="lr-name">${r.name}</span>
+          <span class="lr-badge ${badgeCls}">${status}</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span class="lr-val" style="color:${inRange?"var(--accent)":"var(--risk-high)"}">${v}</span>
+          <span class="lr-ref">${r.unit} · ref: ${r.lo}–${r.hi}</span>
+        </div>
+        <div class="lr-bar">
+          <div class="lr-fill" style="width:${fillPct}%;background:${fillColor}"></div>
+          <div style="position:absolute;left:${refLoPct}%;width:${refHiPct-refLoPct}%;top:0;height:100%;background:rgba(0,166,81,.12);border-radius:4px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">${r.desc}</div>
+      </div>
+    </div>`;
+  }).join("");
+  const total=LAB_REF.filter(r=>r.key in l).length;
+  const ok=LAB_REF.filter(r=>r.key in l&&l[r.key]>=r.lo&&l[r.key]<=r.hi).length;
+  el.innerHTML=`
+    <div class="viz-card"><h4>Detaylı tahlil raporu (${total} parametre)</h4>
+      <div class="lab-detail">${rows}</div></div>
+    <div class="viz-card"><h4>Genel durum</h4>
+      <div class="live-score">
+        <div class="ls-val ${ok===total?"ls-ok":ok>=total-2?"ls-warn":"ls-bad"}">${ok}/${total}</div>
+        <div class="ls-band ${ok===total?"ls-ok":ok>=total-2?"ls-warn":"ls-bad"}">${ok===total?"Tüm değerler normal":`${total-ok} parametre referans dışı`}</div>
+      </div>
+      ${svgGauge(ok/total*100,ok===total?"Normal":"Dikkat",140)}
+    </div>`;
+}
+async function handleLabPdf(file){
+  const box=$("#lab-result");box.innerHTML=`<p style="color:var(--muted);margin:12px 0">PDF okunuyor…</p>`;
+  try{
+    const text=await pdfToText(file);
+    const{found,matches}=parseLabs(text);
+    W.labRows=extractAllPdfRows(text);
+    Object.assign(W.labs,found);
+    if(!matches.length&&!W.labRows.length){box.innerHTML=`<p style="color:var(--risk-high);margin:12px 0">Tanınan tetkik bulunamadı.</p>`;return;}
+    W.done.add("labs");
+    box.innerHTML=renderPdfTable(W.labRows);
+    updateLabViz();
+    updateLabAlert();
+    renderSteps();
+    const acts=$(".actions");
+    if(acts)acts.innerHTML=`<button class="btn-primary" id="lab-next">Devam et →</button><button class="btn-ghost" id="skip-labs">Atla →</button>`;
+    if($("#lab-next"))$("#lab-next").onclick=()=>{W.step=1;render();};
+    if($("#skip-labs"))$("#skip-labs").onclick=()=>{W.step=1;render();};
+    const izText=$(".iz-text");
+    if(izText)izText.innerHTML=`<strong>Yeni PDF yükle (güncellenir)</strong><span>Sürükle-bırak veya tıkla</span>`;
+  }catch(e){box.innerHTML=`<p style="color:var(--risk-high);margin:12px 0">Hata: ${e.message}</p>`;}
+}
+
+// ============ STEP: Basics ============
+function renderBasicsStep(){
+  const b=W.basics;
+  const num=(k,l,u,mn,mx,st,d)=>`<div class="field"><label class="field-label"><span>${l}</span><span class="field-unit">${u||""}</span></label>
+    <input type="number" id="b-${k}" value="${b[k]??d}" min="${mn}" max="${mx}" step="${st}"></div>`;
+  const yn=(k,l,d=0)=>`<div class="field"><label class="field-label"><span>${l}</span></label>
+    <div class="toggle" id="b-${k}"><button type="button" data-v="0" class="${(b[k]??d)===0?"on":""}">Hayır</button><button type="button" data-v="1" class="${(b[k]??d)===1?"on":""}">Evet</button></div></div>`;
+  const sel=(k,l,opts,d)=>`<div class="field"><label class="field-label"><span>${l}</span></label>
+    <select id="b-${k}">${opts.map(o=>`<option value="${o[1]}" ${(b[k]??d)==o[1]?"selected":""}>${o[0]}</option>`).join("")}</select></div>`;
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">👤 Temel Bilgiler</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Yaş, fiziksel yapı, hastalık öyküsü ve yaşam tarzı.</p>
+    <div class="split">
+      <div class="form-col">
+        <div class="panel"><h2>Demografik</h2>
+          ${num("age","Yaş","yıl",18,95,1,45)}
+          ${sel("sex","Cinsiyet",[["Kadın",0],["Erkek",1]],1)}
+          ${num("height","Boy","cm",120,210,1,170)}
+          ${num("weight","Kilo","kg",35,200,.5,75)}
+          ${num("waist","Bel çevresi","cm",60,160,1,90)}
+        </div>
+        <div class="panel"><h2>Sağlık geçmişi</h2>
+          ${yn("smoker","Sigara kullanımı")}
+          ${yn("diabetes","Diabetes mellitus")}
+          ${yn("hypertension","Hipertansiyon")}
+          ${yn("high_chol","Yüksek kolesterol")}
+          ${yn("family_history","Ailede kalp hast./diyabet")}
+          ${yn("activity","Düzenli aktivite (≥150 dk/hf)",1)}
+        </div>
+        <div class="panel"><h2>Klinik ölçümler (isteğe bağlı)</h2>
+          ${num("sbp","Sistolik KB","mmHg",90,220,1,"")}
+          ${num("total_chol","Total kolesterol","mg/dL",120,360,1,"")}
+          ${num("hdl","HDL kolesterol","mg/dL",20,100,1,"")}
+        </div>
+        <div class="actions"><button class="btn-primary" id="save-basics">Tamamla ve ilerle →</button></div>
+      </div>
+      <div class="viz-col" id="basics-viz">
+        <div class="viz-card"><h4>BKİ hesaplama</h4><div id="bmi-gauge"></div></div>
+        <div class="viz-card"><h4>Risk faktörleri</h4><div id="risk-chips"></div></div>
+        ${Object.keys(W.labs).length?`<div class="viz-card"><h4>Yüklü tahlil değerleri</h4><div id="lab-bars">${barChart(labItems())}</div></div>`:""}
+      </div>
+    </div>`;
+  // Toggle behavior
+  $$(".toggle").forEach(t=>t.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    t.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");updateBasicsViz();}));
+  // Live update on input change
+  $$(".form-col input,.form-col select").forEach(el=>el.addEventListener("input",updateBasicsViz));
+  updateBasicsViz();
+
+  $("#save-basics").onclick=()=>{
+    const g=k=>{const el=$("#b-"+k);if(!el)return undefined;
+      if(el.classList.contains("toggle")){const on=el.querySelector("button.on");return on?Number(on.dataset.v):0;}
+      return el.value===""?undefined:Number(el.value);};
+    W.basics={age:g("age"),sex:g("sex"),height:g("height"),weight:g("weight"),waist:g("waist"),
+      smoker:g("smoker"),diabetes:g("diabetes"),hypertension:g("hypertension"),high_chol:g("high_chol"),
+      family_history:g("family_history"),activity:g("activity"),sbp:g("sbp"),total_chol:g("total_chol"),hdl:g("hdl")};
+    W.basics.bmi=W.basics.height?+(W.basics.weight/((W.basics.height/100)**2)).toFixed(1):null;
+    const parts=[`${W.basics.age} yaş, BKİ ${W.basics.bmi}`];
+    if(W.basics.smoker)parts.push("sigara (+)");if(W.basics.diabetes)parts.push("diyabet (+)");if(W.basics.hypertension)parts.push("HT (+)");
+    completeStep("basics",parts.join(" · "));
+  };
+}
+function labItems(){
+  const l=W.labs,items=[];
+  if(l.fasting_glucose)items.push({label:"Glukoz",value:l.fasting_glucose,max:200,refLo:74,refHi:106,unit:"mg/dL"});
+  if(l.total_chol)items.push({label:"Kolesterol",value:l.total_chol,max:350,refLo:0,refHi:200,unit:"mg/dL"});
+  if(l.hdl)items.push({label:"HDL",value:l.hdl,max:100,refLo:40,refHi:100,unit:"mg/dL"});
+  if(l.egfr)items.push({label:"eGFR",value:l.egfr,max:130,refLo:90,refHi:130,unit:"mL/dk"});
+  if(l.hemoglobin)items.push({label:"Hgb",value:l.hemoglobin,max:20,refLo:12,refHi:17,unit:"g/dL"});
+  return items;
+}
+function updateBasicsViz(){
+  const h=parseFloat($("#b-height")?.value)||170;
+  const w=parseFloat($("#b-weight")?.value)||75;
+  const bmi=+(w/((h/100)**2)).toFixed(1);
+  const bmiPct=Math.min(Math.max((bmi-15)/30*100,0),100);
+  const bmiLabel=bmi<18.5?"Düşük kilo":bmi<25?"Normal":bmi<30?"Fazla kilo":"Obez";
+  const bmiCls=bmi<18.5?"ls-warn":bmi<25?"ls-ok":bmi<30?"ls-warn":"ls-bad";
+  const g=$("#bmi-gauge");if(g)g.innerHTML=`
+    <div class="live-score"><div class="ls-val ${bmiCls}">${bmi}</div><div class="ls-band ${bmiCls}">${bmiLabel}</div></div>
+    ${svgGauge(bmiPct,"BKİ",140)}`;
+  // risk chips
+  const rc=$("#risk-chips");if(rc){
+    const snap={};
+    ["smoker","diabetes","hypertension","high_chol","activity","family_history"].forEach(k=>{
+      const el=$("#b-"+k);if(el&&el.classList.contains("toggle")){const on=el.querySelector("button.on");snap[k]=on?Number(on.dataset.v):0;}});
+    rc.innerHTML=riskChips(snap);
+  }
+}
+
+// ============ STEP: IPAQ ============
+function renderIPAQStep(){
+  const f=(k,l,mx)=>`<div class="field"><label class="field-label"><span>${l}</span></label>
+    <input type="number" id="ip-${k}" value="0" min="0" max="${mx}" step="1" class="ipaq-in"></div>`;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🏃 Fiziksel Aktivite (IPAQ)</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Son 7 günde tipik bir haftanızı düşünün.</p>
+    <div class="split">
+      <div class="form-col">
+        <div class="panel"><h2>Şiddetli aktivite</h2><div style="display:flex;gap:10px">${f("vigDays","Gün/hf",7)}${f("vigMin","Dk/gün",300)}</div></div>
+        <div class="panel"><h2>Orta aktivite</h2><div style="display:flex;gap:10px">${f("modDays","Gün/hf",7)}${f("modMin","Dk/gün",300)}</div></div>
+        <div class="panel"><h2>Yürüme</h2><div style="display:flex;gap:10px">${f("walkDays","Gün/hf",7)}${f("walkMin","Dk/gün",300)}</div></div>
+        <div class="panel"><h2>Oturma</h2>${f("sitMin","Dk/gün (iş günü)",960)}</div>
+        <div class="actions"><button class="btn-primary" id="save-ipaq">Tamamla →</button><button class="btn-ghost" id="skip-ipaq">Atla</button></div>
+      </div>
+      <div class="viz-col">
+        <div class="viz-card"><h4>Canlı MET hesaplama</h4><div id="ipaq-gauge"></div></div>
+        <div class="viz-card"><h4>Aktivite dağılımı</h4><div id="ipaq-bars"></div></div>
+      </div>
+    </div>`;
+  $$(".ipaq-in").forEach(el=>el.addEventListener("input",updateIPAQViz));
+  updateIPAQViz();
+  const go=()=>{const g=k=>Number($("#ip-"+k)?.value)||0;
+    const v={vigDays:g("vigDays"),vigMin:g("vigMin"),modDays:g("modDays"),modMin:g("modMin"),walkDays:g("walkDays"),walkMin:g("walkMin"),sitMin:g("sitMin")};
+    W.scores.ipaq=scoreIPAQ(v);
+    completeStep("ipaq",`${W.scores.ipaq.met} MET-dk/hafta → ${W.scores.ipaq.cat} aktivite düzeyi.`);};
+  $("#save-ipaq").onclick=go;
+  $("#skip-ipaq").onclick=()=>{W.step=3;render();};
+}
+function updateIPAQViz(){
+  const g=k=>Number($("#ip-"+k)?.value)||0;
+  const vig=g("vigDays")*g("vigMin"),mod=g("modDays")*g("modMin"),walk=g("walkDays")*g("walkMin");
+  const met=Math.round(8*vig+4*mod+3.3*walk);
+  const pct=Math.min(met/3000*100,100);
+  const cat=met>=3000?"Yüksek":met>=600?"Orta":"Düşük";
+  const cls=met>=3000?"ls-ok":met>=600?"ls-warn":"ls-bad";
+  const ge=$("#ipaq-gauge");if(ge)ge.innerHTML=`
+    <div class="live-score"><div class="ls-val ${cls}">${met}</div><div class="ls-band ${cls}">MET-dk/hf · ${cat}</div></div>
+    ${svgGauge(pct,cat,140)}`;
+  const bars=$("#ipaq-bars");if(bars)bars.innerHTML=barChart([
+    {label:"Şiddetli",value:Math.round(8*vig),max:3000,unit:"MET"},
+    {label:"Orta",value:Math.round(4*mod),max:3000,unit:"MET"},
+    {label:"Yürüme",value:Math.round(3.3*walk),max:3000,unit:"MET"}
+  ]);
+}
+
+// ============ STEP: Likert (WHO-5, PHQ-9, GAD-7, SF-12) ============
+function renderLikertStep(id){
+  const inst=INST[id];
+  const answers=new Array(inst.items.length).fill(null);
+  const vizInfo={who5:{max:25,pctMul:4,loTh:29,hiTh:50,unit:"/100"},phq9:{max:27,pctMul:100/27,loTh:33,hiTh:67,unit:"/27",invert:true},gad7:{max:21,pctMul:100/21,loTh:33,hiTh:67,unit:"/21",invert:true},sf12:{max:48,pctMul:1,unit:""}};
+  const vi=vizInfo[id]||vizInfo.who5;
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${STEPS.find(s=>s.id===id).icon} ${inst.name}</h1>
+    <p style="color:var(--ink-soft);margin:0 0 6px">${inst.intro}</p>
+    <div class="split">
+      <div class="form-col">
+        <div class="progress"><span id="prog" style="width:0%"></span></div>
+        <div id="qwrap"></div>
+        <div class="actions">
+          <button class="btn-primary" id="finish" disabled>Tamamla →</button>
+          <button class="btn-ghost" id="skip-lk">Atla</button>
+          <span class="info" id="cnt">0 / ${inst.items.length}</span>
+        </div>
+      </div>
+      <div class="viz-col">
+        <div class="viz-card"><h4>Canlı skor</h4><div id="lk-gauge"></div></div>
+        <div class="viz-card"><h4>Madde skorları</h4><div id="lk-bars"></div></div>
+      </div>
+    </div>`;
+  const wrap=$("#qwrap");
+  inst.items.forEach((it,i)=>{
+    const d=document.createElement("div");d.className="q-item";
+    const q=typeof it==="string"?it:it.q;
+    const opts=typeof it==="string"?inst.items[0].options:it.options;
+    d.innerHTML=`<p class="q-text"><span class="qnum">${i+1}</span>${q}</p>
+      <div class="q-options" data-qi="${i}">${opts.map(o=>`<button type="button" class="opt" data-v="${o[1]}">${o[0]}</button>`).join("")}</div>`;
+    wrap.appendChild(d);
+  });
+  function updateViz(){
+    const n=answers.filter(a=>a!==null).length;
+    $("#prog").style.width=(n/inst.items.length*100)+"%";
+    $("#cnt").textContent=`${n} / ${inst.items.length}`;
+    $("#finish").disabled=n<inst.items.length;
+    // Live gauge
+    const total=answers.reduce((a,v)=>a+(v||0),0);
+    let pct,label,cls;
+    if(id==="who5"){pct=total*4;label=pct>=50?"İyi":pct>=29?"Düşük":"Kötü";cls=pct>=50?"ls-ok":pct>=29?"ls-warn":"ls-bad";}
+    else if(id==="phq9"){pct=Math.round(total/27*100);label=total<=4?"Minimal":total<=9?"Hafif":total<=14?"Orta":"Ağır";cls=total<=9?"ls-ok":total<=14?"ls-warn":"ls-bad";}
+    else if(id==="gad7"){pct=Math.round(total/21*100);label=total<=4?"Minimal":total<=9?"Hafif":total<=14?"Orta":"Ağır";cls=total<=9?"ls-ok":total<=14?"ls-warn":"ls-bad";}
+    else if(id==="sf12"){
+      const norm=inst.items.map((it,i)=>{const mx=Math.max(...it.options.map(o=>o[1]));return{grp:it.grp,v:(answers[i]||0)/mx*100};});
+      const avg=g=>{const a=norm.filter(n=>n.grp===g);return a.length?Math.round(a.reduce((s,n)=>s+n.v,0)/a.length):0;};
+      const pcs=avg("P"),mcs=avg("M");pct=Math.round((pcs+mcs)/2);label=`F:${pcs} M:${mcs}`;cls=pct>=50?"ls-ok":pct>=30?"ls-warn":"ls-bad";
+    }
+    const ge=$("#lk-gauge");if(ge)ge.innerHTML=`
+      <div class="live-score"><div class="ls-val ${cls}">${id==="who5"?"%"+(total*4):total}${id==="sf12"?"":vi.unit}</div>
+        <div class="ls-band ${cls}">${label}</div></div>
+      ${svgGauge(id==="phq9"||id==="gad7"?pct:id==="who5"?total*4:pct,id==="sf12"?label:"",140)}`;
+    // Item bars
+    const maxPerItem=Math.max(...(inst.items[0].options||inst.items[0]?.options||[]).map(o=>o[1]),5);
+    const bars=$("#lk-bars");if(bars)bars.innerHTML=answers.map((v,i)=>{
+      if(v===null)return `<div class="bar-row"><span class="bar-label" style="width:24px">${i+1}</span><div class="bar-track"></div><span class="bar-val" style="color:var(--muted)">—</span></div>`;
+      const opts=typeof inst.items[i]==="string"?inst.items[0].options:inst.items[i].options;
+      const mx=Math.max(...opts.map(o=>o[1]));
+      const p=v/mx*100;
+      const c=id==="who5"?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad"):(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
+      return `<div class="bar-row"><span class="bar-label" style="width:24px">${i+1}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${p}%"></div></div><span class="bar-val">${v}</span></div>`;
+    }).join("");
+  }
+  $$("#qwrap .q-options").forEach(g=>g.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    g.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");
+    answers[Number(g.dataset.qi)]=Number(b.dataset.v);updateViz();}));
+  updateViz();
+
+  $("#finish").onclick=()=>{
+    const r=scoreLikert(id,answers);W.scores[id]=r;
+    let summary;
+    if(id==="who5")summary=`Esenlik: %${r.pct} — ${r.band}.${r.low?" Düşük esenlik saptandı, depresyon ve anksiyete taramaları öneriliyor.":""}`;
+    else if(id==="phq9")summary=`Depresyon: ${r.score}/27 — ${r.band}.${r.selfHarm?" ⚠️ Kendine zarar düşüncesi işaretlendi.":""}`;
+    else if(id==="gad7")summary=`Anksiyete: ${r.score}/21 — ${r.band}.`;
+    else if(id==="sf12")summary=`Fiziksel: ${r.pcs}/100, Mental: ${r.mcs}/100.`;
+    completeStep(id,summary);
+  };
+  $("#skip-lk").onclick=()=>{const idx=STEPS.findIndex(s=>s.id===id);W.step=idx+1;render();};
+}
+
+// ============ RESULTS ============
+function renderResults(){
+  W.done.add("results");renderSteps();
+  const b=W.basics||{};const l=W.labs;const bmi=b.bmi;
+  // Merge labs + basics for risk prediction
+  const allVals={...b,...l};
+
+  // Critical values table
+  const critRows=[];
+  const addCrit=(label,val,unit,lo,hi,ideal)=>{
+    if(val===undefined||val===null||val==="")return;
+    const cls=val<lo||val>hi?"bad":(ideal&&(val<ideal[0]||val>ideal[1])?"warn":"ok");
+    critRows.push({label,val,unit,range:`${lo} – ${hi}`,ideal:ideal?`${ideal[0]} – ${ideal[1]}`:"",cls});
+  };
+  addCrit("Açlık glukozu",l.fasting_glucose,"mg/dL",74,106,[74,99]);
+  addCrit("Total kolesterol",l.total_chol,"mg/dL",0,200,[0,199]);
+  addCrit("HDL kolesterol",l.hdl,"mg/dL",40,150,[40,60]);
+  addCrit("Kreatinin",l.creatinine,"mg/dL",.7,1.3,[.7,1.2]);
+  addCrit("eGFR",l.egfr,"mL/dk",90,200,[90,120]);
+  addCrit("Hemoglobin",l.hemoglobin,"g/dL",12,17,[13,16]);
+  addCrit("Albümin",l.albumin,"g/dL",3.5,5.2,[3.5,5]);
+  if(bmi)addCrit("BKİ",bmi,"kg/m²",18.5,24.9,[18.5,24.9]);
+  if(b.sbp)addCrit("Sistolik KB",b.sbp,"mmHg",90,120,[90,119]);
+
+  const critHtml=critRows.length?`<div class="panel"><h2>🔬 Mevcut Değerleriniz — Kritik Karşılaştırma</h2>
+    <table class="crit-table"><tr><th>Parametre</th><th>Değeriniz</th><th>Normal</th><th>İdeal</th><th>Durum</th></tr>
+    ${critRows.map(c=>`<tr><td>${c.label}</td><td class="val ${c.cls}">${c.val} ${c.unit}</td><td>${c.range}</td><td>${c.ideal||"—"}</td>
+      <td class="${c.cls}">${c.cls==="ok"?"✅ Normal":c.cls==="warn"?"⚠️ Sınırda":"🔴 Anormal"}</td></tr>`).join("")}
+    </table></div>`:"";
+
+  // Risk scores
+  const risks=MODULES.map(mod=>{
+    const vals={};mod.features.forEach(f=>{vals[f.key]=allVals[f.key]??f.def;});
+    const r=predict(mod,vals);
+    return{name:mod.name,pct:(r.probability*100).toFixed(1),band:r.band,
+      cls:r.band==="high"?"rv-high":r.band==="moderate"?"rv-mod":"rv-low",
+      bandTr:r.band==="high"?"Yüksek":r.band==="moderate"?"Orta":"Düşük"};
+  });
+  const riskHtml=`<div class="panel"><h2>📈 Hastalık Risk Tahminleri</h2>
+    <div class="risk-grid">${risks.map(r=>`<div class="risk-card"><h4>${r.name}</h4>
+      <div class="rv ${r.cls}">%${r.pct}</div><div class="rb ${r.cls}">${r.bandTr} risk</div></div>`).join("")}</div>
+    <p class="note">Risk skorları toplanan verilerinize (form + tahlil) göre hesaplanmıştır. Daha fazla veri girdikçe doğruluk artar.</p></div>`;
+
+  // Assessment scores
+  let assHtml="";
+  const sc=W.scores;
+  if(Object.keys(sc).length){
+    const cards=[];
+    if(sc.who5)cards.push(`<div class="risk-card"><h4>Esenlik (WHO-5)</h4><div class="rv ${sc.who5.pct>=50?"rv-low":"rv-high"}">%${sc.who5.pct}</div><div class="rb">${sc.who5.band}</div></div>`);
+    if(sc.phq9)cards.push(`<div class="risk-card"><h4>Depresyon (PHQ-9)</h4><div class="rv ${sc.phq9.score<=9?"rv-low":sc.phq9.score<=14?"rv-mod":"rv-high"}">${sc.phq9.score}/27</div><div class="rb">${sc.phq9.band}</div></div>`);
+    if(sc.gad7)cards.push(`<div class="risk-card"><h4>Anksiyete (GAD-7)</h4><div class="rv ${sc.gad7.score<=9?"rv-low":sc.gad7.score<=14?"rv-mod":"rv-high"}">${sc.gad7.score}/21</div><div class="rb">${sc.gad7.band}</div></div>`);
+    if(sc.ipaq)cards.push(`<div class="risk-card"><h4>Aktivite (IPAQ)</h4><div class="rv ${sc.ipaq.cat==="Yüksek"?"rv-low":sc.ipaq.cat==="Orta"?"rv-mod":"rv-high"}">${sc.ipaq.met}</div><div class="rb">MET-dk/hf · ${sc.ipaq.cat}</div></div>`);
+    if(sc.sf12)cards.push(`<div class="risk-card"><h4>SF-12 Fiziksel</h4><div class="rv ${sc.sf12.pcs>=50?"rv-low":"rv-mod"}">${sc.sf12.pcs}</div><div class="rb">/100</div></div>
+      <div class="risk-card"><h4>SF-12 Mental</h4><div class="rv ${sc.sf12.mcs>=50?"rv-low":"rv-mod"}">${sc.sf12.mcs}</div><div class="rb">/100</div></div>`);
+    assHtml=`<div class="panel"><h2>🧠 Anket Sonuçları</h2><div class="risk-grid">${cards.join("")}</div></div>`;
+  }
+
+  // Crisis
+  let crisis="";
+  if(sc.phq9&&sc.phq9.selfHarm)crisis=`<div class="crisis"><h3>Önemli — destek mevcut</h3>
+    <p>Yanıtınız kendinize zarar verme düşünceleri olabileceğini gösteriyor. Acil tehlike varsa <b>112</b>'yi arayın.
+      Güvendiğiniz birine ulaşın ve bir ruh sağlığı uzmanıyla görüşün.</p></div>`;
+
+  // Recommendations
+  const recs=genRecs(b,l,bmi,sc);
+  const secMeta={nutrition:["🥗","Beslenme Önerileri"],exercise:["🏃","Egzersiz Planı"],sleep:["🌙","Uyku Düzeni"],stress:["🧘","Stres Yönetimi"],medical:["🩺","Tıbbi Test Önerileri"]};
+  let recHtml="";
+  for(const[cat,[icon,title]]of Object.entries(secMeta)){
+    const items=recs.filter(r=>r.cat===cat);if(!items.length)continue;
+    recHtml+=`<div class="rec-section"><h3>${icon} ${title}</h3>${items.map(r=>`<div class="rec-item">
+      <div class="rec-pri pri-${r.p}"></div><div class="rec-body"><strong>${r.t}</strong><span>${r.d}</span></div></div>`).join("")}</div>`;
+  }
+
+  $("#content").innerHTML=`
+    <div class="res-hero"><h1>🌿 The Good Life — Sağlık Raporunuz</h1>
+      <p>Tüm verileriniz analiz edildi. Mevcut durumunuz, risk tahminleriniz ve kişisel önerileriniz aşağıda.</p></div>
+    ${critHtml}${riskHtml}${assHtml}${crisis}
+    <div class="panel"><h2>💡 Kişiselleştirilmiş Yaşam Önerileri</h2>${recHtml}</div>
+    <p class="note">Bu rapor bir <b>tarama</b> aracıdır, tıbbi tanı yerine geçmez. Sonuçları bir sağlık profesyoneliyle değerlendirin.
+      Daha fazla adım tamamladıkça öneriler daha kişisel hale gelir.</p>
+    <div class="actions"><button class="btn-ghost" onclick="W.step=0;render()">Başa dön</button></div>`;
+}
+
+function genRecs(b,l,bmi,sc){
+  const r=[];
+  if(l.fasting_glucose>100||b.diabetes){r.push({cat:"nutrition",p:"h",t:"Düşük glisemik indeksli beslenme",d:"Rafine şeker ve beyaz un sınırlayın. Tam tahıl, baklagil ve sebze ağırlıklı beslenin."});
+    r.push({cat:"medical",p:"h",t:"HbA1c testi yaptırın",d:"Açlık glukozunuz yüksek. HbA1c 3 aylık ortalamayı gösterir, diyabet tanısında altın standarttır."});}
+  if(l.total_chol>200||b.high_chol)r.push({cat:"nutrition",p:"h",t:"Kalp dostu beslenme",d:"Doymuş yağları azaltın. Zeytinyağı, ceviz, badem, avokado ve omega-3 zengin balık tercih edin."});
+  if(bmi>=25)r.push({cat:"nutrition",p:bmi>=30?"h":"m",t:"Sürdürülebilir kilo yönetimi",d:`BKİ ${bmi}. Günlük 300-500 kalori açığıyla haftada 0.5 kg hedefleyin. Porsiyon kontrolü uygulayın.`});
+  if(l.hemoglobin&&l.hemoglobin<12)r.push({cat:"nutrition",p:"m",t:"Demir ve B12 zengin beslenme",d:"Hemoglobininiz düşük. Kırmızı et, ıspanak, pekmez, baklagil tüketimini artırın."});
+  r.push({cat:"nutrition",p:"l",t:"Akdeniz tipi beslenme modeli",d:"Zeytinyağı, sebze, meyve, balık, tam tahıl ağırlıklı. Günde 2-3 lt su. İşlenmiş gıda ve tuzu sınırlayın."});
+  const lowAct=!b.activity||(sc.ipaq&&sc.ipaq.cat==="Düşük");
+  if(lowAct)r.push({cat:"exercise",p:"h",t:"Haftada ≥150 dk orta yoğunlukta aktivite",d:"Tempolu yürüyüş, bisiklet veya yüzme. Günde 30 dk × 5 gün. Kademeli başlayın."});
+  r.push({cat:"exercise",p:lowAct?"m":"l",t:"Kas güçlendirme (haftada ≥2 gün)",d:"Vücut ağırlığı egzersizleri veya hafif ağırlık. Metabolizmayı hızlandırır, kemik sağlığını korur."});
+  if(sc.who5&&sc.who5.low)r.push({cat:"sleep",p:"h",t:"Uyku hijyeni iyileştirmesi",d:"Her gün aynı saatte yatıp kalkın. Yatmadan 1 saat önce ekranları bırakın. Oda karanlık, sessiz ve serin olsun."});
+  r.push({cat:"sleep",p:"l",t:"7-9 saat uyku hedefi",d:"Uyku borcu bağışıklığı, bilişi ve metabolizmayı etkiler. Kafein alımını öğleden sonra kesin."});
+  if((sc.phq9&&sc.phq9.score>9)||(sc.gad7&&sc.gad7.score>9))r.push({cat:"stress",p:"h",t:"Profesyonel psikolojik destek",d:"Depresyon/anksiyete puanınız yüksek. Bir psikolog veya psikiyatristle görüşmenizi öneririz."});
+  r.push({cat:"stress",p:"m",t:"Günlük gevşeme pratiği (10-15 dk)",d:"Derin nefes (4-7-8), farkındalık meditasyonu veya kısa yürüyüşler stres hormonlarını azaltır."});
+  if(l.egfr&&l.egfr<60)r.push({cat:"medical",p:"h",t:"Nefroloji konsültasyonu",d:`eGFR ${l.egfr} — böbrek fonksiyonu azalmış. Erken müdahale ilerlemeyi yavaşlatır.`});
+  if(!l.total_chol&&!b.total_chol)r.push({cat:"medical",p:"m",t:"Lipid paneli testi",d:"KVH riski için kolesterol, HDL, LDL ve trigliserid ölçülmeli."});
+  if((b.age||45)>=45)r.push({cat:"medical",p:"l",t:"Yaşa bağlı taramalar",d:"Kolorektal kanser (≥45), mammografi (≥40 K), PSA (≥50 E), kemik yoğunluğu (≥65) değerlendirilmeli."});
+  r.push({cat:"medical",p:"l",t:"Vitamin D kontrolü",d:"Türkiye'de D vitamini eksikliği yaygındır. Düzey kontrolü ve gerekirse takviye önerilir."});
+  return r;
+}
+
+// ============ INIT ============
+render();
+</script>
+</body>
+</html>
