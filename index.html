@@ -38,11 +38,51 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .step-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .15s}
 .step-item.active .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
 .step-item.done .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
-.sidebar-foot{margin-top:auto;padding-top:16px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.sidebar-foot{margin-top:auto;padding-top:12px;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.agent-btn{display:flex;align-items:center;gap:9px;width:100%;padding:11px 13px;border:1.5px solid var(--accent);border-radius:11px;background:var(--accent-wash);color:var(--accent-deep);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.agent-btn:hover{background:var(--accent);color:#fff}
+.agent-btn svg{flex-shrink:0}
+
+/* Chat panel */
+.chat-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:100;display:none;justify-content:center;align-items:flex-end;padding:20px}
+.chat-overlay.open{display:flex}
+.chat-panel{width:480px;max-width:100%;height:75vh;max-height:680px;background:var(--card);border-radius:18px 18px 12px 12px;box-shadow:0 8px 40px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden}
+@media(max-width:600px){.chat-panel{width:100%;height:90vh;border-radius:18px 18px 0 0}}
+.chat-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);flex-shrink:0}
+.chat-head .ch-avatar{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.chat-head .ch-info{flex:1}
+.chat-head .ch-name{font-weight:700;font-size:14px}
+.chat-head .ch-status{font-size:11px;color:var(--accent)}
+.chat-head .ch-close{width:30px;height:30px;border-radius:8px;border:0;background:transparent;font-size:18px;cursor:pointer;color:var(--muted);display:grid;place-items:center}
+.chat-head .ch-close:hover{background:var(--line-soft)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:85%;display:flex;flex-direction:column;gap:3px}
+.msg.bot{align-self:flex-start}.msg.user{align-self:flex-end}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;white-space:pre-wrap}
+.msg.bot .msg-bubble{background:var(--line-soft);color:var(--ink);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+.msg-time{font-size:10px;color:var(--muted);padding:0 4px}
+.msg.user .msg-time{text-align:right}
+.msg-typing{display:flex;gap:4px;padding:12px 14px}
+.msg-typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.msg-typing span:nth-child(2){animation-delay:.2s}.msg-typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%{opacity:.3}40%{opacity:1}}
+.chat-input{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid var(--line);flex-shrink:0}
+.chat-input input{flex:1;font:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);outline:0}
+.chat-input input:focus{border-color:var(--accent)}
+.chat-input .mic-btn{width:40px;height:40px;border-radius:10px;border:0;cursor:pointer;display:grid;place-items:center;transition:all .15s;flex-shrink:0}
+.mic-btn.idle{background:var(--line-soft);color:var(--muted)}
+.mic-btn.recording{background:#fdecea;color:#c75444;animation:pulse 1s infinite}
+.mic-btn:hover{opacity:.8}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.chat-input .send-btn{width:40px;height:40px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer;display:grid;place-items:center;flex-shrink:0}
+.chat-input .send-btn:hover{background:var(--accent-deep)}
+.chat-input .send-btn:disabled{opacity:.4;cursor:default}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
 
 /* Common */
-.content{max-width:960px}
+.content{max-width:1060px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
 .panel h2{font-size:13px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
 .btn-primary{font:inherit;font-size:14px;font-weight:600;background:var(--accent);color:#fff;border:0;padding:12px 24px;border-radius:10px;cursor:pointer;transition:background .15s}
@@ -118,6 +158,14 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .rec-card .rc-pri{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-top:2px;display:inline-block}
 .rc-pri.p-h{background:#fdecea;color:#c75444}.rc-pri.p-m{background:#fef8e8;color:#b8860b}.rc-pri.p-l{background:#e2f5eb;color:#007a3d}
 .rec-card .rc-desc{font-size:12px;color:var(--ink-soft);line-height:1.55;flex:1}
+
+/* Completed step summary */
+.completed-summary{display:flex;flex-direction:column;gap:16px}
+.cs-hero{background:var(--accent-wash);border:1px solid #b8dfc7;border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px}
+.cs-hero .cs-check{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.cs-hero .cs-info{flex:1}
+.cs-hero .cs-title{font-weight:700;font-size:15px;color:var(--accent-deep)}
+.cs-hero .cs-detail{font-size:13px;color:var(--ink-soft);margin-top:2px}
 .rec-pri{width:5px;min-height:24px;border-radius:3px;flex-shrink:0;margin-top:3px}
 .pri-h{background:var(--risk-high)}.pri-m{background:var(--risk-mod)}.pri-l{background:var(--accent)}
 .rec-body{flex:1}.rec-body strong{display:block;font-size:13.5px;margin-bottom:2px}
@@ -158,7 +206,61 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .live-score .ls-band{font-size:13px;font-weight:600;margin-top:4px}
 .ls-ok{color:var(--accent)}.ls-warn{color:var(--risk-mod)}.ls-bad{color:var(--risk-high)}
 
-/* Lab detail cards */
+/* Lab detail cards - grid */
+.lab-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:20px}
+.lab-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);transition:border-color .15s}
+.lab-card.lc-bad{border-color:#f0c4bc;background:#fffaf9}
+.lab-card .lc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.lab-card .lc-name{font-size:12px;font-weight:600;color:var(--ink-soft)}
+.lab-card .lc-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
+.lab-card .lc-val{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1.1}
+.lab-card .lc-ref{font-size:11px;color:var(--muted);margin-top:2px}
+.lab-card .lc-bar{height:6px;background:var(--line-soft);border-radius:3px;overflow:hidden;margin-top:8px;position:relative}
+.lab-card .lc-fill{height:100%;border-radius:3px}
+.lab-card .lc-desc{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+.lc-ok .lc-val{color:var(--accent)}.lc-bad .lc-val{color:var(--risk-high)}
+.lc-section-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--risk-high);margin:0 0 10px;grid-column:1/-1}
+.lc-section-ok{color:var(--accent)}
+
+/* Lab history & trends */
+.lab-hist{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.lh-item{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:all .12s;background:var(--card)}
+.lh-item:hover{border-color:var(--accent)}
+.lh-item.active{border-color:var(--accent);background:var(--accent-wash)}
+.lh-item .lh-date{font-family:var(--mono);font-size:13px;font-weight:600;min-width:90px}
+.lh-item .lh-info{font-size:12px;color:var(--ink-soft);flex:1}
+.lh-item .lh-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+.lh-del{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:14px;padding:4px}
+.lh-del:hover{color:var(--risk-high)}
+.trend-section{margin:20px 0}
+.trend-section h3{font-size:13px;font-weight:700;letter-spacing:.3px;margin:0 0 12px}
+.trend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.trend-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.trend-card .tc-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.trend-card .tc-name{font-size:12px;font-weight:600}
+.trend-card .tc-change{font-family:var(--mono);font-size:12px;font-weight:700}
+.tc-up{color:var(--risk-high)}.tc-down{color:var(--accent)}.tc-flat{color:var(--muted)}
+.trend-card .tc-vals{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.trend-card .tc-current{font-family:var(--mono);font-size:22px;font-weight:700}
+.trend-card .tc-prev{font-size:12px;color:var(--muted)}
+.trend-card svg{display:block;width:100%;height:40px}
+.trend-card .tc-proj{font-size:11px;color:var(--ink-soft);margin-top:6px;padding-top:6px;border-top:1px solid var(--line-soft)}
+.composite-panel{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--card);margin:20px 0}
+.composite-panel h3{font-size:13px;font-weight:700;letter-spacing:.3px;margin:0 0 14px}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.comp-grid{grid-template-columns:1fr}}
+.comp-item{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.comp-item .ci-name{font-size:12px;font-weight:600;margin-bottom:4px}
+.comp-item .ci-status{font-size:13px;font-weight:700}
+.comp-item .ci-detail{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.5}
+.ci-ok{color:var(--accent)}.ci-warn{color:var(--risk-mod)}.ci-bad{color:var(--risk-high)}
+.trend-recs{margin:16px 0}
+.trend-recs .tr-item{display:flex;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--card)}
+.trend-recs .tr-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.trend-recs .tr-body{flex:1;font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
+.trend-recs .tr-body b{color:var(--ink)}
+
+/* Lab alert banner */
 .lab-alert{border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
 .lab-alert.alert-bad{background:#fdecea;border:1px solid #f0c4bc}
 .lab-alert.alert-ok{background:#e2f5eb;border:1px solid #b8dfc7}
@@ -197,6 +299,43 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .st-used{background:var(--accent-wash);color:var(--accent-deep)}.st-na{background:var(--line-soft);color:var(--muted)}
 .pdf-table-wrap{max-height:420px;overflow-y:auto;border:1px solid var(--line);border-radius:9px}
 
+/* Lab history list */
+.lab-hist{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+.lh-item{padding:8px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:12.5px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;background:var(--card)}
+.lh-item:hover{border-color:var(--accent)}
+.lh-item.active{border-color:var(--accent);background:var(--accent-wash);font-weight:600}
+.lh-item .lh-date{font-family:var(--mono);font-weight:600}
+.lh-item .lh-count{font-size:10px;color:var(--muted)}
+.lh-item .lh-del{font-size:14px;color:var(--muted);margin-left:4px;cursor:pointer;line-height:1}
+.lh-item .lh-del:hover{color:var(--risk-high)}
+
+/* Trend analysis */
+.trend-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:20px}
+.trend-panel h3{font-size:13px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.trend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.trend-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.tc-name{font-size:11px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.tc-vals{display:flex;align-items:baseline;gap:6px;font-family:var(--mono)}
+.tc-old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.tc-new{font-size:20px;font-weight:700}
+.tc-arrow{font-size:14px;font-weight:700}
+.tc-change{font-size:11px;font-weight:600;padding:2px 6px;border-radius:5px;margin-left:auto}
+.tc-up{color:var(--risk-high)}.tc-up .tc-change{background:#fdecea;color:#c75444}
+.tc-down{color:var(--accent)}.tc-down .tc-change{background:#e2f5eb;color:#007a3d}
+.tc-flat{color:var(--muted)}.tc-flat .tc-change{background:var(--line-soft);color:var(--muted)}
+.tc-spark{height:32px;margin-top:6px}
+
+/* Relational & projection */
+.analysis-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:20px}
+.analysis-panel h3{font-size:13px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;margin:0 0 14px}
+.finding{display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--bg)}
+.finding .f-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.finding .f-body{flex:1}
+.finding .f-title{font-weight:600;font-size:13.5px;margin-bottom:3px}
+.finding .f-desc{font-size:12px;color:var(--ink-soft);line-height:1.55}
+.finding .f-rec{font-size:12px;color:var(--accent-deep);font-weight:500;margin-top:6px;padding:6px 10px;background:var(--accent-wash);border-radius:7px}
+.finding.f-warn{border-color:#f0c4bc}.finding.f-ok{border-color:#b8dfc7}
+
 /* Full PDF table */
 .pdf-table-wrap{max-height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:12px}
 .pdf-table{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -220,9 +359,94 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
       <div class="brand-text"><span class="brand-name">THE GOOD <span class="brand-ml">LIFE</span></span><br><span class="brand-sub">Kişisel Sağlıklı Yaşam Modeli</span></div>
     </div>
     <div class="steps" id="steps"></div>
-    <div class="sidebar-foot"><span class="dot"></span> AI destekli proaktif sağlık</div>
+    <div class="sidebar-foot">
+      <button class="agent-btn" id="open-chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Sağlık Asistanı
+      </button>
+      <button class="agent-btn" id="open-settings" style="border-color:var(--line);background:var(--card);color:var(--ink-soft)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Ayarlar
+      </button>
+      <div style="display:flex;align-items:center;gap:7px"><span class="dot"></span> AI destekli proaktif sağlık</div>
+    </div>
   </aside>
   <main class="main"><div id="content" class="content"></div></main>
+</div>
+
+<!-- Settings modal -->
+<div class="chat-overlay" id="settings-overlay">
+  <div class="chat-panel" style="height:auto;max-height:520px">
+    <div class="chat-head">
+      <div class="ch-avatar" style="background:var(--ink-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg></div>
+      <div class="ch-info"><div class="ch-name">Ayarlar</div><div class="ch-status">API yapılandırması</div></div>
+      <button class="ch-close" id="close-settings">✕</button>
+    </div>
+    <div style="padding:20px 22px;display:flex;flex-direction:column;gap:18px">
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px">AI Sağlık Asistanı — API Ayarları</div>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.55">
+          Sağlık asistanını kullanmak için bir Anthropic API anahtarı gerekiyor.
+          Anahtarınız yalnızca bu cihazda (localStorage) saklanır, hiçbir sunucuya gönderilmez.
+        </p>
+      </div>
+      <div class="field">
+        <label class="field-label"><span>Anthropic API Anahtarı</span></label>
+        <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." style="font-family:var(--mono);font-size:12px">
+      </div>
+      <div class="field">
+        <label class="field-label"><span>Model</span></label>
+        <select id="model-select">
+          <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (önerilen)</option>
+          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (hızlı)</option>
+          <option value="claude-opus-4-6">Claude Opus 4.6 (güçlü)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label"><span>Sesli yanıt</span></label>
+        <div class="toggle" id="tts-toggle">
+          <button type="button" data-v="1" class="on">Açık</button>
+          <button type="button" data-v="0">Kapalı</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn-primary" id="save-settings">Kaydet</button>
+        <button class="btn-ghost" id="test-api">Bağlantıyı test et</button>
+        <span id="settings-status" style="font-size:12px;margin-left:auto"></span>
+      </div>
+      <div id="api-test-result"></div>
+      <p style="font-size:11px;color:var(--muted);margin:0;line-height:1.5">
+        API anahtarını <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent)">console.anthropic.com</a> adresinden alabilirsiniz.
+      </p>
+      <div style="border-top:1px solid var(--line);padding-top:14px;margin-top:4px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px">Kayıtlı veriler</div>
+        <p id="data-summary" style="font-size:12px;color:var(--ink-soft);margin:0 0 10px;line-height:1.5"></p>
+        <div style="display:flex;gap:10px">
+          <button class="btn-ghost" id="clear-chat-btn" style="font-size:12px;padding:7px 14px">Sohbet geçmişini sil</button>
+          <button class="btn-ghost" id="clear-all-btn" style="font-size:12px;padding:7px 14px;border-color:#e7b9b0;color:#c75444">Tüm verileri sıfırla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="chat-overlay" id="chat-overlay">
+  <div class="chat-panel">
+    <div class="chat-head">
+      <div class="ch-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21C12 21 4 15 4 9a4 4 0 018-1 4 4 0 018 1c0 6-8 12-8 12z"/></svg></div>
+      <div class="ch-info"><div class="ch-name">Sağlık Asistanı</div><div class="ch-status">● Çevrimiçi</div></div>
+      <button class="ch-close" id="close-chat">✕</button>
+    </div>
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="chat-input">
+      <button class="mic-btn idle" id="mic-btn" title="Sesli mesaj">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </button>
+      <input type="text" id="chat-in" placeholder="Sağlığınız hakkında sorun…" autocomplete="off">
+      <button class="send-btn" id="send-btn" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -445,14 +669,47 @@ function riskChips(basics){
   return `<div class="chip-grid">${chips.map(c=>`<span class="chip ${c.c}">${c.t}</span>`).join("")}</div>`;
 }
 
-// ============ WIZARD STATE ============
-const W={
-  step:0, // current step index
-  labs:{},   // e-Nabız parsed (matched features)
-  labRows:[], // ALL rows from PDF
-  pdfRows:[], // all rows from PDF
-  basics:{}, // form data
-  scores:{}, // ipaq, who5, sf12, phq9, gad7
+// ============ WIZARD STATE + PERSISTENCE ============
+const STATE_KEY="goodlife_state_v2";
+const CHAT_KEY="goodlife_chat_v1";
+function loadState(){
+  try{
+    const r=localStorage.getItem(STATE_KEY);if(!r)return null;
+    const s=JSON.parse(r);
+    s.done=new Set(s.done||[]);
+    // Defaults for fields that might not exist in old saved states
+    if(!s.labHistory)s.labHistory=[];
+    if(s.selectedLabIdx===undefined)s.selectedLabIdx=0;
+    if(!s.labs)s.labs={};
+    if(!s.labRows)s.labRows=[];
+    if(!s.pdfRows)s.pdfRows=[];
+    if(!s.basics)s.basics={};
+    if(!s.scores)s.scores={};
+    // Migrate: if old state had labs but no labHistory, create initial entry
+    if(Object.keys(s.labs).length>0&&!s.labHistory.length){
+      s.labHistory=[{id:Date.now(),date:new Date().toLocaleDateString("tr-TR"),labs:{...s.labs},labRows:s.labRows||[],fileName:"tahlil.pdf"}];
+      s.selectedLabIdx=0;
+    }
+    return s;
+  }catch(e){return null;}
+}
+function saveState(){
+  try{localStorage.setItem(STATE_KEY,JSON.stringify({step:W.step,labs:W.labs,labRows:W.labRows,pdfRows:W.pdfRows,labHistory:W.labHistory,selectedLabIdx:W.selectedLabIdx,basics:W.basics,scores:W.scores,done:[...W.done]}));}catch(e){}
+}
+function loadChat(){try{const r=localStorage.getItem(CHAT_KEY);return r?JSON.parse(r):[];}catch(e){return [];}}
+function saveChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chatHistory.slice(-50)));}catch(e){}}
+function clearAllData(){try{localStorage.removeItem(STATE_KEY);localStorage.removeItem(CHAT_KEY);}catch(e){}location.reload();}
+
+const _saved=loadState();
+const W=_saved||{
+  step:0,
+  labs:{},
+  labRows:[],
+  pdfRows:[],
+  labHistory:[],   // [{id,date,labs,labRows,fileName}]
+  selectedLabIdx:0,
+  basics:{},
+  scores:{},
   done:new Set()
 };
 const STEPS=[
@@ -479,7 +736,7 @@ function renderSteps(){
 }
 
 function render(){
-  renderSteps();
+  renderSteps();saveState();
   const s=STEPS[W.step];
   if(s.id==="labs")renderLabStep();
   else if(s.id==="basics")renderBasicsStep();
@@ -492,7 +749,7 @@ function render(){
 }
 
 function completeStep(id,summary){
-  W.done.add(id);
+  W.done.add(id);saveState();
   const idx=STEPS.findIndex(s=>s.id===id);
   const next=STEPS[idx+1];
   const canResults=W.done.has("basics");
@@ -558,36 +815,77 @@ function renderPdfTable(rows){
 
 // ============ STEP: Labs ============
 function renderLabStep(){
-  const hasLabs=Object.keys(W.labs).length>0;
+  const hasLabs=W.labHistory.length>0;
+  const sel=hasLabs?W.labHistory[W.selectedLabIdx||0]:null;
+  if(sel){W.labs=sel.labs;W.labRows=sel.labRows;}
+
+  // History list
+  let histHtml="";
+  if(W.labHistory.length){
+    histHtml=`<div class="lab-hist">${W.labHistory.map((h,i)=>{
+      const abnCnt=LAB_REF.filter(r=>r.key in h.labs&&(h.labs[r.key]<r.lo||h.labs[r.key]>r.hi)).length;
+      return `<div class="lh-item ${i===(W.selectedLabIdx||0)?"active":""}" data-idx="${i}">
+        <span class="lh-date">${h.date}</span>
+        <span class="lh-info">${Object.keys(h.labs).length} değer${h.fileName?" · "+h.fileName:""}</span>
+        <span class="lh-badge ${abnCnt?"bg-hi":"bg-ok"}">${abnCnt?abnCnt+" anormal":"Normal"}</span>
+        <button class="lh-del" data-delidx="${i}" title="Sil">🗑</button>
+      </div>`;
+    }).join("")}</div>`;
+  }
+
+  // Trend + composite (only if ≥2 uploads)
+  let trendHtml="",compHtml="",trendRecHtml="";
+  if(W.labHistory.length>=2){
+    trendHtml=buildTrendSection();
+    compHtml=buildCompositeAnalysis();
+    trendRecHtml=buildTrendRecommendations();
+  }
+
   $("#content").innerHTML=`
-    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">📄 Tahlil Sonuçlarını Yükleyin</h1>
-    <p style="color:var(--ink-soft);margin:0 0 20px;max-width:56ch">e-Nabız PDF'ini yükleyin, değerler otomatik okunacak.</p>
-    <div id="lab-alert-zone"></div>
-    <div class="split">
-      <div class="form-col">
-        <div class="panel">
-          <div class="import-zone" id="iz">
-            <input type="file" accept=".pdf" hidden id="pdf-in">
-            <div class="iz-icon">PDF</div>
-            <div class="iz-text"><strong>${hasLabs?"Yeni PDF yükle (mevcut veriler güncellenir)":"e-Nabız tahlil PDF'i yükle"}</strong><span>Sürükle-bırak veya tıkla</span></div>
-          </div>
-          <div id="lab-result">${hasLabs?(W.labRows.length?renderPdfTable(W.labRows):labChipsSummary()):""}</div>
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">📄 Tahlil Sonuçları</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">e-Nabız PDF yükleyin. Birden fazla tahlil yükleyerek trend analizi yapılır.</p>
+    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+      <div class="panel" style="flex:1;min-width:280px;max-width:480px">
+        <div class="import-zone" id="iz">
+          <input type="file" accept=".pdf" hidden id="pdf-in">
+          <div class="iz-icon">PDF</div>
+          <div class="iz-text"><strong>${hasLabs?"Yeni tahlil ekle":"e-Nabız tahlil PDF'i yükle"}</strong><span>Sürükle-bırak veya tıkla · tarih otomatik okunur</span></div>
         </div>
-        <div class="actions">
-          ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}<button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
-        </div>
+        <div id="lab-status" style="margin-top:4px"></div>
       </div>
-      <div class="viz-col" id="lab-viz"></div>
+      ${hasLabs?`<div style="flex:1;min-width:200px"><h4 style="font-size:12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:0 0 8px">Tahlil geçmişi (${W.labHistory.length})</h4>${histHtml}</div>`:""}
+    </div>
+    <div id="lab-alert-zone"></div>
+    ${trendHtml}
+    ${compHtml}
+    ${trendRecHtml}
+    <div id="lab-cards"></div>
+    <div id="lab-table"></div>
+    <div class="actions" style="margin-top:16px">
+      ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}<button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
     </div>`;
-  // Restore viz if data exists
-  if(hasLabs){updateLabViz();updateLabAlert();}
-  else{$("#lab-viz").innerHTML=`<div class="viz-card"><h4>Okunan değerler</h4><p style="font-size:13px;color:var(--muted)">PDF yüklendiğinde burada tahlil sonuçlarınız referans aralıklarıyla birlikte görünecek.</p></div>`;}
+  if(hasLabs){updateLabCards();updateLabAlert();if(sel&&sel.labRows.length)$("#lab-table").innerHTML=renderPdfTable(sel.labRows);}
+
+  // Wire events
   const zone=$("#iz"),inp=$("#pdf-in");
   zone.onclick=()=>inp.click();
   inp.onchange=()=>{if(inp.files[0])handleLabPdf(inp.files[0]);};
   zone.ondragover=e=>{e.preventDefault();zone.classList.add("drag");};
   zone.ondragleave=()=>zone.classList.remove("drag");
   zone.ondrop=e=>{e.preventDefault();zone.classList.remove("drag");if(e.dataTransfer.files[0])handleLabPdf(e.dataTransfer.files[0]);};
+  $$(".lh-item").forEach(el=>el.onclick=e=>{
+    if(e.target.classList.contains("lh-del"))return;
+    W.selectedLabIdx=Number(el.dataset.idx);saveState();renderLabStep();
+  });
+  $$(".lh-del").forEach(btn=>btn.onclick=e=>{
+    e.stopPropagation();const i=Number(btn.dataset.delidx);
+    if(!confirm("Bu tahlili silmek istediğinize emin misiniz?"))return;
+    W.labHistory.splice(i,1);
+    if(W.selectedLabIdx>=W.labHistory.length)W.selectedLabIdx=Math.max(0,W.labHistory.length-1);
+    if(W.labHistory.length){const s=W.labHistory[W.selectedLabIdx];W.labs=s.labs;W.labRows=s.labRows;}
+    else{W.labs={};W.labRows=[];W.done.delete("labs");}
+    saveState();renderLabStep();
+  });
   $("#skip-labs").onclick=()=>{W.step=1;render();};
   if($("#lab-next"))$("#lab-next").onclick=()=>{W.done.add("labs");W.step=1;render();};
 }
@@ -620,9 +918,9 @@ function updateLabAlert(){
     <br><span style="color:var(--ink-soft)">Detaylı karşılaştırma ve açıklamalar sağ panelde.</span>
   </div></div>`;
 }
-function updateLabViz(){
-  const l=W.labs;const el=$("#lab-viz");if(!el)return;
-  const rows=LAB_REF.filter(r=>r.key in l).map(r=>{
+function updateLabCards(){
+  const l=W.labs;const el=$("#lab-cards");if(!el)return;
+  const items=LAB_REF.filter(r=>r.key in l).map(r=>{
     const v=l[r.key];
     const inRange=v>=r.lo&&v<=r.hi;
     const inIdeal=r.ideal&&v>=r.ideal[0]&&v<=r.ideal[1];
@@ -631,61 +929,261 @@ function updateLabViz(){
     const fillPct=Math.min(v/r.max*100,100);
     const fillColor=inRange?"var(--accent)":"var(--risk-high)";
     const refLoPct=r.lo/r.max*100,refHiPct=Math.min(r.hi/r.max*100,95);
-    return `<div class="lab-row ${inRange?"":"out"}">
-      <div style="flex:1;min-width:0">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
-          <span class="lr-name">${r.name}</span>
-          <span class="lr-badge ${badgeCls}">${status}</span>
-        </div>
-        <div style="display:flex;align-items:baseline;gap:8px">
-          <span class="lr-val" style="color:${inRange?"var(--accent)":"var(--risk-high)"}">${v}</span>
-          <span class="lr-ref">${r.unit} · ref: ${r.lo}–${r.hi}</span>
-        </div>
-        <div class="lr-bar">
-          <div class="lr-fill" style="width:${fillPct}%;background:${fillColor}"></div>
-          <div style="position:absolute;left:${refLoPct}%;width:${refHiPct-refLoPct}%;top:0;height:100%;background:rgba(0,166,81,.12);border-radius:4px"></div>
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">${r.desc}</div>
-      </div>
-    </div>`;
-  }).join("");
-  const total=LAB_REF.filter(r=>r.key in l).length;
-  const ok=LAB_REF.filter(r=>r.key in l&&l[r.key]>=r.lo&&l[r.key]<=r.hi).length;
-  el.innerHTML=`
-    <div class="viz-card"><h4>Detaylı tahlil raporu (${total} parametre)</h4>
-      <div class="lab-detail">${rows}</div></div>
-    <div class="viz-card"><h4>Genel durum</h4>
-      <div class="live-score">
-        <div class="ls-val ${ok===total?"ls-ok":ok>=total-2?"ls-warn":"ls-bad"}">${ok}/${total}</div>
-        <div class="ls-band ${ok===total?"ls-ok":ok>=total-2?"ls-warn":"ls-bad"}">${ok===total?"Tüm değerler normal":`${total-ok} parametre referans dışı`}</div>
-      </div>
-      ${svgGauge(ok/total*100,ok===total?"Normal":"Dikkat",140)}
-    </div>`;
+    return {name:r.name,v,unit:r.unit,lo:r.lo,hi:r.hi,status,badgeCls,fillPct,fillColor,refLoPct,refHiPct,desc:r.desc,inRange,cardCls:inRange?"lc-ok":"lc-bad"};
+  });
+  // Sort: abnormal first
+  items.sort((a,b)=>a.inRange-b.inRange);
+  const abnormal=items.filter(i=>!i.inRange);
+  const normal=items.filter(i=>i.inRange);
+
+  let html="";
+  if(abnormal.length){
+    html+=`<div class="lab-cards">
+      <div class="lc-section-label">⚠️ Referans dışı (${abnormal.length})</div>
+      ${abnormal.map(i=>labCard(i)).join("")}</div>`;
+  }
+  if(normal.length){
+    html+=`<div class="lab-cards" style="margin-top:${abnormal.length?12:0}px">
+      <div class="lc-section-label lc-section-ok">✓ Normal aralıkta (${normal.length})</div>
+      ${normal.map(i=>labCard(i)).join("")}</div>`;
+  }
+  el.innerHTML=html;
+}
+function labCard(i){
+  return `<div class="lab-card ${i.cardCls}">
+    <div class="lc-head"><span class="lc-name">${i.name}</span><span class="lc-badge ${i.badgeCls}">${i.status}</span></div>
+    <div class="lc-val">${i.v}<small style="font-size:11px;font-weight:400;margin-left:4px">${i.unit}</small></div>
+    <div class="lc-ref">Ref: ${i.lo} – ${i.hi}</div>
+    <div class="lc-bar">
+      <div class="lc-fill" style="width:${i.fillPct}%;background:${i.fillColor}"></div>
+      <div style="position:absolute;left:${i.refLoPct}%;width:${i.refHiPct-i.refLoPct}%;top:0;height:100%;background:rgba(0,166,81,.15);border-radius:3px"></div>
+    </div>
+    <div class="lc-desc">${i.desc}</div>
+  </div>`;
 }
 async function handleLabPdf(file){
-  const box=$("#lab-result");box.innerHTML=`<p style="color:var(--muted);margin:12px 0">PDF okunuyor…</p>`;
+  const status=$("#lab-status");
+  if(status)status.innerHTML=`<p style="color:var(--muted);margin:8px 0;font-size:13px">⏳ PDF okunuyor…</p>`;
   try{
     const text=await pdfToText(file);
     const{found,matches}=parseLabs(text);
-    W.labRows=extractAllPdfRows(text);
-    Object.assign(W.labs,found);
-    if(!matches.length&&!W.labRows.length){box.innerHTML=`<p style="color:var(--risk-high);margin:12px 0">Tanınan tetkik bulunamadı.</p>`;return;}
+    const allRows=extractAllPdfRows(text);
+    if(!matches.length&&!allRows.length){
+      if(status)status.innerHTML=`<p style="color:var(--risk-high);margin:8px 0;font-size:13px">Tanınan tetkik bulunamadı.</p>`;return;}
+    // Extract date from PDF text
+    const dateMatch=text.match(/(\d{2})[.\/](\d{2})[.\/](\d{4})/);
+    const dateStr=dateMatch?`${dateMatch[1]}.${dateMatch[2]}.${dateMatch[3]}`:new Date().toLocaleDateString("tr-TR");
+    // Push to history
+    const entry={id:Date.now(),date:dateStr,labs:{...found},labRows:allRows,fileName:file.name||"tahlil.pdf"};
+    W.labHistory.push(entry);
+    W.labHistory.sort((a,b)=>{const pa=a.date.split(".").reverse().join("");const pb=b.date.split(".").reverse().join("");return pb.localeCompare(pa);});
+    W.selectedLabIdx=W.labHistory.findIndex(h=>h.id===entry.id);
+    W.labs=entry.labs;W.labRows=entry.labRows;
     W.done.add("labs");
-    box.innerHTML=renderPdfTable(W.labRows);
-    updateLabViz();
-    updateLabAlert();
-    renderSteps();
-    const acts=$(".actions");
-    if(acts)acts.innerHTML=`<button class="btn-primary" id="lab-next">Devam et →</button><button class="btn-ghost" id="skip-labs">Atla →</button>`;
-    if($("#lab-next"))$("#lab-next").onclick=()=>{W.step=1;render();};
-    if($("#skip-labs"))$("#skip-labs").onclick=()=>{W.step=1;render();};
-    const izText=$(".iz-text");
-    if(izText)izText.innerHTML=`<strong>Yeni PDF yükle (güncellenir)</strong><span>Sürükle-bırak veya tıkla</span>`;
-  }catch(e){box.innerHTML=`<p style="color:var(--risk-high);margin:12px 0">Hata: ${e.message}</p>`;}
+    saveState();
+    renderLabStep();
+  }catch(e){if(status)status.innerHTML=`<p style="color:var(--risk-high);margin:8px 0;font-size:13px">Hata: ${e.message}</p>`;}
+}
+
+// ============ TREND & COMPOSITE ANALYSIS ============
+function buildTrendSection(){
+  if(W.labHistory.length<2)return "";
+  // Ensure sorted newest first
+  const sorted=[...W.labHistory].sort((a,b)=>{const pa=a.date.split(".").reverse().join("");const pb=b.date.split(".").reverse().join("");return pb.localeCompare(pa);});
+  const keys=new Set();
+  sorted.forEach(h=>Object.keys(h.labs).forEach(k=>keys.add(k)));
+  const trends=[];
+  for(const key of keys){
+    const ref=LAB_REF.find(r=>r.key===key);if(!ref)continue;
+    const points=sorted.filter(h=>key in h.labs).map(h=>({date:h.date,val:h.labs[key]}));
+    if(points.length<2)continue;
+    const first=points[points.length-1].val,last=points[0].val;
+    const change=last-first;const pctChange=first?((change/first)*100).toFixed(1):0;
+    const dir=Math.abs(change)<.01?"flat":change>0?"up":"down";
+    // Is the direction bad? (depends on the parameter)
+    const badDir=(key==="hdl"||key==="egfr"||key==="hemoglobin"||key==="albumin")?dir==="down":dir==="up";
+    // Linear projection: when will it cross reference boundary?
+    const proj=projectCrossing(points,ref);
+    // Mini sparkline SVG
+    const spark=miniSparkline(points.map(p=>p.val),ref.lo,ref.hi);
+    trends.push({key,name:ref.name,unit:ref.unit,last,first,change:change.toFixed(1),pctChange,dir,badDir,proj,spark,points});
+  }
+  // Sort: worsening trends first
+  trends.sort((a,b)=>(b.badDir?1:0)-(a.badDir?1:0)||Math.abs(b.pctChange)-Math.abs(a.pctChange));
+  if(!trends.length)return "";
+  return `<div class="trend-section"><h3>📈 Değişim Analizi (${sorted.length} tahlil karşılaştırması)</h3>
+    <div class="trend-grid">${trends.map(t=>{
+      const chgCls=t.dir==="flat"?"tc-flat":t.badDir?"tc-up":"tc-down";
+      const arrow=t.dir==="up"?"↑":t.dir==="down"?"↓":"→";
+      return `<div class="trend-card">
+        <div class="tc-head"><span class="tc-name">${t.name}</span><span class="tc-change ${chgCls}">${arrow} ${t.change>0?"+":""}${t.change} ${t.unit} (${t.pctChange>0?"+":""}${t.pctChange}%)</span></div>
+        <div class="tc-vals"><span class="tc-current">${t.last}</span><span class="tc-prev">önceki: ${t.first} ${t.unit}</span></div>
+        ${t.spark}
+        ${t.proj?`<div class="tc-proj">${t.proj}</div>`:""}
+      </div>`;
+    }).join("")}</div></div>`;
+}
+
+function miniSparkline(vals,refLo,refHi){
+  const W2=240,H=40,pad=2;
+  const mn=Math.min(...vals,refLo||Infinity)*0.9,mx=Math.max(...vals,refHi||0)*1.1;
+  const x=i=>pad+i/(vals.length-1)*(W2-2*pad);
+  const y=v=>pad+(1-(v-mn)/(mx-mn))*(H-2*pad);
+  const path=vals.map((v,i)=>`${i?"L":"M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const refY1=refLo?y(refLo):H,refY0=refHi?y(refHi):0;
+  return `<svg viewBox="0 0 ${W2} ${H}" preserveAspectRatio="none">
+    <rect x="0" y="${refY0}" width="${W2}" height="${refY1-refY0}" fill="rgba(0,166,81,.08)" rx="2"/>
+    <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+    ${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="${v>=refLo&&v<=refHi?"var(--accent)":"var(--risk-high)"}"/>`).join("")}
+  </svg>`;
+}
+
+function projectCrossing(points,ref){
+  if(points.length<2)return null;
+  // Simple linear regression on last points
+  const n=points.length;const last=points[0].val,prev=points[n-1].val;
+  const daysSpan=estimateDaysBetween(points[n-1].date,points[0].date)||90;
+  const rate=(last-prev)/daysSpan; // change per day
+  if(Math.abs(rate)<0.001)return null;
+  const inRange=last>=ref.lo&&last<=ref.hi;
+  if(inRange){
+    // When might it go out of range?
+    const daysToHi=ref.hi?(ref.hi-last)/rate:Infinity;
+    const daysToLo=ref.lo?(ref.lo-last)/rate:Infinity;
+    const daysOut=Math.min(daysToHi>0?daysToHi:Infinity,daysToLo>0?daysToLo:Infinity);
+    if(daysOut<Infinity&&daysOut<365)return `⚠️ Bu hızla ~${Math.round(daysOut)} günde referans dışına çıkabilir`;
+    return null;
+  }else{
+    // When might it return to range?
+    const target=last<ref.lo?ref.lo:ref.hi;
+    const daysBack=(target-last)/rate;
+    if(daysBack>0&&daysBack<365)return `📉 Mevcut trendde ~${Math.round(daysBack)} günde normale dönebilir`;
+    return `⚠️ Trend olumsuz yönde — müdahale önerilir`;
+  }
+}
+
+function estimateDaysBetween(d1,d2){
+  try{const p=s=>{const[dd,mm,yy]=s.split(".");return new Date(yy,mm-1,dd);};return Math.abs(p(d2)-p(d1))/86400000;}catch(e){return 90;}
+}
+
+function buildCompositeAnalysis(){
+  if(W.labHistory.length<1)return "";
+  const l=W.labs;const items=[];
+  // Metabolic syndrome check
+  const hasFG=l.fasting_glucose>100,hasHDL=l.hdl&&l.hdl<(W.basics.sex===0?50:40),
+    hasTG=false, /* trigliserid not in parsed */ hasWaist=W.basics.waist&&W.basics.waist>(W.basics.sex===0?88:102),
+    hasBP=W.basics.hypertension||((W.basics.sbp||0)>=130);
+  const metSynCount=[hasFG,hasHDL,hasWaist,hasBP].filter(Boolean).length;
+  items.push({name:"Metabolik Sendrom Değerlendirmesi",
+    status:metSynCount>=3?"Olası metabolik sendrom":metSynCount>=2?"Risk altı":"Düşük risk",
+    cls:metSynCount>=3?"ci-bad":metSynCount>=2?"ci-warn":"ci-ok",
+    detail:`${metSynCount}/4 kriter pozitif: ${[hasFG?"glukoz ↑":"",hasHDL?"HDL ↓":"",hasWaist?"bel çevresi ↑":"",hasBP?"KB ↑":""].filter(Boolean).join(", ")||"yok"}`});
+  // Kidney composite
+  if(l.creatinine||l.egfr){
+    const egfr=l.egfr||0,cr=l.creatinine||0,alb=l.albumin||4;
+    const stage=egfr>=90?"Evre 1 (normal)":egfr>=60?"Evre 2 (hafif ↓)":egfr>=30?"Evre 3 (orta ↓)":egfr>=15?"Evre 4 (ağır ↓)":"Evre 5 (son dönem)";
+    items.push({name:"Böbrek Fonksiyonu Bileşik Değerlendirme",status:stage,
+      cls:egfr>=60?"ci-ok":egfr>=30?"ci-warn":"ci-bad",
+      detail:`eGFR ${egfr} + Kreatinin ${cr} + Albümin ${alb} birlikte değerlendirildi`});
+  }
+  // CV risk markers
+  if(l.total_chol||l.hdl){
+    const ratio=l.total_chol&&l.hdl?(l.total_chol/l.hdl).toFixed(1):null;
+    items.push({name:"Kardiyovasküler Risk Belirteçleri",
+      status:ratio?(ratio>5?"Yüksek KVH riski":ratio>3.5?"Orta risk":"Düşük risk"):"Veri eksik",
+      cls:ratio?(ratio>5?"ci-bad":ratio>3.5?"ci-warn":"ci-ok"):"ci-warn",
+      detail:ratio?`Total/HDL oranı: ${ratio} (ideal < 3.5) · Kolesterol ${l.total_chol||"?"} · HDL ${l.hdl||"?"}`:"Total kolesterol ve HDL birlikte değerlendirilmeli"});
+  }
+  // Anemia composite
+  if(l.hemoglobin){
+    const hgb=l.hemoglobin,alb=l.albumin||4;
+    const anemia=hgb<(W.basics.sex===0?12:13);
+    items.push({name:"Anemi ve Beslenme Değerlendirmesi",
+      status:anemia?(alb<3.5?"Anemi + beslenme yetersizliği":"Anemi"):"Normal",
+      cls:anemia?(alb<3.5?"ci-bad":"ci-warn"):"ci-ok",
+      detail:`Hemoglobin ${hgb} g/dL · Albümin ${alb} g/dL — birlikte beslenme durumunu yansıtır`});
+  }
+  if(!items.length)return "";
+  return `<div class="composite-panel"><h3>🔗 İlişkisel Bileşik Değerlendirme</h3>
+    <div class="comp-grid">${items.map(i=>`<div class="comp-item">
+      <div class="ci-name">${i.name}</div><div class="ci-status ${i.cls}">${i.status}</div>
+      <div class="ci-detail">${i.detail}</div></div>`).join("")}</div></div>`;
+}
+
+function buildTrendRecommendations(){
+  if(W.labHistory.length<2)return "";
+  const sorted=[...W.labHistory].sort((a,b)=>{const pa=a.date.split(".").reverse().join("");const pb=b.date.split(".").reverse().join("");return pb.localeCompare(pa);});
+  const recs=[];const latest=sorted[0]?.labs||{};const prev=sorted[1]?.labs||{};
+  // Glucose trending up
+  if(latest.fasting_glucose&&prev.fasting_glucose&&latest.fasting_glucose>prev.fasting_glucose)
+    recs.push({icon:"🥗",text:`<b>Glukoz yükseliyor</b> (${prev.fasting_glucose} → ${latest.fasting_glucose}). Rafine karbonhidrat ve şekeri azaltın. Tam tahıl, baklagil, sebze ağırlıklı beslenin. Yemeklerden sonra 15 dk yürüyüş yapın.`});
+  if(latest.fasting_glucose&&latest.fasting_glucose>prev.fasting_glucose&&latest.fasting_glucose>100)
+    recs.push({icon:"🏃",text:`<b>Pre-diyabet aralığında</b>. Haftada ≥150 dk orta yoğunlukta aktivite (tempolu yürüyüş, bisiklet) riski %58'e kadar azaltabilir.`});
+  // Cholesterol worsening
+  if(latest.total_chol&&prev.total_chol&&latest.total_chol>prev.total_chol)
+    recs.push({icon:"🫒",text:`<b>Kolesterol artıyor</b> (${prev.total_chol} → ${latest.total_chol}). Doymuş yağları (kırmızı et, tereyağı) azaltın. Zeytinyağı, balık, ceviz tercih edin. Günde ≥25g lif alın.`});
+  if(latest.hdl&&prev.hdl&&latest.hdl<prev.hdl)
+    recs.push({icon:"🏊",text:`<b>HDL düşüyor</b> (${prev.hdl} → ${latest.hdl}). Aerobik egzersiz HDL'yi artırır. Trans yağlardan kaçının. Zeytinyağı ve omega-3 tüketin.`});
+  // Kidney worsening
+  if(latest.egfr&&prev.egfr&&latest.egfr<prev.egfr)
+    recs.push({icon:"💧",text:`<b>eGFR düşüyor</b> (${prev.egfr} → ${latest.egfr}). Günde 2-2.5 lt su için. Tuz alımını sınırlayın (<5g/gün). Ağrı kesici kullanımını azaltın.`});
+  if(latest.creatinine&&prev.creatinine&&latest.creatinine>prev.creatinine)
+    recs.push({icon:"🩺",text:`<b>Kreatinin yükseliyor</b> (${prev.creatinine} → ${latest.creatinine}). Nefroloji kontrolü önerilir. Protein alımını doktorunuzla değerlendirin.`});
+  // Hemoglobin dropping
+  if(latest.hemoglobin&&prev.hemoglobin&&latest.hemoglobin<prev.hemoglobin)
+    recs.push({icon:"🥩",text:`<b>Hemoglobin düşüyor</b> (${prev.hemoglobin} → ${latest.hemoglobin}). Demir açısından zengin gıdalar (kırmızı et, ıspanak, pekmez) tüketin. C vitaminiyle birlikte alın.`});
+  // Albumin low
+  if(latest.albumin&&latest.albumin<3.5)
+    recs.push({icon:"🥚",text:`<b>Albümin düşük</b> (${latest.albumin}). Yeterli protein alımı sağlayın (yumurta, süt, balık, et). Günde 1.0-1.2 g/kg protein hedefleyin.`});
+  if(!recs.length)return "";
+  return `<div class="trend-recs"><h3 style="font-size:13px;font-weight:700;margin:0 0 10px">💡 Trend Bazlı Beslenme ve Aktivite Önerileri</h3>
+    ${recs.map(r=>`<div class="tr-item"><span class="tr-icon">${r.icon}</span><div class="tr-body">${r.text}</div></div>`).join("")}</div>`;
 }
 
 // ============ STEP: Basics ============
 function renderBasicsStep(){
+  // If completed, show summary
+  if(W.done.has("basics")&&W.basics.age){
+    const b=W.basics;
+    const factors=[];
+    if(b.smoker)factors.push("Sigara ✗");if(b.diabetes)factors.push("Diyabet ✗");
+    if(b.hypertension)factors.push("HT ✗");if(b.high_chol)factors.push("Kolesterol ✗");
+    if(!b.activity)factors.push("İnaktif ✗");if(b.family_history)factors.push("Aile öyküsü ✗");
+    const okF=[];
+    if(!b.smoker)okF.push("Sigara ✓");if(b.activity)okF.push("Aktif ✓");
+    const bmiCls=b.bmi>=30?"ls-bad":b.bmi>=25?"ls-warn":"ls-ok";
+    const bmiLabel=b.bmi>=30?"Obez":b.bmi>=25?"Fazla kilo":"Normal";
+
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">👤 Temel Bilgiler</h1>
+      <div class="split">
+        <div class="form-col">
+          <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+            <div class="cs-title">Tamamlandı</div>
+            <div class="cs-detail">${b.age} yaş · ${b.sex===1?"Erkek":"Kadın"} · ${b.height} cm · ${b.weight} kg · BKİ ${b.bmi}</div>
+          </div></div>
+          <div class="panel"><h2>Sağlık geçmişi özeti</h2>
+            <div class="chip-grid">
+              ${factors.map(f=>`<span class="chip chip-risk">${f}</span>`).join("")}
+              ${okF.map(f=>`<span class="chip chip-ok">${f}</span>`).join("")}
+            </div>
+            ${b.sbp?`<p style="font-size:13px;color:var(--ink-soft);margin:12px 0 0">Sistolik KB: ${b.sbp} mmHg${b.total_chol?" · Kolesterol: "+b.total_chol+" mg/dL":""}${b.hdl?" · HDL: "+b.hdl+" mg/dL":""}</p>`:""}
+          </div>
+          <div class="actions"><button class="btn-primary" id="basics-next">Devam et →</button>
+            <button class="btn-ghost" id="basics-redo">Düzenle</button></div>
+        </div>
+        <div class="viz-col">
+          <div class="viz-card"><h4>BKİ</h4>
+            <div class="live-score"><div class="ls-val ${bmiCls}">${b.bmi}</div><div class="ls-band ${bmiCls}">${bmiLabel}</div></div>
+            ${svgGauge(Math.min(Math.max((b.bmi-15)/30*100,0),100),"BKİ",140)}</div>
+          <div class="viz-card"><h4>Risk faktörleri</h4>${riskChips(b)}</div>
+          ${Object.keys(W.labs).length?`<div class="viz-card"><h4>Tahlil değerleri</h4>${barChart(labItems())}</div>`:""}
+        </div>
+      </div>`;
+    $("#basics-next").onclick=()=>{W.step=2;render();};
+    $("#basics-redo").onclick=()=>{W.done.delete("basics");saveState();renderBasicsStep();};
+    return;
+  }
   const b=W.basics;
   const num=(k,l,u,mn,mx,st,d)=>`<div class="field"><label class="field-label"><span>${l}</span><span class="field-unit">${u||""}</span></label>
     <input type="number" id="b-${k}" value="${b[k]??d}" min="${mn}" max="${mx}" step="${st}"></div>`;
@@ -777,8 +1275,39 @@ function updateBasicsViz(){
 
 // ============ STEP: IPAQ ============
 function renderIPAQStep(){
+  // If already completed, show summary
+  if(W.done.has("ipaq")&&W.scores.ipaq){
+    const s=W.scores.ipaq;const raw=W.scores.ipaq_raw||{};
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🏃 Fiziksel Aktivite (IPAQ)</h1>
+      <div class="split">
+        <div class="form-col">
+          <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+            <div class="cs-title">Tamamlandı</div>
+            <div class="cs-detail">${s.met} MET-dk/hafta · ${s.cat} aktivite düzeyi · Oturma: ${s.sit} dk/gün</div>
+          </div></div>
+          <div class="actions"><button class="btn-primary" id="ipaq-next">Devam et →</button>
+            <button class="btn-ghost" id="ipaq-redo">Tekrar yap</button></div>
+        </div>
+        <div class="viz-col">
+          <div class="viz-card"><h4>Sonuç</h4>
+            <div class="live-score"><div class="ls-val ${s.cat==="Yüksek"?"ls-ok":s.cat==="Orta"?"ls-warn":"ls-bad"}">${s.met}</div>
+              <div class="ls-band ${s.cat==="Yüksek"?"ls-ok":s.cat==="Orta"?"ls-warn":"ls-bad"}">MET-dk/hf · ${s.cat}</div></div>
+            ${svgGauge(Math.min(s.met/3000*100,100),s.cat,140)}</div>
+          <div class="viz-card"><h4>Dağılım</h4>${barChart([
+            {label:"Şiddetli",value:Math.round(8*(raw.vigMin||0)*(raw.vigDays||0)),max:3000,unit:"MET"},
+            {label:"Orta",value:Math.round(4*(raw.modMin||0)*(raw.modDays||0)),max:3000,unit:"MET"},
+            {label:"Yürüme",value:Math.round(3.3*(raw.walkMin||0)*(raw.walkDays||0)),max:3000,unit:"MET"}
+          ])}</div>
+        </div>
+      </div>`;
+    $("#ipaq-next").onclick=()=>{W.step=3;render();};
+    $("#ipaq-redo").onclick=()=>{delete W.scores.ipaq;delete W.scores.ipaq_raw;W.done.delete("ipaq");saveState();renderIPAQStep();};
+    return;
+  }
+  const raw=W.scores.ipaq_raw||{};
   const f=(k,l,mx)=>`<div class="field"><label class="field-label"><span>${l}</span></label>
-    <input type="number" id="ip-${k}" value="0" min="0" max="${mx}" step="1" class="ipaq-in"></div>`;
+    <input type="number" id="ip-${k}" value="${raw[k]||0}" min="0" max="${mx}" step="1" class="ipaq-in"></div>`;
   $("#content").innerHTML=`
     <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🏃 Fiziksel Aktivite (IPAQ)</h1>
     <p style="color:var(--ink-soft);margin:0 0 20px">Son 7 günde tipik bir haftanızı düşünün.</p>
@@ -799,7 +1328,7 @@ function renderIPAQStep(){
   updateIPAQViz();
   const go=()=>{const g=k=>Number($("#ip-"+k)?.value)||0;
     const v={vigDays:g("vigDays"),vigMin:g("vigMin"),modDays:g("modDays"),modMin:g("modMin"),walkDays:g("walkDays"),walkMin:g("walkMin"),sitMin:g("sitMin")};
-    W.scores.ipaq=scoreIPAQ(v);
+    W.scores.ipaq=scoreIPAQ(v);W.scores.ipaq_raw=v;
     completeStep("ipaq",`${W.scores.ipaq.met} MET-dk/hafta → ${W.scores.ipaq.cat} aktivite düzeyi.`);};
   $("#save-ipaq").onclick=go;
   $("#skip-ipaq").onclick=()=>{W.step=3;render();};
@@ -824,7 +1353,65 @@ function updateIPAQViz(){
 // ============ STEP: Likert (WHO-5, PHQ-9, GAD-7, SF-12) ============
 function renderLikertStep(id){
   const inst=INST[id];
-  const answers=new Array(inst.items.length).fill(null);
+  const step=STEPS.find(s=>s.id===id);
+
+  // If already completed, show summary
+  if(W.done.has(id)&&W.scores[id]){
+    const s=W.scores[id];
+    let scoreLine,cls;
+    if(id==="who5"){scoreLine=`%${s.pct} — ${s.band}`;cls=s.pct>=50?"ls-ok":s.pct>=29?"ls-warn":"ls-bad";}
+    else if(id==="phq9"){scoreLine=`${s.score}/27 — ${s.band}`;cls=s.score<=9?"ls-ok":s.score<=14?"ls-warn":"ls-bad";}
+    else if(id==="gad7"){scoreLine=`${s.score}/21 — ${s.band}`;cls=s.score<=9?"ls-ok":s.score<=14?"ls-warn":"ls-bad";}
+    else if(id==="sf12"){scoreLine=`Fiziksel ${s.pcs} · Mental ${s.mcs}`;cls=Math.min(s.pcs,s.mcs)>=50?"ls-ok":"ls-warn";}
+    const pct=id==="who5"?s.pct:id==="sf12"?Math.round((s.pcs+s.mcs)/2):Math.round((s.score||0)/(id==="phq9"?27:21)*100);
+    const nextIdx=STEPS.findIndex(x=>x.id===id)+1;
+    const next=STEPS[nextIdx];
+
+    // Build answer bars if answers exist
+    let answerBars="";
+    const ans=W.scores[id+"_ans"];
+    if(ans){
+      answerBars=ans.map((v,i)=>{
+        if(v===null||v===undefined)return "";
+        const opts=typeof inst.items[i]==="string"?inst.items[0].options:inst.items[i].options;
+        const mx=Math.max(...opts.map(o=>o[1]));
+        const p=v/mx*100;
+        const c=id==="who5"?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad"):(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
+        return `<div class="bar-row"><span class="bar-label" style="width:24px">${i+1}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${p}%"></div></div><span class="bar-val">${v}</span></div>`;
+      }).join("");
+    }
+
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${step.icon} ${inst.name}</h1>
+      <div class="split">
+        <div class="form-col">
+          <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+            <div class="cs-title">Tamamlandı</div>
+            <div class="cs-detail">${scoreLine}</div>
+          </div></div>
+          ${s.selfHarm?`<div class="crisis"><h3>Önemli — destek mevcut</h3>
+            <p>Kendinize zarar verme düşüncesi işaretlendi. Acil tehlike varsa <b>112</b>'yi arayın.</p></div>`:""}
+          ${id==="who5"&&s.low?`<p class="note">Esenlik düşük — program PHQ-9 ve GAD-7 taramalarını önerecek.</p>`:""}
+          <div class="actions">
+            <button class="btn-primary" id="lk-next">${next&&next.id!=="results"?`${next.icon} Devam et →`:"📊 Sonuçları göster"}</button>
+            <button class="btn-ghost" id="lk-redo">Tekrar yap</button>
+          </div>
+        </div>
+        <div class="viz-col">
+          <div class="viz-card"><h4>Skor</h4>
+            <div class="live-score"><div class="ls-val ${cls}">${id==="who5"?"%"+s.pct:id==="sf12"?Math.round((s.pcs+s.mcs)/2):s.score}</div>
+              <div class="ls-band ${cls}">${id==="sf12"?scoreLine:s.band}</div></div>
+            ${svgGauge(id==="phq9"||id==="gad7"?pct:pct,"",140)}</div>
+          ${answerBars?`<div class="viz-card"><h4>Madde skorları</h4>${answerBars}</div>`:""}
+        </div>
+      </div>`;
+    $("#lk-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#lk-redo").onclick=()=>{delete W.scores[id];delete W.scores[id+"_ans"];W.done.delete(id);saveState();renderLikertStep(id);};
+    return;
+  }
+
+  const savedAns=W.scores[id+"_ans"];
+  const answers=savedAns?[...savedAns]:new Array(inst.items.length).fill(null);
   const vizInfo={who5:{max:25,pctMul:4,loTh:29,hiTh:50,unit:"/100"},phq9:{max:27,pctMul:100/27,loTh:33,hiTh:67,unit:"/27",invert:true},gad7:{max:21,pctMul:100/21,loTh:33,hiTh:67,unit:"/21",invert:true},sf12:{max:48,pctMul:1,unit:""}};
   const vi=vizInfo[id]||vizInfo.who5;
 
@@ -889,10 +1476,15 @@ function renderLikertStep(id){
   $$("#qwrap .q-options").forEach(g=>g.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     g.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");
     answers[Number(g.dataset.qi)]=Number(b.dataset.v);updateViz();}));
+  // Pre-select saved answers
+  if(savedAns){
+    $$("#qwrap .q-options").forEach((g,i)=>{if(savedAns[i]!==null&&savedAns[i]!==undefined){
+      g.querySelectorAll(".opt").forEach(b=>{if(Number(b.dataset.v)===savedAns[i])b.classList.add("sel");});}});
+  }
   updateViz();
 
   $("#finish").onclick=()=>{
-    const r=scoreLikert(id,answers);W.scores[id]=r;
+    const r=scoreLikert(id,answers);W.scores[id]=r;W.scores[id+"_ans"]=answers;
     let summary;
     if(id==="who5")summary=`Esenlik: %${r.pct} — ${r.band}.${r.low?" Düşük esenlik saptandı, depresyon ve anksiyete taramaları öneriliyor.":""}`;
     else if(id==="phq9")summary=`Depresyon: ${r.score}/27 — ${r.band}.${r.selfHarm?" ⚠️ Kendine zarar düşüncesi işaretlendi.":""}`;
@@ -905,7 +1497,7 @@ function renderLikertStep(id){
 
 // ============ RESULTS ============
 function renderResults(){
-  W.done.add("results");renderSteps();
+  W.done.add("results");renderSteps();saveState();
   const b=W.basics||{};const l=W.labs;const bmi=b.bmi;
   // Merge labs + basics for risk prediction
   const allVals={...b,...l};
@@ -1067,7 +1659,235 @@ function genRecs(b,l,bmi,sc){
   return r;
 }
 
+// ============ AI AGENT ============
+const SETTINGS_KEY="goodlife_settings_v1";
+let agentSettings={apiKey:"",model:"claude-sonnet-4-6",tts:true};
+try{const s=localStorage.getItem(SETTINGS_KEY);if(s)agentSettings={...agentSettings,...JSON.parse(s)};}catch(e){}
+
+const chatHistory=loadChat();
+const chatMsgs=$("#chat-msgs");
+let isRecording=false, recognition=null;
+
+// Build health context for AI
+function healthContext(){
+  const parts=["Kullanıcının The Good Life sağlık verileri:"];
+  const b=W.basics;
+  if(b.age)parts.push(`Demografik: ${b.age} yaş, ${b.sex===1?"erkek":"kadın"}, boy ${b.height}cm, kilo ${b.weight}kg, BKİ ${b.bmi}, bel ${b.waist}cm.`);
+  if(b.smoker!==undefined){
+    const rf=[];if(b.smoker)rf.push("sigara(+)");if(b.diabetes)rf.push("diyabet(+)");if(b.hypertension)rf.push("HT(+)");if(b.high_chol)rf.push("kolesterol(+)");if(!b.activity)rf.push("inaktif");if(b.family_history)rf.push("aile öyküsü(+)");
+    parts.push("Risk faktörleri: "+(rf.length?rf.join(", "):"belirgin yok"));
+  }
+  const l=W.labs;
+  if(Object.keys(l).length){
+    const labs=LAB_REF.filter(r=>r.key in l).map(r=>{const v=l[r.key];const s=v<r.lo?"DÜŞÜK":v>r.hi?"YÜKSEK":"normal";return `${r.name}: ${v} ${r.unit} (ref ${r.lo}-${r.hi}, ${s})`;});
+    parts.push("Tahlil sonuçları: "+labs.join("; "));
+  }
+  const sc=W.scores;
+  if(sc.who5)parts.push(`WHO-5 esenlik: %${sc.who5.pct} (${sc.who5.band})`);
+  if(sc.phq9)parts.push(`PHQ-9 depresyon: ${sc.phq9.score}/27 (${sc.phq9.band})`);
+  if(sc.gad7)parts.push(`GAD-7 anksiyete: ${sc.gad7.score}/21 (${sc.gad7.band})`);
+  if(sc.ipaq)parts.push(`IPAQ aktivite: ${sc.ipaq.met} MET-dk/hf (${sc.ipaq.cat})`);
+  if(sc.sf12)parts.push(`SF-12: fiziksel ${sc.sf12.pcs}, mental ${sc.sf12.mcs}`);
+  const allVals={...W.basics,...W.labs};
+  if(b.age){
+    const risks=MODULES.map(m=>{const vals={};m.features.forEach(f=>{vals[f.key]=allVals[f.key]??f.def;});const r=predict(m,vals);return `${m.name}: %${(r.probability*100).toFixed(1)}`;});
+    parts.push("Risk tahminleri: "+risks.join("; "));
+  }
+  return parts.join("\n");
+}
+
+function addMsg(role,text){
+  const now=new Date();const time=now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
+  chatHistory.push({role,content:text,time});
+  saveChat();
+  const div=document.createElement("div");
+  div.className="msg "+(role==="user"?"user":"bot");
+  div.innerHTML=`<div class="msg-bubble">${escHtml(text)}</div><div class="msg-time">${time}</div>`;
+  chatMsgs.appendChild(div);
+  chatMsgs.scrollTop=chatMsgs.scrollHeight;
+}
+function escHtml(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");}
+function showTyping(){
+  const div=document.createElement("div");div.className="msg bot";div.id="typing";
+  div.innerHTML=`<div class="msg-bubble"><div class="msg-typing"><span></span><span></span><span></span></div></div>`;
+  chatMsgs.appendChild(div);chatMsgs.scrollTop=chatMsgs.scrollHeight;
+}
+function hideTyping(){const t=$("#typing");if(t)t.remove();}
+
+async function callAPI(messages,sys){
+  const headers={"Content-Type":"application/json"};
+  if(agentSettings.apiKey)headers["x-api-key"]=agentSettings.apiKey;
+  if(agentSettings.apiKey)headers["anthropic-version"]="2023-06-01";
+  // dangerous-direct-browser-access needed for CORS when using API key directly
+  if(agentSettings.apiKey)headers["anthropic-dangerous-direct-browser-access"]="true";
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",headers,
+    body:JSON.stringify({model:agentSettings.model,max_tokens:1000,system:sys,messages})
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${res.status}`);}
+  return res.json();
+}
+
+async function sendToAgent(userText){
+  addMsg("user",userText);
+  if(!agentSettings.apiKey){
+    addMsg("assistant","⚙️ API anahtarı tanımlı değil. Sol menüdeki Ayarlar'dan Anthropic API anahtarınızı girin.");
+    return;
+  }
+  showTyping();
+  try{
+    const sysPrompt=`Sen "The Good Life" sağlık asistanısın. Türkçe yanıt ver. Kısa, sıcak ve bilgilendirici ol.
+Kullanıcının sağlık verilerine erişimin var. Bu verilere dayanarak sorularını yanıtla, öneriler sun.
+ÖNEMLİ: Tıbbi tanı koyma, "doktorunuza danışın" hatırlatması yap. Reçete yazma. Acil durumlarda 112'yi öner.
+Yanıtlarını kısa tut (3-5 cümle), samimi ol.
+
+${healthContext()}`;
+    const messages=chatHistory.filter(m=>m.role==="user"||m.role==="assistant").slice(-10).map(m=>({role:m.role,content:m.content}));
+    const data=await callAPI(messages,sysPrompt);
+    hideTyping();
+    const reply=data.content?.map(c=>c.text||"").join("")||"Yanıt alınamadı.";
+    addMsg("assistant",reply);
+    if(agentSettings.tts)speak(reply);
+  }catch(e){
+    hideTyping();
+    addMsg("assistant",`Hata: ${e.message}\n\n⚙️ API anahtarınızı kontrol edin veya Ayarlar'dan yeniden girin.`);
+  }
+}
+
+// Speech recognition
+function initSpeech(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return null;
+  const r=new SR();r.lang="tr-TR";r.continuous=false;r.interimResults=false;
+  r.onresult=e=>{const t=e.results[0][0].transcript;$("#chat-in").value=t;$("#send-btn").disabled=!t.trim();};
+  r.onend=()=>{isRecording=false;$("#mic-btn").className="mic-btn idle";};
+  r.onerror=()=>{isRecording=false;$("#mic-btn").className="mic-btn idle";};
+  return r;
+}
+function toggleMic(){
+  if(!recognition)recognition=initSpeech();
+  if(!recognition){addMsg("assistant","Tarayıcınız sesli girişi desteklemiyor. 🎤");return;}
+  if(isRecording){recognition.stop();isRecording=false;$("#mic-btn").className="mic-btn idle";}
+  else{recognition.start();isRecording=true;$("#mic-btn").className="mic-btn recording";}
+}
+
+// TTS
+function speak(text){
+  if(!window.speechSynthesis||!agentSettings.tts)return;
+  const clean=text.replace(/[🌿💡⚠️✅🔴📊🥗🏃🌙🧘🩺❤️🔄🎤😊👋⚙️]/g,"").replace(/<[^>]*>/g,"").substring(0,300);
+  const u=new SpeechSynthesisUtterance(clean);
+  u.lang="tr-TR";u.rate=1.05;u.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const trVoice=voices.find(v=>v.lang.startsWith("tr"));
+  if(trVoice)u.voice=trVoice;
+  speechSynthesis.speak(u);
+}
+
+// Settings panel
+function initSettings(){
+  const overlay=$("#settings-overlay");
+  $("#open-settings").onclick=()=>{
+    overlay.classList.add("open");
+    $("#api-key-input").value=agentSettings.apiKey||"";
+    $("#model-select").value=agentSettings.model;
+    const ttsBtns=$$("#tts-toggle button");
+    ttsBtns.forEach(b=>b.classList.toggle("on",Number(b.dataset.v)===(agentSettings.tts?1:0)));
+    // Data summary
+    const parts=[];
+    if(W.done.size)parts.push(`${W.done.size} adım tamamlandı`);
+    if(Object.keys(W.labs).length)parts.push(`${Object.keys(W.labs).length} tahlil değeri`);
+    if(W.basics.age)parts.push(`profil: ${W.basics.age} yaş`);
+    if(chatHistory.length)parts.push(`${chatHistory.length} sohbet mesajı`);
+    $("#data-summary").textContent=parts.length?parts.join(" · "):"Henüz kayıtlı veri yok.";
+  };
+  $("#close-settings").onclick=()=>overlay.classList.remove("open");
+  overlay.onclick=e=>{if(e.target===overlay)overlay.classList.remove("open");};
+
+  $$("#tts-toggle button").forEach(b=>b.onclick=()=>{
+    $$("#tts-toggle button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  });
+
+  $("#save-settings").onclick=()=>{
+    agentSettings.apiKey=$("#api-key-input").value.trim();
+    agentSettings.model=$("#model-select").value;
+    const ttsOn=$('#tts-toggle button.on');
+    agentSettings.tts=ttsOn?Number(ttsOn.dataset.v)===1:true;
+    try{localStorage.setItem(SETTINGS_KEY,JSON.stringify(agentSettings));}catch(e){}
+    $("#settings-status").textContent="✅ Kaydedildi";
+    $("#settings-status").style.color="var(--accent)";
+    setTimeout(()=>{$("#settings-status").textContent="";},2000);
+  };
+
+  $("#clear-chat-btn").onclick=()=>{
+    if(!confirm("Sohbet geçmişi silinecek. Emin misiniz?"))return;
+    chatHistory.length=0;saveChat();chatMsgs.innerHTML="";
+    $("#data-summary").textContent="Sohbet geçmişi silindi.";
+  };
+  $("#clear-all-btn").onclick=()=>{
+    if(!confirm("TÜM veriler (tahliller, formlar, anketler, sohbet) silinecek ve uygulama sıfırlanacak. Emin misiniz?"))return;
+    clearAllData();
+  };
+
+  $("#test-api").onclick=async()=>{
+    const box=$("#api-test-result");
+    const key=$("#api-key-input").value.trim();
+    if(!key){box.innerHTML=`<p style="color:var(--risk-high);font-size:12px;margin:4px 0">API anahtarı girilmedi.</p>`;return;}
+    box.innerHTML=`<p style="color:var(--muted);font-size:12px;margin:4px 0">Test ediliyor…</p>`;
+    try{
+      const tmpSettings={...agentSettings,apiKey:key,model:$("#model-select").value};
+      const headers={"Content-Type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"};
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",headers,
+        body:JSON.stringify({model:tmpSettings.model,max_tokens:50,messages:[{role:"user",content:"Merhaba, test mesajı. Tek kelime yanıt: tamam"}]})
+      });
+      if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${res.status}`);}
+      const data=await res.json();
+      const reply=data.content?.[0]?.text||"";
+      box.innerHTML=`<p style="color:var(--accent);font-size:12px;margin:4px 0">✅ Bağlantı başarılı! Model: ${data.model}. Yanıt: "${reply.substring(0,40)}"</p>`;
+    }catch(e){
+      box.innerHTML=`<p style="color:var(--risk-high);font-size:12px;margin:4px 0">❌ Hata: ${e.message}</p>`;
+    }
+  };
+}
+
+// Init chat
+function initChat(){
+  // Restore chat messages from history
+  if(chatHistory.length){
+    chatHistory.forEach(m=>{
+      const div=document.createElement("div");
+      div.className="msg "+(m.role==="user"?"user":"bot");
+      div.innerHTML=`<div class="msg-bubble">${escHtml(m.content)}</div><div class="msg-time">${m.time||""}</div>`;
+      chatMsgs.appendChild(div);
+    });
+  }
+  $("#open-chat").onclick=()=>{
+    $("#chat-overlay").classList.add("open");
+    if(!chatHistory.length){
+      const hasKey=!!agentSettings.apiKey;
+      const hasData=W.done.has("basics");
+      let greeting;
+      if(!hasKey)greeting="Merhaba! 👋 Sağlık asistanınızım. Başlamak için sol menüdeki ⚙️ Ayarlar'dan API anahtarınızı tanımlayın.";
+      else if(hasData)greeting="Merhaba! 👋 Sağlık verilerinizi inceledim. Tahlilleriniz, risk skorlarınız veya öneriler hakkında sorularınızı yanıtlayabilirim.";
+      else greeting="Merhaba! 👋 Ben sağlık asistanınızım. Değerlendirme adımlarını tamamladıkça kişisel öneriler sunabilirim.";
+      addMsg("assistant",greeting);
+    }
+    chatMsgs.scrollTop=chatMsgs.scrollHeight;
+    setTimeout(()=>$("#chat-in").focus(),200);
+  };
+  $("#close-chat").onclick=()=>$("#chat-overlay").classList.remove("open");
+  $("#chat-overlay").onclick=e=>{if(e.target===$("#chat-overlay"))$("#chat-overlay").classList.remove("open");};
+  const inp=$("#chat-in"),sendBtn=$("#send-btn");
+  inp.oninput=()=>{sendBtn.disabled=!inp.value.trim();};
+  inp.onkeydown=e=>{if(e.key==="Enter"&&inp.value.trim()){sendToAgent(inp.value.trim());inp.value="";sendBtn.disabled=true;}};
+  sendBtn.onclick=()=>{if(inp.value.trim()){sendToAgent(inp.value.trim());inp.value="";sendBtn.disabled=true;}};
+  $("#mic-btn").onclick=toggleMic;
+  if(window.speechSynthesis)speechSynthesis.getVoices();
+}
+
 // ============ INIT ============
+initSettings();
+initChat();
 render();
 </script>
 </body>
