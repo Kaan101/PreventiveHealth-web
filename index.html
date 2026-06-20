@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Good Life — Kişisel Sağlıklı Yaşam Modeli</title>
-<link rel="stylesheet" href="script_host.js">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
@@ -41,6 +40,39 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .step-item.done .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
 .sidebar-foot{margin-top:auto;padding-top:12px;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+
+/* Profile system */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);padding:20px}
+.login-box{width:100%;max-width:520px}
+.login-logo{text-align:center;margin-bottom:28px}
+.login-logo .ll-icon{width:56px;height:56px;border-radius:16px;background:var(--accent);color:#fff;display:inline-grid;place-items:center;margin-bottom:10px}
+.login-logo h1{font-size:28px;font-weight:700;margin:0}
+.login-logo h1 span{color:var(--accent)}
+.login-logo p{color:var(--muted);font-size:14px;margin:6px 0 0}
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.profile-card{border:1px solid var(--line);border-radius:14px;padding:18px 14px;background:var(--card);text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.profile-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.profile-card .pc-avatar{font-size:36px;margin-bottom:6px;display:block}
+.profile-card .pc-name{font-size:15px;font-weight:700}
+.profile-card .pc-role{font-size:11px;color:var(--muted);margin-top:2px}
+.profile-card .pc-del{position:absolute;top:6px;right:8px;border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:12px;padding:4px;border-radius:6px;opacity:0;transition:opacity .15s}
+.profile-card:hover .pc-del{opacity:1}
+.profile-card .pc-del:hover{color:var(--risk-high);background:var(--line-soft)}
+.add-profile{border:2px dashed var(--line);border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;transition:all .15s;color:var(--muted)}
+.add-profile:hover{border-color:var(--accent);color:var(--accent)}
+.add-profile .ap-icon{font-size:28px;margin-bottom:4px;display:block}
+.add-profile .ap-text{font-size:13px;font-weight:600}
+.new-profile-form{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card);margin-bottom:16px}
+.new-profile-form h3{margin:0 0 14px;font-size:15px;font-weight:700}
+.avatar-pick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.avatar-pick button{width:40px;height:40px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-size:20px;cursor:pointer;transition:all .12s}
+.avatar-pick button.sel{border-color:var(--accent);background:var(--accent-wash)}
+.avatar-pick button:hover{border-color:var(--accent)}
+.profile-switcher{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:8px;cursor:pointer;transition:all .12s}
+.profile-switcher:hover{border-color:var(--accent);background:var(--accent-wash)}
+.profile-switcher .ps-avatar{font-size:20px}
+.profile-switcher .ps-name{font-size:13px;font-weight:600;flex:1}
+.profile-switcher .ps-switch{font-size:10px;color:var(--accent);font-weight:600}
 .agent-btn{display:flex;align-items:center;gap:9px;width:100%;padding:11px 13px;border:1.5px solid var(--accent);border-radius:11px;background:var(--accent-wash);color:var(--accent-deep);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
 .agent-btn:hover{background:var(--accent);color:#fff}
 .agent-btn svg{flex-shrink:0}
@@ -208,17 +240,20 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .ls-ok{color:var(--accent)}.ls-warn{color:var(--risk-mod)}.ls-bad{color:var(--risk-high)}
 
 /* Lab detail cards - grid */
-.lab-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:20px}
+.lab-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px}
 .lab-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);transition:border-color .15s}
 .lab-card.lc-bad{border-color:#f0c4bc;background:#fffaf9}
-.lab-card .lc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.lab-card .lc-name{font-size:12px;font-weight:600;color:var(--ink-soft)}
-.lab-card .lc-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
-.lab-card .lc-val{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1.1}
+.lab-card .lc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.lab-card .lc-name{font-size:15px;font-weight:700;color:var(--ink)}
+.lab-card .lc-badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px}
+.lab-card .lc-val{font-family:var(--mono);font-size:16px;font-weight:600;line-height:1.2;display:inline}
+.lab-card .lc-unit{font-size:11px;font-weight:400;color:var(--muted);margin-left:3px}
 .lab-card .lc-ref{font-size:11px;color:var(--muted);margin-top:2px}
 .lab-card .lc-bar{height:6px;background:var(--line-soft);border-radius:3px;overflow:hidden;margin-top:8px;position:relative}
 .lab-card .lc-fill{height:100%;border-radius:3px}
 .lab-card .lc-desc{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+.lab-card .lc-rec{font-size:11.5px;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px solid var(--line-soft);line-height:1.5}
+.lab-card .lc-rec b{color:var(--accent-deep)}
 .lc-ok .lc-val{color:var(--accent)}.lc-bad .lc-val{color:var(--risk-high)}
 .lc-section-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--risk-high);margin:0 0 10px;grid-column:1/-1}
 .lc-section-ok{color:var(--accent)}
@@ -283,7 +318,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 /* PDF full data table */
 .pdf-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
 .pdf-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);padding:7px 8px;background:var(--line-soft);border-bottom:1px solid var(--line)}
-.pdf-table td{padding:7px 8px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.pdf-table td{padding:9px 10px;border-bottom:1.5px solid var(--line);vertical-align:middle}
 .pdf-table tr:hover{background:var(--line-soft)}
 .pdf-table tr.row-matched{background:var(--accent-wash)}
 .pdf-table tr.row-abnormal{background:#fff5f4}
@@ -341,9 +376,10 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .pdf-table-wrap{max-height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:12px}
 .pdf-table{width:100%;border-collapse:collapse;font-size:12.5px}
 .pdf-table th{position:sticky;top:0;background:var(--accent);color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:11px;letter-spacing:.3px;text-transform:uppercase}
-.pdf-table td{padding:7px 10px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.pdf-table td{padding:9px 10px;border-bottom:1.5px solid var(--line);vertical-align:middle}
 .pdf-table tr:hover{background:var(--accent-wash)}
 .pdf-table tr.row-bad{background:#fffaf9}
+.pdf-table tr.row-bad td{border-bottom-color:#f0c4bc}
 .pdf-table tr.row-bad:hover{background:#fff0ed}
 .pdf-table tr.row-skip{opacity:.55}
 .pdf-table .tv{font-family:var(--mono);font-weight:600}
@@ -353,11 +389,28 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 </style>
 </head>
 <body>
-<div class="layout">
+<!-- Login / Profile Selection -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="ll-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21C12 21 4 15 4 9a4 4 0 018-1 4 4 0 018 1c0 6-8 12-8 12z"/></svg></div>
+      <h1>THE GOOD <span>LIFE</span></h1>
+      <p>Kişisel Sağlıklı Yaşam Modeli</p>
+    </div>
+    <div id="login-content"></div>
+  </div>
+</div>
+
+<div class="layout" id="app-layout" style="display:none">
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 4 15 4 9a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 12-8 12z"/></svg></div>
       <div class="brand-text"><span class="brand-name">THE GOOD <span class="brand-ml">LIFE</span></span><br><span class="brand-sub">Kişisel Sağlıklı Yaşam Modeli</span></div>
+    </div>
+    <div class="profile-switcher" id="profile-switcher" title="Profil değiştir">
+      <span class="ps-avatar" id="ps-avatar">👤</span>
+      <span class="ps-name" id="ps-name">Profil</span>
+      <span class="ps-switch">Değiştir ▾</span>
     </div>
     <div class="steps" id="steps"></div>
     <div class="sidebar-foot">
@@ -670,49 +723,75 @@ function riskChips(basics){
   return `<div class="chip-grid">${chips.map(c=>`<span class="chip ${c.c}">${c.t}</span>`).join("")}</div>`;
 }
 
-// ============ WIZARD STATE + PERSISTENCE ============
-const STATE_KEY="goodlife_state_v2";
-const CHAT_KEY="goodlife_chat_v1";
-function loadState(){
-  try{
-    const r=localStorage.getItem(STATE_KEY);if(!r)return null;
-    const s=JSON.parse(r);
-    s.done=new Set(s.done||[]);
-    // Defaults for fields that might not exist in old saved states
-    if(!s.labHistory)s.labHistory=[];
-    if(s.selectedLabIdx===undefined)s.selectedLabIdx=0;
-    if(!s.labs)s.labs={};
-    if(!s.labRows)s.labRows=[];
-    if(!s.pdfRows)s.pdfRows=[];
-    if(!s.basics)s.basics={};
-    if(!s.scores)s.scores={};
-    // Migrate: if old state had labs but no labHistory, create initial entry
-    if(Object.keys(s.labs).length>0&&!s.labHistory.length){
-      s.labHistory=[{id:Date.now(),date:new Date().toLocaleDateString("tr-TR"),labs:{...s.labs},labRows:s.labRows||[],fileName:"tahlil.pdf"}];
-      s.selectedLabIdx=0;
-    }
-    return s;
-  }catch(e){return null;}
-}
-function saveState(){
-  try{localStorage.setItem(STATE_KEY,JSON.stringify({step:W.step,labs:W.labs,labRows:W.labRows,pdfRows:W.pdfRows,labHistory:W.labHistory,selectedLabIdx:W.selectedLabIdx,basics:W.basics,scores:W.scores,done:[...W.done]}));}catch(e){}
-}
-function loadChat(){try{const r=localStorage.getItem(CHAT_KEY);return r?JSON.parse(r):[];}catch(e){return [];}}
-function saveChat(){try{localStorage.setItem(CHAT_KEY,JSON.stringify(chatHistory.slice(-50)));}catch(e){}}
-function clearAllData(){try{localStorage.removeItem(STATE_KEY);localStorage.removeItem(CHAT_KEY);}catch(e){}location.reload();}
+// ============ PROFILE SYSTEM ============
+const PROFILES_KEY="goodlife_profiles";const ACTIVE_KEY="goodlife_active";
+const AVATARS=["👤","👩","👨","👧","👦","👶","🧓","👵","👴"];
+const ROLES=["Ben","Eş","Çocuk","Anne","Baba","Diğer"];
+let activeProfileId=null;
+function getProfiles(){try{return JSON.parse(localStorage.getItem(PROFILES_KEY))||[];}catch(e){return [];}}
+function saveProfiles(p){try{localStorage.setItem(PROFILES_KEY,JSON.stringify(p));}catch(e){}}
+function stateKey(){return "goodlife_s_"+(activeProfileId||"default");}
+function chatKey(){return "goodlife_c_"+(activeProfileId||"default");}
 
-const _saved=loadState();
-const W=_saved||{
-  step:0,
-  labs:{},
-  labRows:[],
-  pdfRows:[],
-  labHistory:[],   // [{id,date,labs,labRows,fileName}]
-  selectedLabIdx:0,
-  basics:{},
-  scores:{},
-  done:new Set()
-};
+// ============ STATE + PERSISTENCE (profile-scoped) ============
+function loadState(){
+  try{const r=localStorage.getItem(stateKey());if(!r)return null;const s=JSON.parse(r);
+    s.done=new Set(s.done||[]);if(!s.labHistory)s.labHistory=[];
+    if(s.selectedLabIdx===undefined)s.selectedLabIdx=0;
+    if(!s.labs)s.labs={};if(!s.labRows)s.labRows=[];if(!s.pdfRows)s.pdfRows=[];
+    if(!s.basics)s.basics={};if(!s.scores)s.scores={};
+    if(Object.keys(s.labs).length>0&&!s.labHistory.length)
+      s.labHistory=[{id:Date.now(),date:new Date().toLocaleDateString("tr-TR"),labs:{...s.labs},labRows:s.labRows||[],fileName:"tahlil.pdf"}];
+    return s;}catch(e){return null;}
+}
+function saveState(){if(!activeProfileId)return;
+  try{localStorage.setItem(stateKey(),JSON.stringify({step:W.step,labs:W.labs,labRows:W.labRows,pdfRows:W.pdfRows,labHistory:W.labHistory,selectedLabIdx:W.selectedLabIdx,basics:W.basics,scores:W.scores,done:[...W.done]}));}catch(e){}
+}
+function loadChat(){try{const r=localStorage.getItem(chatKey());return r?JSON.parse(r):[];}catch(e){return [];}}
+function saveChat(){if(!activeProfileId)return;try{localStorage.setItem(chatKey(),JSON.stringify(chatHistory.slice(-50)));}catch(e){}}
+function clearAllData(){try{localStorage.removeItem(stateKey());localStorage.removeItem(chatKey());}catch(e){}location.reload();}
+
+let W={step:0,labs:{},labRows:[],pdfRows:[],labHistory:[],selectedLabIdx:0,basics:{},scores:{},done:new Set()};
+
+// ============ LOGIN SCREEN ============
+function showLogin(){$("#login-screen").style.display="flex";$("#app-layout").style.display="none";renderLogin();}
+function renderLogin(){
+  const profiles=getProfiles();const el=$("#login-content");
+  if(!profiles.length){el.innerHTML=`<div class="new-profile-form"><h3>Profilinizi oluşturun</h3>${npFormHTML()}</div>`;wireNpForm(el);return;}
+  el.innerHTML=`<p style="text-align:center;color:var(--ink-soft);margin:0 0 18px">Profil seçin veya yeni oluşturun</p>
+    <div class="profile-grid">
+      ${profiles.map(p=>`<div class="profile-card" data-pid="${p.id}"><button class="pc-del" data-dp="${p.id}" title="Sil">✕</button>
+        <span class="pc-avatar">${p.avatar}</span><div class="pc-name">${p.name}</div><div class="pc-role">${p.role}</div></div>`).join("")}
+      <div class="add-profile" id="add-p"><span class="ap-icon">+</span><span class="ap-text">Yeni profil</span></div>
+    </div><div id="np-area"></div>`;
+  $$(".profile-card").forEach(c=>c.onclick=e=>{if(e.target.classList.contains("pc-del"))return;enterProfile(c.dataset.pid);});
+  $$(".pc-del").forEach(b=>b.onclick=e=>{e.stopPropagation();const pid=b.dataset.dp;const p=profiles.find(x=>x.id===pid);
+    if(!confirm(p?.name+" profilini silmek istediğinize emin misiniz?"))return;
+    saveProfiles(profiles.filter(x=>x.id!==pid));try{localStorage.removeItem("goodlife_s_"+pid);localStorage.removeItem("goodlife_c_"+pid);}catch(e){}renderLogin();});
+  $("#add-p").onclick=()=>{$("#np-area").innerHTML=`<div class="new-profile-form"><h3>Yeni profil</h3>${npFormHTML()}</div>`;wireNpForm($("#np-area"));};
+}
+function npFormHTML(){return `<div class="field"><label class="field-label"><span>İsim</span></label><input type="text" id="np-name" placeholder="Adınız" maxlength="20"></div>
+  <div class="field"><label class="field-label"><span>Rol</span></label><select id="np-role">${ROLES.map(r=>`<option>${r}</option>`).join("")}</select></div>
+  <div class="field"><label class="field-label"><span>Avatar</span></label><div class="avatar-pick" id="np-av">${AVATARS.map((a,i)=>`<button type="button" data-av="${a}" class="${i===0?"sel":""}">${a}</button>`).join("")}</div></div>
+  <button class="btn-primary" id="np-go" style="width:100%;margin-top:8px">Oluştur ve giriş yap</button>`;}
+function wireNpForm(c){$$("#np-av button",c).forEach(b=>b.onclick=()=>{$$("#np-av button",c).forEach(x=>x.classList.remove("sel"));b.classList.add("sel");});
+  $("#np-go",c).onclick=()=>{const name=($("#np-name",c)?.value||"").trim();if(!name){alert("İsim girin.");return;}
+    const role=$("#np-role",c)?.value||"Ben";const avatar=$("#np-av .sel",c)?.dataset?.av||"👤";
+    const id="p_"+Date.now();const ps=getProfiles();ps.push({id,name,avatar,role,createdAt:Date.now()});saveProfiles(ps);enterProfile(id);};}
+function enterProfile(pid){
+  activeProfileId=pid;try{localStorage.setItem(ACTIVE_KEY,pid);}catch(e){}
+  const saved=loadState();
+  Object.assign(W,{step:0,labs:{},labRows:[],pdfRows:[],labHistory:[],selectedLabIdx:0,basics:{},scores:{},done:new Set()});
+  if(saved)Object.assign(W,saved);
+  if(!(W.done instanceof Set))W.done=new Set(W.done||[]);
+  chatHistory.length=0;loadChat().forEach(m=>chatHistory.push(m));
+  const p=getProfiles().find(x=>x.id===pid);
+  $("#login-screen").style.display="none";$("#app-layout").style.display="flex";
+  $("#ps-avatar").textContent=p?.avatar||"👤";$("#ps-name").textContent=p?.name||"Profil";
+  const cm=$("#chat-msgs");if(cm){cm.innerHTML="";chatHistory.forEach(m=>{const d=document.createElement("div");d.className="msg "+(m.role==="user"?"user":"bot");
+    d.innerHTML=`<div class="msg-bubble">${escHtml(m.content)}</div><div class="msg-time">${m.time||""}</div>`;cm.appendChild(d);});}
+  render();
+}
 const STEPS=[
   {id:"labs",   label:"Tahlil Yükleme",    icon:"📄", desc:"e-Nabız PDF"},
   {id:"basics", label:"Temel Bilgiler",     icon:"👤", desc:"yaş, boy, kilo, hastalıklar"},
@@ -930,7 +1009,7 @@ function updateLabCards(){
     const fillPct=Math.min(v/r.max*100,100);
     const fillColor=inRange?"var(--accent)":"var(--risk-high)";
     const refLoPct=r.lo/r.max*100,refHiPct=Math.min(r.hi/r.max*100,95);
-    return {name:r.name,v,unit:r.unit,lo:r.lo,hi:r.hi,status,badgeCls,fillPct,fillColor,refLoPct,refHiPct,desc:r.desc,inRange,cardCls:inRange?"lc-ok":"lc-bad"};
+    return {key:r.key,name:r.name,v,unit:r.unit,lo:r.lo,hi:r.hi,status,badgeCls,fillPct,fillColor,refLoPct,refHiPct,desc:r.desc,inRange,cardCls:inRange?"lc-ok":"lc-bad"};
   });
   // Sort: abnormal first
   items.sort((a,b)=>a.inRange-b.inRange);
@@ -951,15 +1030,28 @@ function updateLabCards(){
   el.innerHTML=html;
 }
 function labCard(i){
+  const RECS={
+    fasting_glucose:{hi:"Rafine şeker azaltın, tam tahıl tercih edin. HbA1c testi önerilir.",lo:"Düzenli öğün alın, hipoglisemi takibi yapın.",ok:"Kan şekeriniz normal. Dengeli beslenmeye devam edin."},
+    total_chol:{hi:"Doymuş yağ azaltın, omega-3 artırın. Lipid paneli kontrolü.",lo:"Beslenme değerlendirmesi önerilir.",ok:"Kolesterol normal. Akdeniz tipi beslenmeye devam."},
+    hdl:{lo:"Aerobik egzersiz artırın, zeytinyağı ve balık tüketin.",hi:"İyi düzeyde, koruyun.",ok:"HDL iyi seviyede. Egzersiz ve sağlıklı yağlara devam."},
+    creatinine:{hi:"Bol su için, tuz azaltın, ağrı kesici sınırlayın. Nefroloji kontrolü.",lo:"Kas kütlesi değerlendirmesi önerilir.",ok:"Böbrek fonksiyonu normal. Yeterli su tüketimine devam."},
+    egfr:{lo:"Böbrek koruyucu diyet, nefroloji konsültasyonu alın.",hi:"",ok:"Böbrek fonksiyonu iyi. Bol su içmeye devam edin."},
+    hemoglobin:{lo:"Demir zengini gıdalar (et, ıspanak, pekmez) + C vitamini alın.",hi:"Hematoloji kontrolü önerilir.",ok:"Hemoglobin normal. Demir açısından dengeli beslenin."},
+    albumin:{lo:"Protein alımını artırın (yumurta, süt, balık). Karaciğer kontrolü.",hi:"",ok:"Beslenme durumunuz iyi görünüyor."}
+  };
+  const key=i.key||"";const rec=RECS[key]||{};
+  let recText="";
+  if(!i.inRange){recText=i.status==="Yüksek"?(rec.hi||"Doktorunuza danışın."):(rec.lo||"Doktorunuza danışın.");}
+  else{recText=rec.ok||"Değer normal aralıkta.";}
+
   return `<div class="lab-card ${i.cardCls}">
     <div class="lc-head"><span class="lc-name">${i.name}</span><span class="lc-badge ${i.badgeCls}">${i.status}</span></div>
-    <div class="lc-val">${i.v}<small style="font-size:11px;font-weight:400;margin-left:4px">${i.unit}</small></div>
-    <div class="lc-ref">Ref: ${i.lo} – ${i.hi}</div>
+    <div style="margin:4px 0"><span class="lc-val">${i.v}</span><span class="lc-unit">${i.unit}</span> <span class="lc-ref" style="display:inline;margin:0">· ref: ${i.lo}–${i.hi}</span></div>
     <div class="lc-bar">
       <div class="lc-fill" style="width:${i.fillPct}%;background:${i.fillColor}"></div>
       <div style="position:absolute;left:${i.refLoPct}%;width:${i.refHiPct-i.refLoPct}%;top:0;height:100%;background:rgba(0,166,81,.15);border-radius:3px"></div>
     </div>
-    <div class="lc-desc">${i.desc}</div>
+    <div class="lc-rec">${i.inRange?"✅":"💡"} ${recText}</div>
   </div>`;
 }
 async function handleLabPdf(file){
@@ -1889,7 +1981,17 @@ function initChat(){
 // ============ INIT ============
 initSettings();
 initChat();
-render();
+// Profile switcher
+$("#profile-switcher").onclick=()=>showLogin();
+// Check for active profile
+const lastActive=localStorage.getItem(ACTIVE_KEY);
+if(lastActive&&getProfiles().find(p=>p.id===lastActive)){
+  enterProfile(lastActive);
+}else if(getProfiles().length){
+  showLogin();
+}else{
+  showLogin();
+}
 </script>
 </body>
 </html>
