@@ -34,10 +34,17 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .step-item:hover{background:var(--line-soft)}
 .step-item.active{background:var(--accent-wash);color:var(--accent-deep);font-weight:600}
 .step-item.done{color:var(--accent)}
-.step-item.locked{opacity:.5;cursor:default}
+.step-item:hover{background:var(--line-soft);border-radius:9px}
 .step-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .15s}
 .step-item.active .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
 .step-item.done .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
+.step-group{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);padding:14px 11px 4px;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:color .12s}
+.step-group:hover{color:var(--accent)}
+.step-group:first-child{padding-top:0;margin-top:0}
+.step-group .sg-arrow{font-size:8px;transition:transform .2s}
+.step-group.collapsed .sg-arrow{transform:rotate(-90deg)}
+.step-group-items{overflow:hidden;transition:max-height .25s ease}
+.step-group-items.collapsed{max-height:0!important}
 .sidebar-foot{margin-top:auto;padding-top:12px;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
 
@@ -315,25 +322,9 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .lab-row .lr-bar{width:100%;height:8px;background:var(--line-soft);border-radius:4px;overflow:hidden;position:relative;margin-top:4px}
 .lab-row .lr-fill{height:100%;border-radius:4px}
 
-/* PDF full data table */
-.pdf-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
-.pdf-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);padding:7px 8px;background:var(--line-soft);border-bottom:1px solid var(--line)}
-.pdf-table td{padding:9px 10px;border-bottom:1.5px solid var(--line);vertical-align:middle}
-.pdf-table tr:hover{background:var(--line-soft)}
-.pdf-table tr.row-matched{background:var(--accent-wash)}
-.pdf-table tr.row-abnormal{background:#fff5f4}
-.pdf-table .tv{font-family:var(--mono);font-weight:600}
-.pdf-table .tv-ok{color:var(--accent)}.pdf-table .tv-bad{color:var(--risk-high)}
-.pdf-table .tag{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap}
+/* PDF table tags */
 .tag-use{background:var(--accent-wash);color:var(--accent-deep)}
 .tag-hi{background:#fdecea;color:#c75444}.tag-lo{background:#fef3cd;color:#856404}.tag-ok{background:#e2f5eb;color:#007a3d}
-.pdf-table tr.row-bad{background:#fff5f4}
-.pdf-table tr.row-skip{opacity:.55}
-.pdf-table .tv-skip{color:var(--muted)}
-.st-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;white-space:nowrap;display:inline-block;margin:1px 2px}
-.st-ok{background:#e2f5eb;color:#007a3d}.st-hi{background:#fdecea;color:#c75444}.st-lo{background:#fef3cd;color:#856404}
-.st-used{background:var(--accent-wash);color:var(--accent-deep)}.st-na{background:var(--line-soft);color:var(--muted)}
-.pdf-table-wrap{max-height:420px;overflow-y:auto;border:1px solid var(--line);border-radius:9px}
 
 /* Lab history list */
 .lab-hist{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
@@ -372,20 +363,51 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .finding .f-rec{font-size:12px;color:var(--accent-deep);font-weight:500;margin-top:6px;padding:6px 10px;background:var(--accent-wash);border-radius:7px}
 .finding.f-warn{border-color:#f0c4bc}.finding.f-ok{border-color:#b8dfc7}
 
-/* Full PDF table */
-.pdf-table-wrap{max-height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:12px}
-.pdf-table{width:100%;border-collapse:collapse;font-size:12.5px}
-.pdf-table th{position:sticky;top:0;background:var(--accent);color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:11px;letter-spacing:.3px;text-transform:uppercase}
-.pdf-table td{padding:9px 10px;border-bottom:1.5px solid var(--line);vertical-align:middle}
-.pdf-table tr:hover{background:var(--accent-wash)}
-.pdf-table tr.row-bad{background:#fffaf9}
+/* Full PDF table — e-Nabız style */
+.pdf-table-wrap{max-height:520px;overflow-y:auto;border:1.5px solid #a8d5ba;border-radius:10px;margin-top:12px}
+.pdf-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.pdf-table th{position:sticky;top:0;z-index:1;background:#00a651;color:#fff;font-weight:700;text-align:left;padding:11px 14px;font-size:11.5px;letter-spacing:.4px;text-transform:uppercase;border:none}
+.pdf-table td{padding:11px 14px;border-bottom:1px solid #c8e4d2;vertical-align:middle}
+.pdf-table tbody tr:nth-child(odd){background:#ffffff}
+.pdf-table tbody tr:nth-child(even){background:#eef7f1}
+.pdf-table tbody tr:hover{background:#daf0e2}
+.pdf-table tr.row-bad{background:#fff2ef!important}
+.pdf-table tr.row-bad:nth-child(even){background:#ffe9e5!important}
+.pdf-table tr.row-bad:hover{background:#fdddd8!important}
 .pdf-table tr.row-bad td{border-bottom-color:#f0c4bc}
-.pdf-table tr.row-bad:hover{background:#fff0ed}
-.pdf-table tr.row-skip{opacity:.55}
-.pdf-table .tv{font-family:var(--mono);font-weight:600}
-.pdf-table .tv-ok{color:var(--accent)}.pdf-table .tv-bad{color:var(--risk-high)}.pdf-table .tv-skip{color:var(--muted)}
-.pdf-table .st-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.pdf-table tr.row-matched{background:#e8f5ec!important}
+.pdf-table tr.row-matched:nth-child(even){background:#ddeee2!important}
+.pdf-table tr.row-skip{opacity:.5}
+.pdf-table .tv{font-family:var(--mono);font-weight:700;font-size:14px}
+.pdf-table .tv-ok{color:#00864a}.pdf-table .tv-bad{color:#c75444}.pdf-table .tv-skip{color:var(--muted)}
+.pdf-table .st-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;display:inline-block;margin:1px 2px}
 .st-ok{background:#e2f5eb;color:#007a3d}.st-hi{background:#fdecea;color:#c75444}.st-lo{background:#fef3cd;color:#856404}.st-na{background:var(--line-soft);color:var(--muted)}.st-used{background:#e8f0fe;color:#3b6cb5}
+
+/* Photo analysis */
+.photo-zone{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+.photo-upload{flex:1;min-width:240px;border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;cursor:pointer;transition:all .15s;background:var(--card)}
+.photo-upload:hover{border-color:var(--accent)}
+.photo-upload.has-img{border-style:solid;border-color:var(--accent);padding:8px}
+.photo-upload img{max-width:100%;max-height:240px;border-radius:10px;display:block;margin:0 auto}
+.photo-btns{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.photo-btns button{font:inherit;font-size:12.5px;padding:9px 18px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .12s}
+.photo-btns button:hover{border-color:var(--accent);color:var(--accent)}
+.ref-chart{flex:1;min-width:260px}
+.ref-chart h4{font-size:13px;font-weight:700;margin:0 0 10px}
+.color-strip{display:flex;border-radius:10px;overflow:hidden;margin-bottom:14px}
+.color-strip .cs-cell{flex:1;text-align:center;padding:12px 4px;font-size:9px;font-weight:700;color:#fff;min-height:56px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.bristol-chart{display:flex;flex-direction:column;gap:5px}
+.bristol-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;font-size:12.5px;border:1px solid transparent;transition:all .12s}
+.bristol-item:hover{background:var(--line-soft)}
+.bristol-item.selected{border-color:var(--accent);background:var(--accent-wash)}
+.bristol-item .bi-shape{width:42px;height:22px;border-radius:4px;flex-shrink:0}
+.bristol-item .bi-num{font-weight:700;font-size:11px;flex-shrink:0;width:18px}
+.bristol-item .bi-desc{flex:1;line-height:1.3}
+.ai-result{border:1.5px solid var(--accent);border-radius:14px;padding:18px 20px;background:var(--accent-wash);margin:16px 0}
+.ai-result h4{font-size:14px;font-weight:700;margin:0 0 12px;color:var(--accent-deep)}
+.ai-result .ar-row{display:flex;gap:8px;margin-bottom:8px;font-size:13px;line-height:1.55}
+.ai-result .ar-icon{font-size:15px;flex-shrink:0;margin-top:2px}
+.ai-loading{display:flex;align-items:center;gap:10px;padding:18px;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
@@ -394,7 +416,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
   <div class="login-box">
     <div class="login-logo">
       <div class="ll-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21C12 21 4 15 4 9a4 4 0 018-1 4 4 0 018 1c0 6-8 12-8 12z"/></svg></div>
-      <h1>THE GOOD <span>LIFE</span></h1>
+      <h1>THE GOOD <span>LIFE</span> <span style="font-size:10px;font-weight:400;color:var(--muted);vertical-align:super">v1.0</span></h1>
       <p>Kişisel Sağlıklı Yaşam Modeli</p>
     </div>
     <div id="login-content"></div>
@@ -405,7 +427,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 4 15 4 9a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 12-8 12z"/></svg></div>
-      <div class="brand-text"><span class="brand-name">THE GOOD <span class="brand-ml">LIFE</span></span><br><span class="brand-sub">Kişisel Sağlıklı Yaşam Modeli</span></div>
+      <div class="brand-text"><span class="brand-name">THE GOOD <span class="brand-ml">LIFE</span> <span style="font-size:8px;font-weight:400;color:var(--muted);vertical-align:super">v1.0</span></span><br><span class="brand-sub">Kişisel Sağlıklı Yaşam Modeli</span></div>
     </div>
     <div class="profile-switcher" id="profile-switcher" title="Profil değiştir">
       <span class="ps-avatar" id="ps-avatar">👤</span>
@@ -690,10 +712,11 @@ function scoreIPAQ(v){
 }
 
 // ============ VISUALIZATION HELPERS ============
-function svgGauge(pct,label,size=120){
+function svgGauge(pct,label,size=120,invert=false){
   const r=size*.4,cx=size/2,cy=size/2+4;
   const arc=Math.PI;const len=Math.PI*r;
-  const color=pct<30?"var(--accent)":pct<60?"var(--risk-mod)":"var(--risk-high)";
+  const cp=invert?100-pct:pct;
+  const color=cp<30?"var(--accent)":cp<60?"var(--risk-mod)":"var(--risk-high)";
   return `<svg class="gauge-svg" viewBox="0 0 ${size} ${size*.62}" width="${size}">
     <path d="M${cx-r} ${cy} A${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="var(--line-soft)" stroke-width="10" stroke-linecap="round"/>
     <path d="M${cx-r} ${cy} A${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
@@ -792,26 +815,65 @@ function enterProfile(pid){
     d.innerHTML=`<div class="msg-bubble">${escHtml(m.content)}</div><div class="msg-time">${m.time||""}</div>`;cm.appendChild(d);});}
   render();
 }
-const STEPS=[
-  {id:"labs",   label:"Tahlil Yükleme",    icon:"📄", desc:"e-Nabız PDF"},
-  {id:"basics", label:"Temel Bilgiler",     icon:"👤", desc:"yaş, boy, kilo, hastalıklar"},
-  {id:"ipaq",   label:"Fiziksel Aktivite",  icon:"🏃", desc:"IPAQ kısa form"},
-  {id:"who5",   label:"Esenlik Ölçeği",     icon:"🌿", desc:"WHO-5 (5 soru)"},
-  {id:"sf12",   label:"Genel Sağlık",       icon:"🏥", desc:"SF-12 (12 soru)"},
-  {id:"phq9",   label:"Depresyon Taraması",  icon:"🧠", desc:"PHQ-9 (9 soru)"},
-  {id:"gad7",   label:"Anksiyete Taraması",  icon:"💭", desc:"GAD-7 (7 soru)"},
-  {id:"results",label:"Sonuçlar & Öneriler", icon:"📊", desc:"rapor + plan"},
+const STEP_GROUPS=[
+  {group:"Veri Toplama",icon:"📋",items:[
+    {id:"labs",   label:"Tahlil Yükleme",    icon:"📄", desc:"e-Nabız PDF"},
+    {id:"basics", label:"Temel Bilgiler",     icon:"👤", desc:"yaş, boy, kilo, hastalıklar"}]},
+  {group:"Yaşam Tarzı",icon:"🏃",items:[
+    {id:"ipaq",   label:"Fiziksel Aktivite",  icon:"🏃", desc:"IPAQ kısa form"},
+    {id:"sf12",   label:"Genel Sağlık",       icon:"🏥", desc:"SF-12 (12 soru)"}]},
+  {group:"Psikolojik Sağlık",icon:"🧠",items:[
+    {id:"who5",   label:"Esenlik Ölçeği",     icon:"🌿", desc:"WHO-5 (5 soru)"},
+    {id:"phq9",   label:"Depresyon Taraması",  icon:"🧠", desc:"PHQ-9 (9 soru)"},
+    {id:"gad7",   label:"Anksiyete Taraması",  icon:"💭", desc:"GAD-7 (7 soru)"}]},
+  {group:"Görsel Sağlık Analizi",icon:"📷",items:[
+    {id:"urine",  label:"İdrar Analizi",      icon:"🧪", desc:"renk, bulanıklık, köpük"},
+    {id:"stool",  label:"Dışkı Analizi",      icon:"🔬", desc:"Bristol skalası, renk"},
+    {id:"nail",   label:"Tırnak Analizi",      icon:"💅", desc:"renk, şekil, doku"},
+    {id:"tongue", label:"Dil Analizi",         icon:"👅", desc:"renk, kaplama, doku"},
+    {id:"eye",    label:"Göz / Sklera",        icon:"👁", desc:"sarılık, kızarıklık"},
+    {id:"skin",   label:"Cilt / Ben Analizi",  icon:"🔎", desc:"ABCDE melanom tarama"},
+    {id:"leg",    label:"Bacak / Ayak",        icon:"🦶", desc:"ödem, varis, renk"},
+    {id:"teeth",  label:"Diş / Diş Eti",      icon:"🦷", desc:"diş eti, çürük, plak"},
+    {id:"hair",   label:"Saç / Saç Derisi",    icon:"💇", desc:"dökülme, kepek"},
+    {id:"wound",  label:"Yara Takibi",         icon:"🩹", desc:"iyileşme, enfeksiyon"},
+    {id:"hand",   label:"El / Avuç İçi",       icon:"🤚", desc:"palmaris, eklem"},
+    {id:"lip",    label:"Dudak / Ağız Çevresi",icon:"👄", desc:"renk, çatlak, lezyon"}]},
+  {group:"Rapor",icon:"📊",items:[
+    {id:"results",label:"Sonuçlar & Öneriler", icon:"📊", desc:"rapor + plan"}]}
 ];
+const STEPS=STEP_GROUPS.flatMap(g=>g.items);
 
+const _collapsed=new Set();
 function renderSteps(){
-  const el=$("#steps");el.innerHTML="";
-  STEPS.forEach((s,i)=>{
-    const cls=W.done.has(s.id)?"done":i===W.step?"active":i<=W.step+1||s.id==="results"?"":"locked";
-    const check=W.done.has(s.id)?"✓":(i+1);
-    const d=document.createElement("div");d.className="step-item "+cls;d.dataset.idx=i;
-    d.innerHTML=`<div class="step-dot">${check}</div><div><div style="font-size:13px">${s.label}</div><div style="font-size:11px;color:var(--muted)">${s.desc}</div></div>`;
-    if(cls!=="locked")d.onclick=()=>{W.step=i;render();};
-    el.appendChild(d);
+  const el=$("#steps");el.innerHTML="";let idx=0;
+  STEP_GROUPS.forEach((g,gi)=>{
+    // Auto-expand group containing active step
+    const groupIdxStart=idx;
+    const hasActive=g.items.some((_,j)=>groupIdxStart+j===W.step);
+    const hasDone=g.items.some(it=>W.done.has(it.id));
+    if(hasActive)_collapsed.delete(gi);
+    const isColl=_collapsed.has(gi);
+
+    const hdr=document.createElement("div");
+    hdr.className="step-group"+(isColl?" collapsed":"");
+    hdr.innerHTML=`<span>${g.icon} ${g.group}</span><span class="sg-arrow">▼</span>`;
+    hdr.onclick=()=>{if(_collapsed.has(gi))_collapsed.delete(gi);else _collapsed.add(gi);renderSteps();};
+    el.appendChild(hdr);
+
+    const wrap=document.createElement("div");
+    wrap.className="step-group-items"+(isColl?" collapsed":"");
+    g.items.forEach(s=>{
+      const i=idx++;
+      const cls=W.done.has(s.id)?"done":i===W.step?"active":"";
+      const check=W.done.has(s.id)?"✓":(i+1);
+      const d=document.createElement("div");d.className="step-item "+cls;d.dataset.idx=i;
+      d.innerHTML=`<div class="step-dot">${check}</div><div><div style="font-size:13px">${s.label}</div><div style="font-size:11px;color:var(--muted)">${s.desc}</div></div>`;
+      d.onclick=e=>{e.stopPropagation();W.step=i;render();};
+      wrap.appendChild(d);
+    });
+    if(!isColl)wrap.style.maxHeight=(g.items.length*60+20)+"px";
+    el.appendChild(wrap);
   });
 }
 
@@ -825,6 +887,11 @@ function render(){
   else if(s.id==="sf12")renderLikertStep("sf12");
   else if(s.id==="phq9")renderLikertStep("phq9");
   else if(s.id==="gad7")renderLikertStep("gad7");
+  else if(s.id==="urine")renderUrineStep();
+  else if(s.id==="stool")renderStoolStep();
+  else if(s.id==="nail")renderNailStep();
+  else if(s.id==="tongue")renderTongueStep();
+  else if(PHOTO_CONFIGS[s.id])renderGenericPhotoStep(s.id);
   else if(s.id==="results")renderResults();
 }
 
@@ -890,7 +957,7 @@ function renderPdfTable(rows){
   const used=rows.filter(r=>r.matched).length,abnormal=rows.filter(r=>r.status==="hi"||r.status==="lo").length;
   return `<p style="font-size:12px;color:var(--muted);margin:10px 0 6px">${rows.length} satır okundu · <b>${used}</b> risk analizinde kullanıldı · <b style="color:${abnormal?"var(--risk-high)":"var(--accent)"}">${abnormal} referans dışı</b></p>
     <div class="pdf-table-wrap"><table class="pdf-table">
-    <tr><th>Tetkik</th><th>Sonuç</th><th>Birim</th><th>Referans</th><th>Durum</th></tr>${trs}</table></div>`;
+    <thead><tr><th>Tetkik</th><th>Sonuç</th><th>Birim</th><th>Referans</th><th>Durum</th></tr></thead><tbody>${trs}</tbody></table></div>`;
 }
 
 // ============ STEP: Labs ============
@@ -914,11 +981,14 @@ function renderLabStep(){
   }
 
   // Trend + composite (only if ≥2 uploads)
-  let trendHtml="",compHtml="",trendRecHtml="";
+  let trendHtml="",compHtml="",pairHtml="",trendRecHtml="";
   if(W.labHistory.length>=2){
     trendHtml=buildTrendSection();
-    compHtml=buildCompositeAnalysis();
     trendRecHtml=buildTrendRecommendations();
+  }
+  if(Object.keys(W.labs).length>=2){
+    compHtml=buildCompositeAnalysis();
+    pairHtml=buildPairAnalysis();
   }
 
   $("#content").innerHTML=`
@@ -938,11 +1008,14 @@ function renderLabStep(){
     <div id="lab-alert-zone"></div>
     ${trendHtml}
     ${compHtml}
+    ${pairHtml}
     ${trendRecHtml}
     <div id="lab-cards"></div>
     <div id="lab-table"></div>
     <div class="actions" style="margin-top:16px">
-      ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}<button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
+      ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}
+      <button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
+      ${hasLabs?`<button class="btn-ghost" id="lab-results" style="margin-left:auto;border-color:var(--accent);color:var(--accent)">📊 Sonuçları göster</button>`:""}
     </div>`;
   if(hasLabs){updateLabCards();updateLabAlert();if(sel&&sel.labRows.length)$("#lab-table").innerHTML=renderPdfTable(sel.labRows);}
 
@@ -968,6 +1041,7 @@ function renderLabStep(){
   });
   $("#skip-labs").onclick=()=>{W.step=1;render();};
   if($("#lab-next"))$("#lab-next").onclick=()=>{W.done.add("labs");W.step=1;render();};
+  if($("#lab-results"))$("#lab-results").onclick=()=>{W.step=STEPS.findIndex(s=>s.id==="results");render();};
 }
 function labChipsSummary(){
   const l=W.labs;
@@ -1078,6 +1152,581 @@ async function handleLabPdf(file){
   }catch(e){if(status)status.innerHTML=`<p style="color:var(--risk-high);margin:8px 0;font-size:13px">Hata: ${e.message}</p>`;}
 }
 
+// ============ PHOTO ANALYSIS: Urine & Stool ============
+const URINE_COLORS=[
+  {color:"#f5f0c8",label:"Şeffaf",desc:"Fazla su",status:"ok"},
+  {color:"#f0e68c",label:"Açık sarı",desc:"İdeal",status:"ok"},
+  {color:"#daa520",label:"Sarı",desc:"Normal",status:"ok"},
+  {color:"#cd853f",label:"Koyu sarı",desc:"Hafif dehidrasyon",status:"warn"},
+  {color:"#b8860b",label:"Kehribar",desc:"Dehidrasyon",status:"warn"},
+  {color:"#8b6914",label:"Koyu kehribar",desc:"Ciddi dehidrasyon",status:"bad"},
+  {color:"#d4756a",label:"Pembe/Kırmızı",desc:"Kan? Acil!",status:"bad"},
+  {color:"#6b4423",label:"Kahverengi",desc:"Karaciğer?",status:"bad"}
+];
+const BRISTOL=[
+  {type:1,shape:"#5c3317",label:"Sert topaklar",desc:"Kuru, sert parçalar (kabızlık)",cat:"Kabızlık"},
+  {type:2,shape:"#6b3a1f",label:"Topak sosis",desc:"Sosis ama topak topak",cat:"Kabızlık"},
+  {type:3,shape:"#7a4528",label:"Çatlak sosis",desc:"Sosis, yüzeyinde çatlaklar",cat:"Normal"},
+  {type:4,shape:"#8b5a34",label:"Düz sosis",desc:"Pürüzsüz, yumuşak (ideal)",cat:"Normal"},
+  {type:5,shape:"#8b6940",label:"Yumuşak parçalar",desc:"Net kenarlı yumuşak parçalar",cat:"Lif az"},
+  {type:6,shape:"#9b7a4a",label:"Bulamaç",desc:"Düzensiz, bulamaç kıvam",cat:"İshal"},
+  {type:7,shape:"#a08050",label:"Sıvı",desc:"Tamamen sıvı, katı yok",cat:"İshal"}
+];
+const STOOL_COLORS=[
+  {color:"#6b3a1f",label:"Kahverengi",desc:"Normal",status:"ok"},
+  {color:"#2d2d2d",label:"Siyah",desc:"Üst GİS kanaması?",status:"bad"},
+  {color:"#c8b896",label:"Soluk/Kil",desc:"Safra tıkanıklığı?",status:"bad"},
+  {color:"#8b2500",label:"Kırmızı",desc:"Alt GİS kanaması?",status:"bad"},
+  {color:"#3d5c3a",label:"Yeşil",desc:"Safra/diyet",status:"warn"},
+  {color:"#daa520",label:"Sarı",desc:"Yağlı/malabsorpsiyon",status:"warn"}
+];
+
+function photoUploadHTML(id,accept){
+  return `<div class="photo-upload" id="${id}-zone">
+    <input type="file" accept="${accept||'image/*'}" capture="environment" hidden id="${id}-file">
+    <div style="font-size:36px;opacity:.4">📸</div>
+    <div style="font-size:14px;font-weight:600;margin:6px 0">Fotoğraf çekin veya yükleyin</div>
+    <div style="font-size:12px;color:var(--muted)">Kamera veya galeriden seçin</div>
+    <div class="photo-btns">
+      <button type="button" id="${id}-cam">📷 Kamera</button>
+      <button type="button" id="${id}-gal">🖼 Galeri</button>
+    </div>
+    <div id="${id}-preview" style="margin-top:10px"></div>
+  </div>`;
+}
+function wirePhotoUpload(id,onImage){
+  const zone=$(`#${id}-zone`),inp=$(`#${id}-file`),prev=$(`#${id}-preview`);
+  $(`#${id}-cam`).onclick=e=>{e.stopPropagation();inp.setAttribute("capture","environment");inp.click();};
+  $(`#${id}-gal`).onclick=e=>{e.stopPropagation();inp.removeAttribute("capture");inp.click();};
+  inp.onchange=()=>{
+    const f=inp.files[0];if(!f)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      prev.innerHTML=`<img src="${ev.target.result}" style="max-width:100%;max-height:220px;border-radius:10px;margin-top:8px">`;
+      zone.classList.add("has-img");
+      onImage(ev.target.result,f);
+    };reader.readAsDataURL(f);
+  };
+}
+
+async function analyzePhotoAI(base64,type){
+  if(!agentSettings.apiKey)return{error:"API anahtarı tanımlı değil. Ayarlar'dan girin."};
+  try{
+    const sysPrompt=type==="urine"
+      ?`Sen bir sağlık tarama asistanısın. İdrar fotoğrafını analiz et. Türkçe yanıtla. JSON formatında yanıt ver:
+{"renk":"açık sarı/koyu sarı/kehribar/pembe/kahve","bulanıklık":"berrak/hafif bulanık/bulanık","köpük":"yok/az/çok","hidrasyon":"iyi/hafif dehidrasyon/dehidrasyon/ciddi","öneriler":["öneri1","öneri2"],"uyarılar":["varsa uyarı"],"acil":false}
+Sadece JSON döndür, başka metin yazma. Bu tarama amaçlıdır, tanı değildir.`
+      :`Sen bir sağlık tarama asistanısın. Dışkı fotoğrafını analiz et. Bristol skalasına göre değerlendir. Türkçe yanıtla. JSON formatında yanıt ver:
+{"bristol_tip":4,"bristol_desc":"Pürüzsüz sosis","renk":"kahverengi/siyah/soluk/kırmızı/yeşil/sarı","kıvam":"normal/sert/yumuşak/sıvı","sindirim":"iyi/orta/kötü","öneriler":["öneri1","öneri2"],"uyarılar":["varsa uyarı"],"acil":false}
+Sadece JSON döndür, başka metin yazma. Bu tarama amaçlıdır, tanı değildir.`;
+    const imgData=base64.split(",")[1];
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":agentSettings.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:agentSettings.model,max_tokens:500,system:sysPrompt,
+        messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:imgData}},{type:"text",text:type==="urine"?"Bu idrar fotoğrafını analiz et.":"Bu dışkı fotoğrafını analiz et."}]}]})
+    });
+    const data=await res.json();
+    const txt=data.content?.[0]?.text||"";
+    const clean=txt.replace(/```json|```/g,"").trim();
+    return JSON.parse(clean);
+  }catch(e){return{error:e.message};}
+}
+
+function renderUrineStep(){
+  // If completed, show summary
+  if(W.done.has("urine")&&W.scores.urine){
+    const u=W.scores.urine;
+    const nextIdx=STEPS.findIndex(s=>s.id==="urine")+1;
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🧪 İdrar Analizi</h1>
+      <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+        <div class="cs-title">Tamamlandı</div>
+        <div class="cs-detail">Renk: ${u.renk||"?"} · Hidrasyon: ${u.hidrasyon||"?"} · Bulanıklık: ${u.bulanıklık||"?"}</div>
+      </div></div>
+      ${u.öneriler?`<div class="ai-result"><h4>Öneriler</h4>${(u.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+        ${(u.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span>${r}</span></div>`).join("")}</div>`:""}
+      <div class="actions"><button class="btn-primary" id="ur-next">Devam et →</button><button class="btn-ghost" id="ur-redo">Tekrar yap</button></div>`;
+    $("#ur-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#ur-redo").onclick=()=>{delete W.scores.urine;W.done.delete("urine");saveState();renderUrineStep();};
+    return;
+  }
+  const nextIdx=STEPS.findIndex(s=>s.id==="urine")+1;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🧪 İdrar Analizi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">İdrar fotoğrafı çekerek renk, bulanıklık ve köpük analizi yapın. Dehidrasyon seviyenizi öğrenin.</p>
+    <div class="photo-zone">
+      ${photoUploadHTML("urine","image/*")}
+      <div class="ref-chart">
+        <h4>Referans renk skalası</h4>
+        <div class="color-strip">${URINE_COLORS.map(c=>`<div class="cs-cell" style="background:${c.color}"><span>${c.label}</span><span style="font-weight:400;font-size:8px">${c.desc}</span></div>`).join("")}</div>
+        <div style="font-size:12px;color:var(--ink-soft);line-height:1.6">
+          <b>Açık sarı</b> = iyi hidrasyon<br>
+          <b>Koyu kehribar</b> = dehidrasyon, daha çok su için<br>
+          <b>Pembe/Kırmızı</b> = olası kan, doktora başvurun<br>
+          <b>Köpüklü</b> = olası protein kaçağı (proteinüri)
+        </div>
+      </div>
+    </div>
+    <div id="urine-ai-result"></div>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn-ghost" id="skip-urine">Atla →</button>
+    </div>`;
+  wirePhotoUpload("urine",async(base64)=>{
+    const box=$("#urine-ai-result");
+    box.innerHTML=`<div class="ai-loading"><div class="msg-typing"><span></span><span></span><span></span></div>AI analiz ediyor…</div>`;
+    const result=await analyzePhotoAI(base64,"urine");
+    if(result.error){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">${result.error}</p></div>`;return;}
+    W.scores.urine=result;W.done.add("urine");saveState();renderSteps();
+    box.innerHTML=`<div class="ai-result"><h4>AI Analiz Sonucu</h4>
+      <div class="ar-row"><span class="ar-icon">🎨</span><span><b>Renk:</b> ${result.renk||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">💧</span><span><b>Bulanıklık:</b> ${result.bulanıklık||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🫧</span><span><b>Köpük:</b> ${result.köpük||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">💦</span><span><b>Hidrasyon:</b> ${result.hidrasyon||"?"}</span></div>
+      ${(result.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+      ${(result.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span style="color:var(--risk-high)">${r}</span></div>`).join("")}
+      ${result.acil?`<div class="ar-row"><span class="ar-icon">🚨</span><span style="color:var(--risk-high);font-weight:700">Acil: Doktora başvurun!</span></div>`:""}
+      <p style="font-size:11px;color:var(--muted);margin:12px 0 0">Bu tarama sonuçları bilgilendirme amaçlıdır, tıbbi tanı yerine geçmez.</p>
+    </div>`;
+    $(".actions").innerHTML=`<button class="btn-primary" id="ur-go">Devam et →</button>`;
+    $("#ur-go").onclick=()=>{W.step=nextIdx;render();};
+  });
+  $("#skip-urine").onclick=()=>{W.step=nextIdx;render();};
+}
+
+function renderStoolStep(){
+  if(W.done.has("stool")&&W.scores.stool){
+    const s=W.scores.stool;
+    const nextIdx=STEPS.findIndex(x=>x.id==="stool")+1;
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🔬 Dışkı Analizi</h1>
+      <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+        <div class="cs-title">Tamamlandı</div>
+        <div class="cs-detail">Bristol Tip ${s.bristol_tip||"?"} · Renk: ${s.renk||"?"} · Sindirim: ${s.sindirim||"?"}</div>
+      </div></div>
+      ${s.öneriler?`<div class="ai-result"><h4>Öneriler</h4>${(s.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+        ${(s.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span>${r}</span></div>`).join("")}</div>`:""}
+      <div class="actions"><button class="btn-primary" id="st-next">Devam et →</button><button class="btn-ghost" id="st-redo">Tekrar yap</button></div>`;
+    $("#st-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#st-redo").onclick=()=>{delete W.scores.stool;W.done.delete("stool");saveState();renderStoolStep();};
+    return;
+  }
+  const nextIdx=STEPS.findIndex(x=>x.id==="stool")+1;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🔬 Dışkı Analizi (Bristol Skalası)</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Dışkı fotoğrafı çekerek Bristol skalasına göre tip, renk ve kıvam analizi yapın.</p>
+    <div class="photo-zone">
+      ${photoUploadHTML("stool","image/*")}
+      <div class="ref-chart">
+        <h4>Bristol dışkı skalası</h4>
+        <div class="bristol-chart">${BRISTOL.map(b=>`<div class="bristol-item" data-bt="${b.type}">
+          <div class="bi-shape" style="background:${b.shape};border-radius:${b.type<=2?"50%":b.type>=6?"4px":"11px"}"></div>
+          <span class="bi-num">${b.type}</span>
+          <div class="bi-desc"><b>${b.label}</b><br><span style="color:var(--muted)">${b.desc}</span></div>
+          <span class="st-badge ${b.cat==="Normal"?"st-ok":b.cat==="Kabızlık"?"st-hi":"st-lo"}">${b.cat}</span>
+        </div>`).join("")}</div>
+        <h4 style="margin-top:14px">Renk skalası</h4>
+        <div class="color-strip">${STOOL_COLORS.map(c=>`<div class="cs-cell" style="background:${c.color}"><span>${c.label}</span><span style="font-weight:400;font-size:8px">${c.desc}</span></div>`).join("")}</div>
+      </div>
+    </div>
+    <div id="stool-ai-result"></div>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn-ghost" id="skip-stool">Atla →</button>
+    </div>`;
+  wirePhotoUpload("stool",async(base64)=>{
+    const box=$("#stool-ai-result");
+    box.innerHTML=`<div class="ai-loading"><div class="msg-typing"><span></span><span></span><span></span></div>AI analiz ediyor…</div>`;
+    const result=await analyzePhotoAI(base64,"stool");
+    if(result.error){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">${result.error}</p></div>`;return;}
+    W.scores.stool=result;W.done.add("stool");saveState();renderSteps();
+    const bt=BRISTOL.find(b=>b.type===result.bristol_tip);
+    box.innerHTML=`<div class="ai-result"><h4>AI Analiz Sonucu</h4>
+      <div class="ar-row"><span class="ar-icon">📊</span><span><b>Bristol Tip ${result.bristol_tip||"?"}:</b> ${bt?.label||result.bristol_desc||"?"} (${bt?.cat||"?"})</span></div>
+      <div class="ar-row"><span class="ar-icon">🎨</span><span><b>Renk:</b> ${result.renk||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🔍</span><span><b>Kıvam:</b> ${result.kıvam||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🫁</span><span><b>Sindirim:</b> ${result.sindirim||"?"}</span></div>
+      ${(result.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+      ${(result.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span style="color:var(--risk-high)">${r}</span></div>`).join("")}
+      ${result.acil?`<div class="ar-row"><span class="ar-icon">🚨</span><span style="color:var(--risk-high);font-weight:700">Acil: Doktora başvurun!</span></div>`:""}
+      <p style="font-size:11px;color:var(--muted);margin:12px 0 0">Bu tarama sonuçları bilgilendirme amaçlıdır, tıbbi tanı yerine geçmez.</p>
+    </div>`;
+    $(".actions").innerHTML=`<button class="btn-primary" id="st-go">Devam et →</button>`;
+    $("#st-go").onclick=()=>{W.step=nextIdx;render();};
+  });
+  $("#skip-stool").onclick=()=>{W.step=nextIdx;render();};
+}
+
+// ============ PHOTO ANALYSIS: Nail & Tongue ============
+const NAIL_SIGNS=[
+  {sign:"Soluk tırnak yatağı",color:"#f0e0d0",what:"Anemi (demir eksikliği)",icon:"🩸"},
+  {sign:"Sarılaşma",color:"#d4a820",what:"Mantar enfeksiyonu, psoriasis",icon:"🍄"},
+  {sign:"Mavi/morumsu",color:"#8090b0",what:"Oksijen yetersizliği (siyanoz)",icon:"💙"},
+  {sign:"Koyu dikey çizgi",color:"#3a3a3a",what:"Melanom riski, travma",icon:"⚫"},
+  {sign:"Kaşık tırnak (koilonychia)",color:"#d4a89a",what:"Demir eksikliği anemisi",icon:"🥄"},
+  {sign:"Çomak tırnak (clubbing)",color:"#c8a898",what:"Akciğer/kalp hastalığı",icon:"🫁"},
+  {sign:"Çukurlaşma (pitting)",color:"#ccc0b0",what:"Psoriasis, egzama, alopesi",icon:"🔘"},
+  {sign:"Beyaz noktalar",color:"#f8f8f0",what:"Travma, çinko eksikliği",icon:"⚪"},
+  {sign:"Beau çizgileri (yatay)",color:"#b8a898",what:"Ağır hastalık geçmişi, stres",icon:"➖"},
+  {sign:"Kalınlaşma",color:"#9a8070",what:"Mantar, yaşlanma, dolaşım",icon:"📏"}
+];
+const TONGUE_SIGNS=[
+  {sign:"Pembe, ince kaplama",color:"#e89898",what:"Sağlıklı (normal)",cls:"ok"},
+  {sign:"Soluk pembe/beyaz",color:"#f0d8d0",what:"Anemi, B12/demir eksikliği",cls:"warn"},
+  {sign:"Koyu kırmızı",color:"#c83030",what:"B vitamini eksikliği, Kawasaki",cls:"warn"},
+  {sign:"Morumsu",color:"#8848a0",what:"Dolaşım bozukluğu, oksijen ↓",cls:"bad"},
+  {sign:"Kalın beyaz kaplama",color:"#f0f0e8",what:"Oral kandidiyazis (pamukçuk)",cls:"warn"},
+  {sign:"Sarı kaplama",color:"#e8d870",what:"Karaciğer/safra, sigara",cls:"warn"},
+  {sign:"Siyah/kıllı dil",color:"#484040",what:"Bakteri üremesi, antibiyotik",cls:"bad"},
+  {sign:"Coğrafi dil",color:"#d87878",what:"İyi huylu, stres/alerji ilişkili",cls:"ok"},
+  {sign:"Çatlaklar (fissür)",color:"#c09080",what:"Yaşlanma, B vitamini, dehidrasyon",cls:"warn"},
+  {sign:"Şişlik/diş izleri",color:"#d8a898",what:"Tiroid, su tutulumu, alerji",cls:"warn"}
+];
+
+function renderNailStep(){
+  if(W.done.has("nail")&&W.scores.nail){
+    const n=W.scores.nail;const nextIdx=STEPS.findIndex(s=>s.id==="nail")+1;
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">💅 Tırnak Analizi</h1>
+      <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+        <div class="cs-title">Tamamlandı</div>
+        <div class="cs-detail">Renk: ${n.renk||"?"} · Şekil: ${n.şekil||"?"} · Doku: ${n.doku||"?"}</div>
+      </div></div>
+      ${n.öneriler?`<div class="ai-result"><h4>Bulgular ve öneriler</h4>
+        ${n.bulgular?`<div class="ar-row"><span class="ar-icon">🔍</span><span><b>Bulgular:</b> ${Array.isArray(n.bulgular)?n.bulgular.join(", "):n.bulgular}</span></div>`:""}
+        ${(n.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+        ${(n.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span>${r}</span></div>`).join("")}</div>`:""}
+      <div class="actions"><button class="btn-primary" id="na-next">Devam et →</button><button class="btn-ghost" id="na-redo">Tekrar yap</button></div>`;
+    $("#na-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#na-redo").onclick=()=>{delete W.scores.nail;W.done.delete("nail");saveState();renderNailStep();};
+    return;
+  }
+  const nextIdx=STEPS.findIndex(s=>s.id==="nail")+1;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">💅 Tırnak Analizi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Tırnak fotoğrafı çekerek renk, şekil ve doku analizi yapın. Tırnaklar birçok sistemik hastalığın erken belirtisini gösterir.</p>
+    <div class="photo-zone">
+      ${photoUploadHTML("nail","image/*")}
+      <div class="ref-chart">
+        <h4>Tırnak sağlık göstergeleri</h4>
+        <div style="display:flex;flex-direction:column;gap:5px">${NAIL_SIGNS.map(s=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;font-size:12px">
+          <div style="width:28px;height:18px;border-radius:4px;background:${s.color};border:1px solid rgba(0,0,0,.1);flex-shrink:0"></div>
+          <span style="flex-shrink:0;font-size:13px">${s.icon}</span>
+          <div style="flex:1"><b>${s.sign}</b><br><span style="color:var(--muted)">${s.what}</span></div>
+        </div>`).join("")}</div>
+        <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">İpucu: Tırnaklarınızı oje ve yapay tırnak olmadan, doğal ışıkta fotoğraflayın. Hem el hem ayak tırnaklarını kontrol edebilirsiniz.</p>
+      </div>
+    </div>
+    <div id="nail-ai-result"></div>
+    <div class="actions"><button class="btn-ghost" id="skip-nail">Atla →</button></div>`;
+  wirePhotoUpload("nail",async(base64)=>{
+    const box=$("#nail-ai-result");
+    box.innerHTML=`<div class="ai-loading"><div class="msg-typing"><span></span><span></span><span></span></div>AI tırnak analizi yapıyor…</div>`;
+    const result=await analyzeNailTongue(base64,"nail");
+    if(result.error){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">${result.error}</p></div>`;return;}
+    W.scores.nail=result;W.done.add("nail");saveState();renderSteps();
+    box.innerHTML=`<div class="ai-result"><h4>AI Tırnak Analiz Sonucu</h4>
+      <div class="ar-row"><span class="ar-icon">🎨</span><span><b>Renk:</b> ${result.renk||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">📐</span><span><b>Şekil:</b> ${result.şekil||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🔍</span><span><b>Doku:</b> ${result.doku||"?"}</span></div>
+      ${result.bulgular?`<div class="ar-row"><span class="ar-icon">📋</span><span><b>Bulgular:</b> ${Array.isArray(result.bulgular)?result.bulgular.join(", "):result.bulgular}</span></div>`:""}
+      ${(result.olası_durumlar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">🩺</span><span>${r}</span></div>`).join("")}
+      ${(result.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+      ${(result.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span style="color:var(--risk-high)">${r}</span></div>`).join("")}
+      <p style="font-size:11px;color:var(--muted);margin:12px 0 0">Bu tarama sonuçları bilgilendirme amaçlıdır, tıbbi tanı yerine geçmez.</p></div>`;
+    $(".actions").innerHTML=`<button class="btn-primary" id="na-go">Devam et →</button>`;
+    $("#na-go").onclick=()=>{W.step=nextIdx;render();};
+  });
+  $("#skip-nail").onclick=()=>{W.step=nextIdx;render();};
+}
+
+function renderTongueStep(){
+  if(W.done.has("tongue")&&W.scores.tongue){
+    const t=W.scores.tongue;const nextIdx=STEPS.findIndex(s=>s.id==="tongue")+1;
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">👅 Dil Analizi</h1>
+      <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+        <div class="cs-title">Tamamlandı</div>
+        <div class="cs-detail">Renk: ${t.renk||"?"} · Kaplama: ${t.kaplama||"?"} · Doku: ${t.doku||"?"}</div>
+      </div></div>
+      ${t.öneriler?`<div class="ai-result"><h4>Bulgular ve öneriler</h4>
+        ${t.bulgular?`<div class="ar-row"><span class="ar-icon">🔍</span><span><b>Bulgular:</b> ${Array.isArray(t.bulgular)?t.bulgular.join(", "):t.bulgular}</span></div>`:""}
+        ${(t.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+        ${(t.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span>${r}</span></div>`).join("")}</div>`:""}
+      <div class="actions"><button class="btn-primary" id="to-next">Devam et →</button><button class="btn-ghost" id="to-redo">Tekrar yap</button></div>`;
+    $("#to-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#to-redo").onclick=()=>{delete W.scores.tongue;W.done.delete("tongue");saveState();renderTongueStep();};
+    return;
+  }
+  const nextIdx=STEPS.findIndex(s=>s.id==="tongue")+1;
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">👅 Dil Analizi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Dil fotoğrafı çekerek renk, kaplama ve doku analizi yapın. Dil, sindirim sistemi ve beslenme durumunun aynasıdır.</p>
+    <div class="photo-zone">
+      ${photoUploadHTML("tongue","image/*")}
+      <div class="ref-chart">
+        <h4>Dil sağlık göstergeleri</h4>
+        <div style="display:flex;flex-direction:column;gap:5px">${TONGUE_SIGNS.map(s=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;font-size:12px">
+          <div style="width:28px;height:18px;border-radius:10px;background:${s.color};border:1px solid rgba(0,0,0,.1);flex-shrink:0"></div>
+          <div style="flex:1"><b>${s.sign}</b><br><span style="color:var(--muted)">${s.what}</span></div>
+          <span class="st-badge ${s.cls==="ok"?"st-ok":s.cls==="bad"?"st-hi":"st-lo"}">${s.cls==="ok"?"Normal":s.cls==="bad"?"Dikkat":"Kontrol"}</span>
+        </div>`).join("")}</div>
+        <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">İpucu: Dilinizi doğal ışıkta, tam dışarı çıkararak fotoğraflayın. Yemekten en az 30 dk sonra çekin. Renkli yiyecekler dil rengini geçici olarak değiştirebilir.</p>
+      </div>
+    </div>
+    <div id="tongue-ai-result"></div>
+    <div class="actions"><button class="btn-ghost" id="skip-tongue">Atla →</button></div>`;
+  wirePhotoUpload("tongue",async(base64)=>{
+    const box=$("#tongue-ai-result");
+    box.innerHTML=`<div class="ai-loading"><div class="msg-typing"><span></span><span></span><span></span></div>AI dil analizi yapıyor…</div>`;
+    const result=await analyzeNailTongue(base64,"tongue");
+    if(result.error){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">${result.error}</p></div>`;return;}
+    W.scores.tongue=result;W.done.add("tongue");saveState();renderSteps();
+    box.innerHTML=`<div class="ai-result"><h4>AI Dil Analiz Sonucu</h4>
+      <div class="ar-row"><span class="ar-icon">🎨</span><span><b>Renk:</b> ${result.renk||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🧫</span><span><b>Kaplama:</b> ${result.kaplama||"?"}</span></div>
+      <div class="ar-row"><span class="ar-icon">🔍</span><span><b>Doku:</b> ${result.doku||"?"}</span></div>
+      ${result.bulgular?`<div class="ar-row"><span class="ar-icon">📋</span><span><b>Bulgular:</b> ${Array.isArray(result.bulgular)?result.bulgular.join(", "):result.bulgular}</span></div>`:""}
+      ${(result.olası_durumlar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">🩺</span><span>${r}</span></div>`).join("")}
+      ${(result.öneriler||[]).map(r=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${r}</span></div>`).join("")}
+      ${(result.uyarılar||[]).map(r=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span style="color:var(--risk-high)">${r}</span></div>`).join("")}
+      <p style="font-size:11px;color:var(--muted);margin:12px 0 0">Bu tarama sonuçları bilgilendirme amaçlıdır, tıbbi tanı yerine geçmez.</p></div>`;
+    $(".actions").innerHTML=`<button class="btn-primary" id="to-go">Devam et →</button>`;
+    $("#to-go").onclick=()=>{W.step=nextIdx;render();};
+  });
+  $("#skip-tongue").onclick=()=>{W.step=nextIdx;render();};
+}
+
+async function analyzeNailTongue(base64,type){
+  if(!agentSettings.apiKey)return{error:"API anahtarı tanımlı değil. Ayarlar'dan girin."};
+  try{
+    const sys=type==="nail"
+      ?`Sen sağlık tarama asistanısın. Tırnak fotoğrafını analiz et. Türkçe JSON döndür:
+{"renk":"pembe/soluk/sarı/mavi/koyu çizgili","şekil":"normal/kaşık/çomak/düz","doku":"pürüzsüz/çizgili/çukurlu/kalın/kırılgan","bulgular":["bulgu1"],"olası_durumlar":["durum1"],"öneriler":["öneri1"],"uyarılar":[],"acil":false}
+Sadece JSON. Tarama amaçlıdır.`
+      :`Sen sağlık tarama asistanısın. Dil fotoğrafını analiz et. Türkçe JSON döndür:
+{"renk":"pembe/soluk/koyu kırmızı/morumsu","kaplama":"ince beyaz/kalın beyaz/sarı/siyah/yok","doku":"pürüzsüz/çatlak/şiş/coğrafi/kıllı","bulgular":["bulgu1"],"olası_durumlar":["durum1"],"öneriler":["öneri1"],"uyarılar":[],"acil":false}
+Sadece JSON. Tarama amaçlıdır.`;
+    const imgData=base64.split(",")[1];
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":agentSettings.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:agentSettings.model,max_tokens:500,system:sys,
+        messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:imgData}},{type:"text",text:type==="nail"?"Bu tırnak fotoğrafını analiz et.":"Bu dil fotoğrafını analiz et."}]}]})
+    });
+    const data=await res.json();
+    const txt=data.content?.[0]?.text||"";
+    return JSON.parse(txt.replace(/```json|```/g,"").trim());
+  }catch(e){return{error:e.message};}
+}
+
+// ============ GENERIC PHOTO ANALYSIS ============
+const PHOTO_CONFIGS={
+  eye:{
+    title:"👁 Göz / Sklera Analizi",
+    desc:"Göz fotoğrafı çekerek sklera rengi, kızarıklık ve pupil analizi yapın. Karaciğer, anemi ve tiroid belirtileri taranır.",
+    tip:"Doğal ışıkta, gözünüzü tam açarak fotoğraflayın. Flaş kullanmayın.",
+    signs:[
+      {color:"#f8f8f0",label:"Beyaz sklera",what:"Normal, sağlıklı",badge:"Normal"},
+      {color:"#f5f0a0",label:"Sarı sklera (ikter)",what:"Karaciğer hastalığı, hepatit, safra",badge:"Dikkat"},
+      {color:"#e87070",label:"Kırmızı / kanlı",what:"Konjonktivit, alerji, yorgunluk",badge:"Kontrol"},
+      {color:"#d0d8e8",label:"Mavimsi sklera",what:"Demir eksikliği, osteogenesis",badge:"Kontrol"},
+      {color:"#c8b090",label:"Kahverengi leke",what:"Nevüs, melanozis (genelde iyi huylu)",badge:"Kontrol"},
+      {color:"#f0c8c8",label:"Pupil asimetrisi",what:"Nörolojik değerlendirme gerekir",badge:"Dikkat"}
+    ],
+    prompt:`Göz/sklera fotoğrafını analiz et. JSON:
+{"sklera_rengi":"beyaz/sarı/kırmızı/mavi","kızarıklık":"yok/hafif/belirgin","pupil":"normal/asimetrik","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"sklera_rengi",l:"Sklera rengi",i:"🎨"},{k:"kızarıklık",l:"Kızarıklık",i:"🔴"},{k:"pupil",l:"Pupil",i:"👁"}],
+    summary:r=>`Sklera: ${r.sklera_rengi||"?"} · Kızarıklık: ${r.kızarıklık||"?"}`
+  },
+  skin:{
+    title:"🔎 Cilt / Ben (Mole) Analizi",
+    desc:"Cilt lezyonu veya ben fotoğrafı çekerek ABCDE melanom taraması yapın. Erken tespit hayat kurtarır.",
+    tip:"Beni yakından, iyi aydınlatılmış ortamda çekin. Yanına bir cetvel/bozuk para koyun (boyut referansı).",
+    signs:[
+      {color:"#c8a888",label:"A — Asimetri",what:"Bir yarısı diğerinden farklı",badge:"Dikkat"},
+      {color:"#a08878",label:"B — Sınır düzensizliği",what:"Kenarlar düzensiz, çentikli",badge:"Dikkat"},
+      {color:"#685040",label:"C — Renk çeşitliliği",what:"Birden fazla renk tonu",badge:"Dikkat"},
+      {color:"#484040",label:"D — Çap > 6mm",what:"Silgi ucu büyüklüğünden fazla",badge:"Dikkat"},
+      {color:"#382828",label:"E — Evrim / değişim",what:"Boyut, şekil veya renk değişimi",badge:"Dikkat"},
+      {color:"#b8a090",label:"Simetrik, tek renk",what:"Genelde iyi huylu (benign)",badge:"Normal"}
+    ],
+    prompt:`Cilt/ben fotoğrafını ABCDE kuralıyla analiz et. JSON:
+{"asimetri":"yok/var","sınır":"düzgün/düzensiz","renk":"tek renk/çok renkli","çap":"<6mm/>6mm/belirsiz","evrim":"bilinmiyor","risk":"düşük/orta/yüksek","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"asimetri",l:"Asimetri",i:"🔲"},{k:"sınır",l:"Sınır",i:"⭕"},{k:"renk",l:"Renk",i:"🎨"},{k:"çap",l:"Çap",i:"📏"},{k:"risk",l:"Risk",i:"⚠️"}],
+    summary:r=>`Risk: ${r.risk||"?"} · Asimetri: ${r.asimetri||"?"} · Sınır: ${r.sınır||"?"}`
+  },
+  leg:{
+    title:"🦶 Bacak / Ayak Analizi",
+    desc:"Bacak veya ayak fotoğrafı çekerek ödem, varis, renk değişikliği ve diyabetik ayak taraması yapın.",
+    tip:"Her iki bacağı karşılaştırmalı fotoğraflayın. Ayakta ve oturarak çekin.",
+    signs:[
+      {color:"#d8c0a8",label:"Normal cilt tonu",what:"Sağlıklı dolaşım",badge:"Normal"},
+      {color:"#e8d0c0",label:"Ödem / şişlik",what:"Kalp yetmezliği, böbrek, lenfödemi",badge:"Kontrol"},
+      {color:"#8070a8",label:"Varis",what:"Yüzeyel ven genişlemesi",badge:"Kontrol"},
+      {color:"#7060a0",label:"Siyanoz (morarma)",what:"Periferik dolaşım bozukluğu",badge:"Dikkat"},
+      {color:"#a08060",label:"Pigmentasyon",what:"Venöz yetmezlik, diyabet",badge:"Kontrol"},
+      {color:"#c87070",label:"Kızarıklık / ısı",what:"Selülit, DVT riski",badge:"Dikkat"}
+    ],
+    prompt:`Bacak/ayak fotoğrafını analiz et. JSON:
+{"ödem":"yok/hafif/belirgin","varis":"yok/var","cilt_rengi":"normal/siyanoz/kızarık/pigmente","simetri":"simetrik/asimetrik","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"ödem",l:"Ödem",i:"💧"},{k:"varis",l:"Varis",i:"🩸"},{k:"cilt_rengi",l:"Cilt rengi",i:"🎨"},{k:"simetri",l:"Simetri",i:"⚖️"}],
+    summary:r=>`Ödem: ${r.ödem||"?"} · Varis: ${r.varis||"?"} · Renk: ${r.cilt_rengi||"?"}`
+  },
+  teeth:{
+    title:"🦷 Diş / Diş Eti Analizi",
+    desc:"Ağız içi fotoğrafı çekerek diş eti sağlığı, çürük ve plak birikimi taraması yapın.",
+    tip:"Ağzınızı açın, dudakları geri çekin. Üst ve alt diş etlerini ayrı çekin. İyi aydınlatma önemli.",
+    signs:[
+      {color:"#e89898",label:"Pembe diş eti",what:"Sağlıklı (normal)",badge:"Normal"},
+      {color:"#c83838",label:"Kırmızı / şiş diş eti",what:"Gingivit (diş eti iltihabı)",badge:"Kontrol"},
+      {color:"#a84040",label:"Kanama",what:"Gingivit, periodontit",badge:"Dikkat"},
+      {color:"#f0e8c0",label:"Diş taşı / plak",what:"Profesyonel temizlik gerekli",badge:"Kontrol"},
+      {color:"#685040",label:"Çürük / leke",what:"Diş çürüğü, restorasyona ihtiyaç",badge:"Kontrol"},
+      {color:"#d8c8c8",label:"Diş eti çekilmesi",what:"Periodontit, agresif fırçalama",badge:"Dikkat"}
+    ],
+    prompt:`Diş/diş eti fotoğrafını analiz et. JSON:
+{"diş_eti_rengi":"pembe/kırmızı/soluk","diş_eti_durumu":"sağlıklı/şiş/çekilmiş/kanamalı","plak":"yok/az/çok","çürük":"yok/var/şüpheli","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"diş_eti_rengi",l:"Diş eti",i:"🩷"},{k:"diş_eti_durumu",l:"Durum",i:"🦷"},{k:"plak",l:"Plak",i:"🧫"},{k:"çürük",l:"Çürük",i:"🔍"}],
+    summary:r=>`Diş eti: ${r.diş_eti_durumu||"?"} · Plak: ${r.plak||"?"}`
+  },
+  hair:{
+    title:"💇 Saç / Saç Derisi Analizi",
+    desc:"Saç ve saç derisi fotoğrafı çekerek dökülme paterni, kepek ve saç derisi sağlığını değerlendirin.",
+    tip:"Saç ayrımından saç derisini gösterin. Tepe, şakak ve ense bölgelerini ayrı çekin.",
+    signs:[
+      {color:"#b09070",label:"Normal saç yoğunluğu",what:"Sağlıklı saç",badge:"Normal"},
+      {color:"#d0c0a8",label:"Seyrelmek (diffüz)",what:"Demir, tiroid, stres, genetik",badge:"Kontrol"},
+      {color:"#e0d8c8",label:"Erkek tipi dökülme",what:"Androgenetik alopesi",badge:"Kontrol"},
+      {color:"#f0e8e0",label:"Yama şeklinde",what:"Alopesi areata (otoimmün)",badge:"Dikkat"},
+      {color:"#c8c0b0",label:"Kepek / pullanma",what:"Seboreik dermatit, kuru cilt",badge:"Kontrol"},
+      {color:"#d08888",label:"Kızarıklık / kaşıntı",what:"Dermatit, mantar, psoriasis",badge:"Kontrol"}
+    ],
+    prompt:`Saç/saç derisi fotoğrafını analiz et. JSON:
+{"saç_yoğunluğu":"normal/seyrek/belirgin dökülme","dökülme_paterni":"yok/diffüz/erkek tipi/yama","saç_derisi":"normal/kepekli/kızarık/pullu","saç_kalitesi":"normal/ince/kırılgan/kuru","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"saç_yoğunluğu",l:"Yoğunluk",i:"💇"},{k:"dökülme_paterni",l:"Dökülme",i:"📉"},{k:"saç_derisi",l:"Saç derisi",i:"🔍"},{k:"saç_kalitesi",l:"Kalite",i:"✨"}],
+    summary:r=>`Yoğunluk: ${r.saç_yoğunluğu||"?"} · Dökülme: ${r.dökülme_paterni||"?"}`
+  },
+  wound:{
+    title:"🩹 Yara Takibi",
+    desc:"Yara fotoğrafı çekerek iyileşme evresini takip edin. Enfeksiyon belirtileri ve bakım önerileri alın.",
+    tip:"Yarayı temiz, iyi aydınlatılmış ortamda fotoğraflayın. Yanına tarih notu koyun.",
+    signs:[
+      {color:"#e88888",label:"İnflamasyon (kızarıklık)",what:"İyileşmenin ilk evresi (1-4 gün)",badge:"Normal"},
+      {color:"#d8a898",label:"Granülasyon (pembe)",what:"Yeni doku oluşumu (4-21 gün)",badge:"Normal"},
+      {color:"#c8b8a8",label:"Yeniden şekillenme",what:"Skar olgunlaşması (21 gün-2 yıl)",badge:"Normal"},
+      {color:"#c84040",label:"Artan kızarıklık / ısı",what:"Enfeksiyon şüphesi",badge:"Dikkat"},
+      {color:"#c8c850",label:"Sarı/yeşil akıntı",what:"Enfeksiyon (cerahat)",badge:"Dikkat"},
+      {color:"#484848",label:"Siyah/nekrotik doku",what:"Ölü doku, debridman gerekir",badge:"Dikkat"}
+    ],
+    prompt:`Yara fotoğrafını analiz et. JSON:
+{"iyileşme_evresi":"inflamasyon/granülasyon/yeniden şekillenme","enfeksiyon":"yok/şüpheli/var","yara_kenarları":"düzgün/düzensiz/açık","akıntı":"yok/seröz/pürülan","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"iyileşme_evresi",l:"Evre",i:"📊"},{k:"enfeksiyon",l:"Enfeksiyon",i:"🦠"},{k:"yara_kenarları",l:"Kenarlar",i:"🔍"},{k:"akıntı",l:"Akıntı",i:"💧"}],
+    summary:r=>`Evre: ${r.iyileşme_evresi||"?"} · Enfeksiyon: ${r.enfeksiyon||"?"}`
+  },
+  hand:{
+    title:"🤚 El / Avuç İçi Analizi",
+    desc:"El fotoğrafı çekerek avuç içi rengi, eklem şişliği ve deri değişiklikleri taraması yapın.",
+    tip:"Avuç içinizi düz açarak doğal ışıkta fotoğraflayın. Her iki eli de çekin.",
+    signs:[
+      {color:"#e8c0a8",label:"Normal avuç rengi",what:"Sağlıklı dolaşım",badge:"Normal"},
+      {color:"#e88888",label:"Palmar eritem (kızarıklık)",what:"Karaciğer hastalığı, hamilelik",badge:"Kontrol"},
+      {color:"#f0e0c0",label:"Sarı avuç",what:"Karotenoderma, tiroid",badge:"Kontrol"},
+      {color:"#d0d0e0",label:"Soluk avuç",what:"Anemi, dolaşım bozukluğu",badge:"Kontrol"},
+      {color:"#c0a898",label:"Dupuytren kontraktürü",what:"Parmak katlantısı, kalınlaşma",badge:"Kontrol"},
+      {color:"#d0a8a8",label:"Eklem şişliği",what:"Romatoid artrit, gut",badge:"Dikkat"}
+    ],
+    prompt:`El/avuç içi fotoğrafını analiz et. JSON:
+{"avuç_rengi":"normal/kırmızı/sarı/soluk","eklem":"normal/şiş/deformite","deri":"normal/kuru/kalınlaşmış/döküntülü","tırnak":"normal/anormal","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"avuç_rengi",l:"Avuç rengi",i:"🎨"},{k:"eklem",l:"Eklemler",i:"🦴"},{k:"deri",l:"Deri",i:"🔍"}],
+    summary:r=>`Avuç: ${r.avuç_rengi||"?"} · Eklem: ${r.eklem||"?"}`
+  },
+  lip:{
+    title:"👄 Dudak / Ağız Çevresi Analizi",
+    desc:"Dudak fotoğrafı çekerek renk, çatlak ve lezyon taraması yapın. Beslenme eksiklikleri ve sistemik hastalık belirtileri taranır.",
+    tip:"Dudaklarınızı doğal halde, ruj/balsam olmadan fotoğraflayın. Ağız köşelerini de dahil edin.",
+    signs:[
+      {color:"#d88888",label:"Pembe/kırmızı dudak",what:"Normal, sağlıklı",badge:"Normal"},
+      {color:"#d0b8b0",label:"Soluk dudak",what:"Anemi (demir eksikliği)",badge:"Kontrol"},
+      {color:"#8888b0",label:"Mavi/morumsu (siyanoz)",what:"Oksijen yetersizliği",badge:"Dikkat"},
+      {color:"#c8a088",label:"Ağız köşesi çatlağı",what:"Angular stomatit (B2, demir)",badge:"Kontrol"},
+      {color:"#b09080",label:"Kuru / çatlak dudak",what:"Dehidrasyon, B vitamini eksikliği",badge:"Kontrol"},
+      {color:"#d0a0a0",label:"Vezikül / uçuk",what:"Herpes simpleks (HSV-1)",badge:"Kontrol"}
+    ],
+    prompt:`Dudak/ağız çevresi fotoğrafını analiz et. JSON:
+{"dudak_rengi":"pembe/soluk/mavi/kırmızı","çatlak":"yok/hafif/belirgin","köşe_çatlağı":"yok/var","lezyon":"yok/vezikül/ülser","nemlenme":"normal/kuru","bulgular":["bulgu"],"olası_durumlar":["durum"],"öneriler":["öneri"],"uyarılar":[],"acil":false}`,
+    fields:[{k:"dudak_rengi",l:"Renk",i:"🎨"},{k:"çatlak",l:"Çatlak",i:"🔍"},{k:"köşe_çatlağı",l:"Köşe",i:"📐"},{k:"lezyon",l:"Lezyon",i:"🩺"}],
+    summary:r=>`Renk: ${r.dudak_rengi||"?"} · Çatlak: ${r.çatlak||"?"} · Lezyon: ${r.lezyon||"?"}`
+  }
+};
+
+function renderGenericPhotoStep(id){
+  const cfg=PHOTO_CONFIGS[id];if(!cfg)return;
+  const step=STEPS.find(s=>s.id===id);
+  const nextIdx=STEPS.findIndex(s=>s.id===id)+1;
+  // Completed view
+  if(W.done.has(id)&&W.scores[id]){
+    const r=W.scores[id];
+    $("#content").innerHTML=`
+      <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${cfg.title}</h1>
+      <div class="cs-hero"><div class="cs-check">✓</div><div class="cs-info">
+        <div class="cs-title">Tamamlandı</div>
+        <div class="cs-detail">${cfg.summary(r)}</div>
+      </div></div>
+      ${r.öneriler?`<div class="ai-result"><h4>Bulgular ve öneriler</h4>
+        ${r.bulgular?`<div class="ar-row"><span class="ar-icon">🔍</span><span><b>Bulgular:</b> ${Array.isArray(r.bulgular)?r.bulgular.join(", "):r.bulgular}</span></div>`:""}
+        ${(r.öneriler||[]).map(x=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${x}</span></div>`).join("")}
+        ${(r.uyarılar||[]).map(x=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span>${x}</span></div>`).join("")}</div>`:""}
+      <div class="actions"><button class="btn-primary" id="gp-next">Devam et →</button><button class="btn-ghost" id="gp-redo">Tekrar yap</button></div>`;
+    $("#gp-next").onclick=()=>{W.step=nextIdx;render();};
+    $("#gp-redo").onclick=()=>{delete W.scores[id];W.done.delete(id);saveState();renderGenericPhotoStep(id);};
+    return;
+  }
+  // Form view
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${cfg.title}</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">${cfg.desc}</p>
+    <div class="photo-zone">
+      ${photoUploadHTML("gp-"+id,"image/*")}
+      <div class="ref-chart">
+        <h4>Sağlık göstergeleri</h4>
+        <div style="display:flex;flex-direction:column;gap:5px">${cfg.signs.map(s=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;font-size:12px">
+          <div style="width:28px;height:18px;border-radius:6px;background:${s.color};border:1px solid rgba(0,0,0,.1);flex-shrink:0"></div>
+          <div style="flex:1"><b>${s.label}</b><br><span style="color:var(--muted)">${s.what}</span></div>
+          <span class="st-badge ${s.badge==="Normal"?"st-ok":s.badge==="Dikkat"?"st-hi":"st-lo"}">${s.badge}</span>
+        </div>`).join("")}</div>
+        <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">${cfg.tip}</p>
+      </div>
+    </div>
+    <div id="gp-${id}-result"></div>
+    <div class="actions"><button class="btn-ghost" id="skip-gp">Atla →</button></div>`;
+  wirePhotoUpload("gp-"+id,async(base64)=>{
+    const box=$(`#gp-${id}-result`);
+    box.innerHTML=`<div class="ai-loading"><div class="msg-typing"><span></span><span></span><span></span></div>AI analiz ediyor…</div>`;
+    if(!agentSettings.apiKey){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">API anahtarı tanımlı değil. Ayarlar'dan girin.</p></div>`;return;}
+    try{
+      const imgData=base64.split(",")[1];
+      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",
+        headers:{"Content-Type":"application/json","x-api-key":agentSettings.apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+        body:JSON.stringify({model:agentSettings.model,max_tokens:500,system:cfg.prompt+"\nSadece JSON döndür.",
+          messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:"image/jpeg",data:imgData}},{type:"text",text:"Bu fotoğrafı analiz et."}]}]})});
+      const data=await res.json();
+      const result=JSON.parse((data.content?.[0]?.text||"").replace(/```json|```/g,"").trim());
+      W.scores[id]=result;W.done.add(id);saveState();renderSteps();
+      box.innerHTML=`<div class="ai-result"><h4>AI Analiz Sonucu</h4>
+        ${cfg.fields.map(f=>`<div class="ar-row"><span class="ar-icon">${f.i}</span><span><b>${f.l}:</b> ${result[f.k]||"?"}</span></div>`).join("")}
+        ${result.bulgular?`<div class="ar-row"><span class="ar-icon">📋</span><span><b>Bulgular:</b> ${Array.isArray(result.bulgular)?result.bulgular.join(", "):result.bulgular}</span></div>`:""}
+        ${(result.olası_durumlar||[]).map(x=>`<div class="ar-row"><span class="ar-icon">🩺</span><span>${x}</span></div>`).join("")}
+        ${(result.öneriler||[]).map(x=>`<div class="ar-row"><span class="ar-icon">💡</span><span>${x}</span></div>`).join("")}
+        ${(result.uyarılar||[]).map(x=>`<div class="ar-row"><span class="ar-icon">⚠️</span><span style="color:var(--risk-high)">${x}</span></div>`).join("")}
+        ${result.acil?`<div class="ar-row"><span class="ar-icon">🚨</span><span style="color:var(--risk-high);font-weight:700">Acil: Doktora başvurun!</span></div>`:""}
+        <p style="font-size:11px;color:var(--muted);margin:12px 0 0">Tarama amaçlıdır, tıbbi tanı yerine geçmez.</p></div>`;
+      $(".actions").innerHTML=`<button class="btn-primary" id="gp-go">Devam et →</button>`;
+      $("#gp-go").onclick=()=>{W.step=nextIdx;render();};
+    }catch(e){box.innerHTML=`<div class="ai-result" style="border-color:var(--risk-high)"><h4>Hata</h4><p style="font-size:13px">${e.message}</p></div>`;}
+  });
+  $("#skip-gp").onclick=()=>{W.step=nextIdx;render();};
+}
+
 // ============ TREND & COMPOSITE ANALYSIS ============
 function buildTrendSection(){
   if(W.labHistory.length<2)return "";
@@ -1160,47 +1809,123 @@ function estimateDaysBetween(d1,d2){
 }
 
 function buildCompositeAnalysis(){
-  if(W.labHistory.length<1)return "";
-  const l=W.labs;const items=[];
-  // Metabolic syndrome check
+  const l=W.labs;if(!Object.keys(l).length)return "";
+  const items=[];
+  // Metabolic syndrome
   const hasFG=l.fasting_glucose>100,hasHDL=l.hdl&&l.hdl<(W.basics.sex===0?50:40),
-    hasTG=false, /* trigliserid not in parsed */ hasWaist=W.basics.waist&&W.basics.waist>(W.basics.sex===0?88:102),
+    hasWaist=W.basics.waist&&W.basics.waist>(W.basics.sex===0?88:102),
     hasBP=W.basics.hypertension||((W.basics.sbp||0)>=130);
   const metSynCount=[hasFG,hasHDL,hasWaist,hasBP].filter(Boolean).length;
-  items.push({name:"Metabolik Sendrom Değerlendirmesi",
+  items.push({name:"Metabolik Sendrom",
     status:metSynCount>=3?"Olası metabolik sendrom":metSynCount>=2?"Risk altı":"Düşük risk",
     cls:metSynCount>=3?"ci-bad":metSynCount>=2?"ci-warn":"ci-ok",
-    detail:`${metSynCount}/4 kriter pozitif: ${[hasFG?"glukoz ↑":"",hasHDL?"HDL ↓":"",hasWaist?"bel çevresi ↑":"",hasBP?"KB ↑":""].filter(Boolean).join(", ")||"yok"}`});
-  // Kidney composite
+    detail:`${metSynCount}/4 kriter: ${[hasFG?"glukoz ↑":"",hasHDL?"HDL ↓":"",hasWaist?"bel ↑":"",hasBP?"KB ↑":""].filter(Boolean).join(", ")||"yok"}`});
+  // Kidney
   if(l.creatinine||l.egfr){
     const egfr=l.egfr||0,cr=l.creatinine||0,alb=l.albumin||4;
-    const stage=egfr>=90?"Evre 1 (normal)":egfr>=60?"Evre 2 (hafif ↓)":egfr>=30?"Evre 3 (orta ↓)":egfr>=15?"Evre 4 (ağır ↓)":"Evre 5 (son dönem)";
-    items.push({name:"Böbrek Fonksiyonu Bileşik Değerlendirme",status:stage,
-      cls:egfr>=60?"ci-ok":egfr>=30?"ci-warn":"ci-bad",
-      detail:`eGFR ${egfr} + Kreatinin ${cr} + Albümin ${alb} birlikte değerlendirildi`});
-  }
-  // CV risk markers
+    const stage=egfr>=90?"Evre 1":egfr>=60?"Evre 2 (hafif ↓)":egfr>=30?"Evre 3 (orta ↓)":egfr>=15?"Evre 4 (ağır ↓)":"Evre 5";
+    items.push({name:"Böbrek Fonksiyonu",status:stage,cls:egfr>=60?"ci-ok":egfr>=30?"ci-warn":"ci-bad",
+      detail:`eGFR ${egfr} + Kreatinin ${cr} + Albümin ${alb} birlikte`});}
+  // CV
   if(l.total_chol||l.hdl){
     const ratio=l.total_chol&&l.hdl?(l.total_chol/l.hdl).toFixed(1):null;
-    items.push({name:"Kardiyovasküler Risk Belirteçleri",
-      status:ratio?(ratio>5?"Yüksek KVH riski":ratio>3.5?"Orta risk":"Düşük risk"):"Veri eksik",
+    items.push({name:"Kardiyovasküler Risk",
+      status:ratio?(ratio>5?"Yüksek":ratio>3.5?"Orta":"Düşük"):"Veri eksik",
       cls:ratio?(ratio>5?"ci-bad":ratio>3.5?"ci-warn":"ci-ok"):"ci-warn",
-      detail:ratio?`Total/HDL oranı: ${ratio} (ideal < 3.5) · Kolesterol ${l.total_chol||"?"} · HDL ${l.hdl||"?"}`:"Total kolesterol ve HDL birlikte değerlendirilmeli"});
-  }
-  // Anemia composite
+      detail:ratio?`Total/HDL oranı: ${ratio} (ideal < 3.5)`:""});}
+  // Anemia
   if(l.hemoglobin){
-    const hgb=l.hemoglobin,alb=l.albumin||4;
-    const anemia=hgb<(W.basics.sex===0?12:13);
-    items.push({name:"Anemi ve Beslenme Değerlendirmesi",
-      status:anemia?(alb<3.5?"Anemi + beslenme yetersizliği":"Anemi"):"Normal",
-      cls:anemia?(alb<3.5?"ci-bad":"ci-warn"):"ci-ok",
-      detail:`Hemoglobin ${hgb} g/dL · Albümin ${alb} g/dL — birlikte beslenme durumunu yansıtır`});
-  }
+    const anemia=l.hemoglobin<(W.basics.sex===0?12:13);
+    items.push({name:"Anemi + Beslenme",status:anemia?(l.albumin<3.5?"Anemi + yetersizlik":"Anemi"):"Normal",
+      cls:anemia?(l.albumin<3.5?"ci-bad":"ci-warn"):"ci-ok",
+      detail:`Hgb ${l.hemoglobin} + Alb ${l.albumin||"?"} birlikte`});}
   if(!items.length)return "";
   return `<div class="composite-panel"><h3>🔗 İlişkisel Bileşik Değerlendirme</h3>
-    <div class="comp-grid">${items.map(i=>`<div class="comp-item">
-      <div class="ci-name">${i.name}</div><div class="ci-status ${i.cls}">${i.status}</div>
-      <div class="ci-detail">${i.detail}</div></div>`).join("")}</div></div>`;
+    <div class="comp-grid">${items.map(i=>`<div class="comp-item"><div class="ci-name">${i.name}</div><div class="ci-status ${i.cls}">${i.status}</div><div class="ci-detail">${i.detail}</div></div>`).join("")}</div></div>`;
+}
+
+function buildPairAnalysis(){
+  const l=W.labs;if(!Object.keys(l).length)return "";
+  const pairs=[];
+  // Define all pair/triple relationships
+  const RELS=[
+    {keys:["fasting_glucose","hemoglobin"],name:"Glukoz ↔ Hemoglobin",
+      analyze:(g,h)=>{
+        const gHi=g>106,hLo=h<13;
+        if(gHi&&hLo)return{status:"Diyabet + anemi birlikteliği — insülin direnci anemiye katkı yapabilir",cls:"ci-bad"};
+        if(gHi)return{status:"Glukoz yüksek, hemoglobin normal — pre-diyabet/diyabet taraması önerilir",cls:"ci-warn"};
+        if(hLo)return{status:"Anemi mevcut, glukoz normal — demir/B12/folik asit değerlendirilmeli",cls:"ci-warn"};
+        return{status:"Her iki değer normal aralıkta",cls:"ci-ok"};}},
+    {keys:["creatinine","egfr"],name:"Kreatinin ↔ eGFR",
+      analyze:(cr,egfr)=>{
+        if(cr>1.3&&egfr<60)return{status:"Böbrek fonksiyon kaybı teyit edildi — nefroloji konsültasyonu",cls:"ci-bad"};
+        if(cr>1.3)return{status:"Kreatinin yüksek ama eGFR korunmuş — kas kütlesi/dehidrasyon?",cls:"ci-warn"};
+        if(egfr<60)return{status:"eGFR düşük — kronik böbrek hastalığı taraması",cls:"ci-warn"};
+        return{status:"Böbrek fonksiyonu normal",cls:"ci-ok"};}},
+    {keys:["total_chol","hdl"],name:"Total Kolesterol ↔ HDL",
+      analyze:(tc,hdl)=>{
+        const ratio=(tc/hdl).toFixed(1);
+        if(tc>200&&hdl<40)return{status:`Ateroskleroz riski yüksek — oran ${ratio} (hedef <3.5). Doymuş yağ ↓, egzersiz ↑`,cls:"ci-bad"};
+        if(tc>200)return{status:`Kolesterol yüksek, HDL normal — oran ${ratio}. Diyet müdahalesi`,cls:"ci-warn"};
+        if(hdl<40)return{status:`HDL düşük, total normal — oran ${ratio}. Aerobik egzersiz, omega-3`,cls:"ci-warn"};
+        return{status:`Lipid profili dengeli — oran ${ratio}`,cls:"ci-ok"};}},
+    {keys:["hemoglobin","albumin"],name:"Hemoglobin ↔ Albümin",
+      analyze:(hgb,alb)=>{
+        if(hgb<13&&alb<3.5)return{status:"Anemi + hipoalbüminemi — kronik hastalık veya beslenme yetersizliği",cls:"ci-bad"};
+        if(hgb<13)return{status:"İzole anemi — demir, B12, folik asit taraması önerilir",cls:"ci-warn"};
+        if(alb<3.5)return{status:"Hipoalbüminemi — karaciğer, böbrek veya beslenme değerlendirilmeli",cls:"ci-warn"};
+        return{status:"Beslenme ve kan yapımı normal",cls:"ci-ok"};}},
+    {keys:["creatinine","albumin"],name:"Kreatinin ↔ Albümin",
+      analyze:(cr,alb)=>{
+        if(cr>1.3&&alb<3.5)return{status:"Böbrek + beslenme bozukluğu birlikte — nefrotik sendrom?",cls:"ci-bad"};
+        if(cr>1.3)return{status:"Böbrek fonksiyonu azalmış, albümin korunmuş",cls:"ci-warn"};
+        return{status:"Normal",cls:"ci-ok"};}},
+    {keys:["fasting_glucose","total_chol","hdl"],name:"Glukoz ↔ Kolesterol ↔ HDL (üçlü)",
+      analyze:(g,tc,hdl)=>{
+        const allBad=g>106&&tc>200&&hdl<40;
+        const twoBad=(g>106?1:0)+(tc>200?1:0)+(hdl<40?1:0);
+        if(allBad)return{status:"Metabolik üçlü risk — diyabet + dislipidemi + düşük HDL → KVH riski çok yüksek",cls:"ci-bad"};
+        if(twoBad>=2)return{status:`${twoBad}/3 parametre anormal — yaşam tarzı müdahalesi acil`,cls:"ci-warn"};
+        return{status:"Metabolik üçlü dengede",cls:"ci-ok"};}},
+    {keys:["creatinine","egfr","albumin"],name:"Kreatinin ↔ eGFR ↔ Albümin (böbrek üçlü)",
+      analyze:(cr,egfr,alb)=>{
+        const bad=(cr>1.3?1:0)+(egfr<60?1:0)+(alb<3.5?1:0);
+        if(bad>=3)return{status:"Üçlü böbrek alarm — fonksiyon kaybı + protein kaçağı olası",cls:"ci-bad"};
+        if(bad>=2)return{status:"Böbrek fonksiyonu bozulmaya başlıyor — yakın takip",cls:"ci-warn"};
+        return{status:"Böbrek parametreleri dengede",cls:"ci-ok"};}},
+    {keys:["fasting_glucose","creatinine"],name:"Glukoz ↔ Kreatinin",
+      analyze:(g,cr)=>{
+        if(g>106&&cr>1.3)return{status:"Diyabetik nefropati riski — kronik yüksek glukoz böbreği hasarlar",cls:"ci-bad"};
+        if(g>106)return{status:"Glukoz yüksek — böbrek koruma için kan şekeri kontrolü kritik",cls:"ci-warn"};
+        return{status:"Glukoz-böbrek ilişkisi normal",cls:"ci-ok"};}}
+  ];
+
+  for(const rel of RELS){
+    const vals=rel.keys.map(k=>l[k]);
+    if(vals.some(v=>v===undefined))continue;
+    // Only show if at least one value is out of range
+    const anyAbnormal=rel.keys.some(k=>{
+      const ref=LAB_REF.find(r=>r.key===k);
+      return ref&&(l[k]<ref.lo||l[k]>ref.hi);
+    });
+    const result=rel.analyze(...vals);
+    pairs.push({name:rel.name,vals:rel.keys.map(k=>{
+      const ref=LAB_REF.find(r=>r.key===k);
+      const v=l[k];const bad=ref&&(v<ref.lo||v>ref.hi);
+      return{label:ref?.name||k,value:v,unit:ref?.unit||"",bad};
+    }),result,anyAbnormal});
+  }
+  // Sort: abnormal pairs first, then by severity
+  pairs.sort((a,b)=>(b.anyAbnormal?1:0)-(a.anyAbnormal?1:0)||(b.result.cls==="ci-bad"?2:b.result.cls==="ci-warn"?1:0)-(a.result.cls==="ci-bad"?2:a.result.cls==="ci-warn"?1:0));
+  if(!pairs.length)return "";
+
+  return `<div class="composite-panel"><h3>📊 İkili ve Üçlü İlişkisel Analiz</h3>
+    <p style="font-size:12px;color:var(--ink-soft);margin:0 0 14px">Referans dışı değerler diğer parametrelerle birlikte değerlendirildi.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">${pairs.map(p=>`<div class="comp-item" style="border-color:${p.result.cls==="ci-bad"?"#f0c4bc":p.result.cls==="ci-warn"?"#f0dca0":"var(--line)"}">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px">${p.vals.map(v=>`<span style="font-family:var(--mono);font-size:13px;font-weight:600;color:${v.bad?"var(--risk-high)":"var(--accent)"}">${v.label}: ${v.value} ${v.unit}</span>`).join(`<span style="color:var(--muted)">↔</span>`)}</div>
+      <div class="ci-name">${p.name}</div>
+      <div class="ci-status ${p.result.cls}">${p.result.status}</div>
+    </div>`).join("")}</div></div>`;
 }
 
 function buildTrendRecommendations(){
@@ -1469,7 +2194,10 @@ function renderLikertStep(id){
         const opts=typeof inst.items[i]==="string"?inst.items[0].options:inst.items[i].options;
         const mx=Math.max(...opts.map(o=>o[1]));
         const p=v/mx*100;
-        const c=id==="who5"?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad"):(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
+        const reversed=opts.length>=5&&opts[0][1]<opts[opts.length-1][1];
+        const c=reversed?(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad")
+          :(id==="who5"||id==="sf12")?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad")
+          :(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
         return `<div class="bar-row"><span class="bar-label" style="width:24px">${i+1}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${p}%"></div></div><span class="bar-val">${v}</span></div>`;
       }).join("");
     }
@@ -1494,7 +2222,7 @@ function renderLikertStep(id){
           <div class="viz-card"><h4>Skor</h4>
             <div class="live-score"><div class="ls-val ${cls}">${id==="who5"?"%"+s.pct:id==="sf12"?Math.round((s.pcs+s.mcs)/2):s.score}</div>
               <div class="ls-band ${cls}">${id==="sf12"?scoreLine:s.band}</div></div>
-            ${svgGauge(id==="phq9"||id==="gad7"?pct:pct,"",140)}</div>
+            ${svgGauge(id==="phq9"||id==="gad7"?pct:pct,"",140,id==="phq9"||id==="gad7")}</div>
           ${answerBars?`<div class="viz-card"><h4>Madde skorları</h4>${answerBars}</div>`:""}
         </div>
       </div>`;
@@ -1554,7 +2282,7 @@ function renderLikertStep(id){
     const ge=$("#lk-gauge");if(ge)ge.innerHTML=`
       <div class="live-score"><div class="ls-val ${cls}">${id==="who5"?"%"+(total*4):total}${id==="sf12"?"":vi.unit}</div>
         <div class="ls-band ${cls}">${label}</div></div>
-      ${svgGauge(id==="phq9"||id==="gad7"?pct:id==="who5"?total*4:pct,id==="sf12"?label:"",140)}`;
+      ${svgGauge(id==="phq9"||id==="gad7"?pct:id==="who5"?total*4:pct,id==="sf12"?label:"",140,id==="phq9"||id==="gad7")}`;
     // Item bars
     const maxPerItem=Math.max(...(inst.items[0].options||inst.items[0]?.options||[]).map(o=>o[1]),5);
     const bars=$("#lk-bars");if(bars)bars.innerHTML=answers.map((v,i)=>{
@@ -1562,7 +2290,10 @@ function renderLikertStep(id){
       const opts=typeof inst.items[i]==="string"?inst.items[0].options:inst.items[i].options;
       const mx=Math.max(...opts.map(o=>o[1]));
       const p=v/mx*100;
-      const c=id==="who5"?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad"):(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
+      const reversed=opts.length>=5&&opts[0][1]<opts[opts.length-1][1];
+      const c=reversed?(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad")
+        :(id==="who5"||id==="sf12")?(p>=60?"bar-ok":p>=30?"bar-warn":"bar-bad")
+        :(p<=40?"bar-ok":p<=60?"bar-warn":"bar-bad");
       return `<div class="bar-row"><span class="bar-label" style="width:24px">${i+1}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${p}%"></div></div><span class="bar-val">${v}</span></div>`;
     }).join("");
   }
