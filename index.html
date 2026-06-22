@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://api.anthropic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://api.anthropic.com">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="referrer" content="no-referrer">
 <title>The Good Life — Kişisel Sağlıklı Yaşam Modeli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +22,8 @@
   --mono:"IBM Plex Mono",monospace;
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none}
+input,textarea,select{-webkit-user-select:text;user-select:text}
 .layout{display:flex;min-height:100vh}
 .sidebar{width:260px;flex-shrink:0;background:var(--card);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
 @media(max-width:800px){.sidebar{display:none}}
@@ -130,6 +137,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
 .btn-primary:disabled{opacity:.4;cursor:default}
 .btn-ghost{font:inherit;font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--line);padding:10px 18px;border-radius:10px;cursor:pointer}
 .btn-ghost:hover{background:var(--line-soft)}
+.btn-ghost.btn-active{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-deep);font-weight:600}
 .field{margin-bottom:14px}
 .field-label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:500;margin-bottom:5px}
 .field-unit{font-family:var(--mono);font-size:11px;color:var(--muted)}
@@ -525,7 +533,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",sys
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="pdf.min.js"></script>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -748,8 +756,16 @@ function riskChips(basics){
 
 // ============ PROFILE SYSTEM ============
 const PROFILES_KEY="goodlife_profiles";const ACTIVE_KEY="goodlife_active";
-const AVATARS=["👤","👩","👨","👧","👦","👶","🧓","👵","👴"];
-const ROLES=["Ben","Eş","Çocuk","Anne","Baba","Diğer"];
+const AVATAR_IDS=["man","woman","girl","boy"];
+const AVATAR_SVG={
+  man:`<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="13" r="7"/><path d="M8 38c0-7 5-12 12-12s12 5 12 12"/><path d="M16 11h8"/></svg>`,
+  woman:`<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="13" r="7"/><path d="M8 38c0-7 5-12 12-12s12 5 12 12"/><path d="M13 8c0 0 2-4 7-4s7 4 7 4"/><path d="M12 13c-2 3-3 8-2 12M28 13c2 3 3 8 2 12"/></svg>`,
+  girl:`<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="6"/><path d="M10 38c0-6 4-10 10-10s10 4 10 10"/><path d="M14 9c0 0 2-3 6-3s6 3 6 3"/><path d="M13 14c-2 2-3 7-2 10M27 14c2 2 3 7 2 10"/><circle cx="17" cy="13" r=".8" fill="currentColor"/><circle cx="23" cy="13" r=".8" fill="currentColor"/></svg>`,
+  boy:`<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="6"/><path d="M10 38c0-6 4-10 10-10s10 4 10 10"/><path d="M14 10h12"/><circle cx="17" cy="13" r=".8" fill="currentColor"/><circle cx="23" cy="13" r=".8" fill="currentColor"/></svg>`
+};
+const AVATAR_LABEL={man:"Erkek",woman:"Kadın",girl:"Kız Çocuk",boy:"Erkek Çocuk"};
+function avatarHTML(id,size){return `<div style="width:${size||32}px;height:${size||32}px;color:var(--accent-deep)">${AVATAR_SVG[id]||AVATAR_SVG.man}</div>`;}
+const ROLES=[];
 let activeProfileId=null;
 function getProfiles(){try{return JSON.parse(localStorage.getItem(PROFILES_KEY))||[];}catch(e){return [];}}
 function saveProfiles(p){try{localStorage.setItem(PROFILES_KEY,JSON.stringify(p));}catch(e){}}
@@ -784,7 +800,7 @@ function renderLogin(){
   el.innerHTML=`<p style="text-align:center;color:var(--ink-soft);margin:0 0 18px">Profil seçin veya yeni oluşturun</p>
     <div class="profile-grid">
       ${profiles.map(p=>`<div class="profile-card" data-pid="${p.id}"><button class="pc-del" data-dp="${p.id}" title="Sil">✕</button>
-        <span class="pc-avatar">${p.avatar}</span><div class="pc-name">${p.name}</div><div class="pc-role">${p.role}</div></div>`).join("")}
+        <span class="pc-avatar">${avatarHTML(p.avatar,44)}</span><div class="pc-name">${p.name}</div><div class="pc-role">${AVATAR_LABEL[p.avatar]||""}</div></div>`).join("")}
       <div class="add-profile" id="add-p"><span class="ap-icon">+</span><span class="ap-text">Yeni profil</span></div>
     </div><div id="np-area"></div>`;
   $$(".profile-card").forEach(c=>c.onclick=e=>{if(e.target.classList.contains("pc-del"))return;enterProfile(c.dataset.pid);});
@@ -794,13 +810,12 @@ function renderLogin(){
   $("#add-p").onclick=()=>{$("#np-area").innerHTML=`<div class="new-profile-form"><h3>Yeni profil</h3>${npFormHTML()}</div>`;wireNpForm($("#np-area"));};
 }
 function npFormHTML(){return `<div class="field"><label class="field-label"><span>İsim</span></label><input type="text" id="np-name" placeholder="Adınız" maxlength="20"></div>
-  <div class="field"><label class="field-label"><span>Rol</span></label><select id="np-role">${ROLES.map(r=>`<option>${r}</option>`).join("")}</select></div>
-  <div class="field"><label class="field-label"><span>Avatar</span></label><div class="avatar-pick" id="np-av">${AVATARS.map((a,i)=>`<button type="button" data-av="${a}" class="${i===0?"sel":""}">${a}</button>`).join("")}</div></div>
+  <div class="field"><label class="field-label"><span>Profil tipi</span></label><div class="avatar-pick" id="np-av">${AVATAR_IDS.map((a,i)=>`<button type="button" data-av="${a}" class="${i===0?"sel":""}" title="${AVATAR_LABEL[a]}" style="display:flex;flex-direction:column;align-items:center;gap:2px;width:68px;height:72px;padding:8px 4px">${AVATAR_SVG[a]}<span style="font-size:9px">${AVATAR_LABEL[a]}</span></button>`).join("")}</div></div>
   <button class="btn-primary" id="np-go" style="width:100%;margin-top:8px">Oluştur ve giriş yap</button>`;}
 function wireNpForm(c){$$("#np-av button",c).forEach(b=>b.onclick=()=>{$$("#np-av button",c).forEach(x=>x.classList.remove("sel"));b.classList.add("sel");});
   $("#np-go",c).onclick=()=>{const name=($("#np-name",c)?.value||"").trim();if(!name){alert("İsim girin.");return;}
-    const role=$("#np-role",c)?.value||"Ben";const avatar=$("#np-av .sel",c)?.dataset?.av||"👤";
-    const id="p_"+Date.now();const ps=getProfiles();ps.push({id,name,avatar,role,createdAt:Date.now()});saveProfiles(ps);enterProfile(id);};}
+    const avatar=$("#np-av .sel",c)?.dataset?.av||"man";
+    const id="p_"+Date.now();const ps=getProfiles();ps.push({id,name,avatar,createdAt:Date.now()});saveProfiles(ps);enterProfile(id);};}
 function enterProfile(pid){
   activeProfileId=pid;try{localStorage.setItem(ACTIVE_KEY,pid);}catch(e){}
   const saved=loadState();
@@ -810,7 +825,7 @@ function enterProfile(pid){
   chatHistory.length=0;loadChat().forEach(m=>chatHistory.push(m));
   const p=getProfiles().find(x=>x.id===pid);
   $("#login-screen").style.display="none";$("#app-layout").style.display="flex";
-  $("#ps-avatar").textContent=p?.avatar||"👤";$("#ps-name").textContent=p?.name||"Profil";
+  $("#ps-avatar").innerHTML=avatarHTML(p?.avatar||"man",28);$("#ps-name").textContent=p?.name||"Profil";
   const cm=$("#chat-msgs");if(cm){cm.innerHTML="";chatHistory.forEach(m=>{const d=document.createElement("div");d.className="msg "+(m.role==="user"?"user":"bot");
     d.innerHTML=`<div class="msg-bubble">${escHtml(m.content)}</div><div class="msg-time">${m.time||""}</div>`;cm.appendChild(d);});}
   render();
@@ -844,21 +859,33 @@ const STEP_GROUPS=[
 ];
 const STEPS=STEP_GROUPS.flatMap(g=>g.items);
 
-const _collapsed=new Set();
+const _collapsed=new Set(STEP_GROUPS.map((_,i)=>i));
+let _userToggled=false;
 function renderSteps(){
   const el=$("#steps");el.innerHTML="";let idx=0;
+  // On first render only, auto-expand active group
+  if(!_userToggled){
+    STEP_GROUPS.forEach((g,gi)=>{
+      const start=STEP_GROUPS.slice(0,gi).reduce((s,x)=>s+x.items.length,0);
+      if(g.items.some((_,j)=>start+j===W.step))_collapsed.delete(gi);
+    });
+  }
   STEP_GROUPS.forEach((g,gi)=>{
-    // Auto-expand group containing active step
-    const groupIdxStart=idx;
-    const hasActive=g.items.some((_,j)=>groupIdxStart+j===W.step);
-    const hasDone=g.items.some(it=>W.done.has(it.id));
-    if(hasActive)_collapsed.delete(gi);
     const isColl=_collapsed.has(gi);
 
     const hdr=document.createElement("div");
     hdr.className="step-group"+(isColl?" collapsed":"");
     hdr.innerHTML=`<span>${g.icon} ${g.group}</span><span class="sg-arrow">▼</span>`;
-    hdr.onclick=()=>{if(_collapsed.has(gi))_collapsed.delete(gi);else _collapsed.add(gi);renderSteps();};
+    hdr.onclick=()=>{
+      _userToggled=true;
+      if(_collapsed.has(gi)){
+        STEP_GROUPS.forEach((_,j)=>_collapsed.add(j));
+        _collapsed.delete(gi);
+      }else{
+        _collapsed.add(gi);
+      }
+      renderSteps();
+    };
     el.appendChild(hdr);
 
     const wrap=document.createElement("div");
@@ -869,7 +896,11 @@ function renderSteps(){
       const check=W.done.has(s.id)?"✓":(i+1);
       const d=document.createElement("div");d.className="step-item "+cls;d.dataset.idx=i;
       d.innerHTML=`<div class="step-dot">${check}</div><div><div style="font-size:13px">${s.label}</div><div style="font-size:11px;color:var(--muted)">${s.desc}</div></div>`;
-      d.onclick=e=>{e.stopPropagation();W.step=i;render();};
+      d.onclick=e=>{e.stopPropagation();W.step=i;
+        // Open the group containing this step
+        STEP_GROUPS.forEach((_,j)=>_collapsed.add(j));
+        let c=0;STEP_GROUPS.forEach((gg,j)=>{if(i>=c&&i<c+gg.items.length)_collapsed.delete(j);c+=gg.items.length;});
+        render();};
       wrap.appendChild(d);
     });
     if(!isColl)wrap.style.maxHeight=(g.items.length*60+20)+"px";
@@ -1011,13 +1042,29 @@ function renderLabStep(){
     ${pairHtml}
     ${trendRecHtml}
     <div id="lab-cards"></div>
+    <div id="lab-table-toggle" style="display:flex;gap:8px;margin-top:16px;margin-bottom:-4px"></div>
     <div id="lab-table"></div>
     <div class="actions" style="margin-top:16px">
       ${hasLabs?`<button class="btn-primary" id="lab-next">Devam et →</button>`:""}
       <button class="btn-ghost" id="skip-labs">${hasLabs?"Atla":"Şimdilik atla"} →</button>
       ${hasLabs?`<button class="btn-ghost" id="lab-results" style="margin-left:auto;border-color:var(--accent);color:var(--accent)">📊 Sonuçları göster</button>`:""}
     </div>`;
-  if(hasLabs){updateLabCards();updateLabAlert();if(sel&&sel.labRows.length)$("#lab-table").innerHTML=renderPdfTable(sel.labRows);}
+  if(hasLabs){
+    updateLabCards();updateLabAlert();
+    const tgl=$("#lab-table-toggle");const tbl=$("#lab-table");
+    if(W.labHistory.length>1){
+      W._labViewMode=W._labViewMode||"date";
+      tgl.innerHTML=`<button class="btn-ghost ${W._labViewMode==="date"?"btn-active":""}" id="tv-date" style="font-size:12px;padding:6px 14px">📅 Seçili tarih (${sel?.date||"?"})</button>
+        <button class="btn-ghost ${W._labViewMode==="param"?"btn-active":""}" id="tv-param" style="font-size:12px;padding:6px 14px">📊 Değer bazlı karşılaştırma</button>`;
+      $("#tv-date").onclick=()=>{W._labViewMode="date";tbl.innerHTML=renderPdfTable(sel.labRows);
+        tgl.querySelectorAll("button").forEach(b=>b.classList.toggle("btn-active",b.id==="tv-date"));};
+      $("#tv-param").onclick=()=>{W._labViewMode="param";tbl.innerHTML=renderAllLabsByParam();
+        tgl.querySelectorAll("button").forEach(b=>b.classList.toggle("btn-active",b.id==="tv-param"));};
+      tbl.innerHTML=W._labViewMode==="param"?renderAllLabsByParam():renderPdfTable(sel.labRows);
+    }else{
+      if(sel&&sel.labRows.length)tbl.innerHTML=renderPdfTable(sel.labRows);
+    }
+  }
 
   // Wire events
   const zone=$("#iz"),inp=$("#pdf-in");
@@ -1137,19 +1184,95 @@ async function handleLabPdf(file){
     const allRows=extractAllPdfRows(text);
     if(!matches.length&&!allRows.length){
       if(status)status.innerHTML=`<p style="color:var(--risk-high);margin:8px 0;font-size:13px">Tanınan tetkik bulunamadı.</p>`;return;}
-    // Extract date from PDF text
-    const dateMatch=text.match(/(\d{2})[.\/](\d{2})[.\/](\d{4})/);
-    const dateStr=dateMatch?`${dateMatch[1]}.${dateMatch[2]}.${dateMatch[3]}`:new Date().toLocaleDateString("tr-TR");
-    // Push to history
+    // Extract date - look for "Tarih:" field first, then any date pattern
+    const tarihMatch=text.match(/Tarih\s*[:;]\s*(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})/i)
+      || text.match(/Tarih\s*[:;]\s*(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})/i);
+    let dateStr;
+    if(tarihMatch){
+      const parts=tarihMatch.slice(1).map(Number);
+      // Detect format: if first part > 31, it's YYYY-MM-DD
+      if(parts[0]>31) dateStr=`${String(parts[2]).padStart(2,"0")}.${String(parts[1]).padStart(2,"0")}.${parts[0]}`;
+      else dateStr=`${String(parts[0]).padStart(2,"0")}.${String(parts[1]).padStart(2,"0")}.${parts[2]}`;
+    }else{
+      const anyDate=text.match(/(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})/);
+      dateStr=anyDate?`${String(anyDate[1]).padStart(2,"0")}.${String(anyDate[2]).padStart(2,"0")}.${anyDate[3]}`:new Date().toLocaleDateString("tr-TR");
+    }
     const entry={id:Date.now(),date:dateStr,labs:{...found},labRows:allRows,fileName:file.name||"tahlil.pdf"};
     W.labHistory.push(entry);
-    W.labHistory.sort((a,b)=>{const pa=a.date.split(".").reverse().join("");const pb=b.date.split(".").reverse().join("");return pb.localeCompare(pa);});
+    // Sort newest first (descending by date)
+    W.labHistory.sort((a,b)=>{
+      const pa=a.date.split(".").reverse().join("");
+      const pb=b.date.split(".").reverse().join("");
+      return pb.localeCompare(pa);
+    });
     W.selectedLabIdx=W.labHistory.findIndex(h=>h.id===entry.id);
     W.labs=entry.labs;W.labRows=entry.labRows;
     W.done.add("labs");
     saveState();
     renderLabStep();
   }catch(e){if(status)status.innerHTML=`<p style="color:var(--risk-high);margin:8px 0;font-size:13px">Hata: ${e.message}</p>`;}
+}
+
+function renderAllLabsByParam(){
+  if(W.labHistory.length<2)return "";
+  // Sort oldest first (ascending) so columns go left=old → right=new
+  const sorted=[...W.labHistory].sort((a,b)=>{const pa=a.date.split(".").reverse().join("");const pb=b.date.split(".").reverse().join("");return pa.localeCompare(pb);});
+  const paramMap=new Map();
+  const dates=sorted.map(h=>h.date);
+  for(const h of sorted){
+    for(const row of h.labRows){
+      const key=row.name||row.matchedKey||"?";
+      if(!paramMap.has(key))paramMap.set(key,{name:key,unit:row.unit||"",ref:row.ref||"",refLo:row.refLo,refHi:row.refHi,matched:row.matched,values:new Map()});
+      paramMap.get(key).values.set(h.date,{val:row.val,status:row.status});
+    }
+  }
+  // Sort: abnormal params first, then matched, then others
+  const params=[...paramMap.values()].sort((a,b)=>{
+    const aAbn=[...a.values.values()].some(v=>v.status==="hi"||v.status==="lo");
+    const bAbn=[...b.values.values()].some(v=>v.status==="hi"||v.status==="lo");
+    if(aAbn!==bAbn)return bAbn-aAbn;
+    return (b.matched?1:0)-(a.matched?1:0);
+  });
+
+  let html=`<div class="pdf-table-wrap"><table class="pdf-table"><tr><th style="min-width:140px">TEKTİK</th>`;
+  html+=dates.map(d=>`<th style="min-width:80px;text-align:center">${d}</th>`).join("");
+  html+=`<th style="min-width:90px">REF</th><th style="min-width:120px">TREND</th></tr>`;
+  for(const p of params){
+    const vals=dates.map(d=>p.values.get(d));
+    const numVals=vals.filter(v=>v).map(v=>v.val);
+    const anyBad=vals.some(v=>v&&(v.status==="hi"||v.status==="lo"));
+    // Mini sparkline
+    let spark="";
+    if(numVals.length>=2){
+      const W2=100,H=24,pad=2;
+      const lo=p.refLo!=null?Math.min(p.refLo,...numVals)*0.9:Math.min(...numVals)*0.9;
+      const hi=p.refHi!=null?Math.max(p.refHi,...numVals)*1.1:Math.max(...numVals)*1.1;
+      const rng=hi-lo||1;
+      const pts=numVals.map((v,i)=>[pad+i/(numVals.length-1)*(W2-2*pad),pad+(1-(v-lo)/rng)*(H-2*pad)]);
+      const refY0=p.refHi!=null?pad+(1-(p.refHi-lo)/rng)*(H-2*pad):0;
+      const refY1=p.refLo!=null?pad+(1-(p.refLo-lo)/rng)*(H-2*pad):H;
+      spark=`<svg viewBox="0 0 ${W2} ${H}" style="width:100px;height:24px" preserveAspectRatio="none">
+        <rect x="0" y="${refY0}" width="${W2}" height="${Math.max(0,refY1-refY0)}" fill="rgba(0,166,81,.12)" rx="2"/>
+        <polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${anyBad?"var(--risk-high)":"var(--accent)"}" stroke-width="1.8" stroke-linejoin="round"/>
+        ${pts.map((pt,i)=>`<circle cx="${pt[0]}" cy="${pt[1]}" r="2.5" fill="${vals.filter(v=>v)[i]?.status==="ok"?"var(--accent)":"var(--risk-high)"}"/>`).join("")}
+      </svg>`;
+      // Change indicator
+      const first=numVals[0],last=numVals[numVals.length-1],chg=last-first;
+      const arrow=chg>0.01?"↑":chg<-0.01?"↓":"→";
+      const chgCls=anyBad&&Math.abs(chg)>0.01?"tv-bad":"tv-ok";
+      spark+=`<span class="${chgCls}" style="font-size:10px;font-weight:700;margin-left:4px">${arrow}${chg>0?"+":""}${chg.toFixed(1)}</span>`;
+    }
+    html+=`<tr class="${anyBad?"row-bad":""}"><td style="font-weight:600">${p.name}</td>`;
+    html+=vals.map(v=>{
+      if(!v)return `<td style="text-align:center;color:var(--muted)">—</td>`;
+      const cls=v.status==="ok"?"tv tv-ok":v.status==="hi"||v.status==="lo"?"tv tv-bad":"tv";
+      return `<td style="text-align:center"><span class="${cls}">${v.val}</span></td>`;
+    }).join("");
+    html+=`<td style="font-size:11px;color:var(--muted)">${p.ref||""}</td>`;
+    html+=`<td>${spark}</td></tr>`;
+  }
+  html+=`</table></div>`;
+  return html;
 }
 
 // ============ PHOTO ANALYSIS: Urine & Stool ============
@@ -2120,7 +2243,7 @@ function renderIPAQStep(){
         </div>
       </div>`;
     $("#ipaq-next").onclick=()=>{W.step=3;render();};
-    $("#ipaq-redo").onclick=()=>{delete W.scores.ipaq;delete W.scores.ipaq_raw;W.done.delete("ipaq");saveState();renderIPAQStep();};
+    $("#ipaq-redo").onclick=()=>{delete W.scores.ipaq;W.done.delete("ipaq");saveState();renderIPAQStep();};
     return;
   }
   const raw=W.scores.ipaq_raw||{};
@@ -2227,7 +2350,7 @@ function renderLikertStep(id){
         </div>
       </div>`;
     $("#lk-next").onclick=()=>{W.step=nextIdx;render();};
-    $("#lk-redo").onclick=()=>{delete W.scores[id];delete W.scores[id+"_ans"];W.done.delete(id);saveState();renderLikertStep(id);};
+    $("#lk-redo").onclick=()=>{delete W.scores[id];W.done.delete(id);saveState();renderLikertStep(id);};
     return;
   }
 
@@ -2709,6 +2832,17 @@ function initChat(){
   if(window.speechSynthesis)speechSynthesis.getVoices();
 }
 
+document.addEventListener('contextmenu',e=>e.preventDefault());
+// Anti-iframe embedding
+if(window.top!==window.self){try{window.top.location=window.self.location;}catch(e){document.body.innerHTML='<h2 style="text-align:center;margin-top:40vh">Bu sayfa iframe içinde açılamaz.</h2>';}}
+// Disable common shortcuts (Ctrl+U, Ctrl+S, F12)
+document.addEventListener('keydown',e=>{
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&(e.key==='u'||e.key==='U'||e.key==='s'||e.key==='S'))){e.preventDefault();return false;}
+});
+// Disable drag
+document.addEventListener('dragstart',e=>e.preventDefault());
+// Disable print screen detection (limited)
+document.addEventListener('keyup',e=>{if(e.key==='PrintScreen')navigator.clipboard?.writeText('');});
 // ============ INIT ============
 initSettings();
 initChat();
