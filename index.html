@@ -36,23 +36,53 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
 @media(max-width:800px){.main{padding:18px}}
 
 /* Wizard steps sidebar */
-.steps{display:flex;flex-direction:column;gap:2px;flex:1}
-.step-item{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:9px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:all .15s}
-.step-item:hover{background:var(--line-soft)}
-.step-item.active{background:var(--accent-wash);color:var(--accent-deep);font-weight:600}
+.steps{display:flex;flex-direction:column;gap:0;flex:1}
+.step-item{display:flex;align-items:center;gap:9px;padding:8px 11px 8px 16px;font-size:13px;color:var(--ink-soft);cursor:pointer;transition:all .12s;border-left:3px solid transparent;line-height:1.3}
+.step-item:hover{background:var(--line-soft);color:var(--ink)}
+.step-item.active{background:var(--accent-wash);color:var(--accent-deep);font-weight:600;border-left-color:var(--accent)}
 .step-item.done{color:var(--accent)}
-.step-item:hover{background:var(--line-soft);border-radius:9px}
-.step-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all .15s}
+.step-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all .12s;color:var(--muted)}
 .step-item.active .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
 .step-item.done .step-dot{border-color:var(--accent);background:var(--accent);color:#fff}
-.step-group{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);padding:14px 11px 4px;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:color .12s}
+.step-group{font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent-deep);padding:12px 11px 6px;margin-top:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:all .12s;border-top:1px solid var(--line-soft)}
+.step-group:first-child{border-top:none;padding-top:4px}
 .step-group:hover{color:var(--accent)}
-.step-group:first-child{padding-top:0;margin-top:0}
-.step-group .sg-arrow{font-size:8px;transition:transform .2s}
+.step-group .sg-arrow{font-size:9px;transition:transform .2s;color:var(--muted)}
 .step-group.collapsed .sg-arrow{transform:rotate(-90deg)}
+.step-group.collapsed{color:var(--muted)}
 .step-group-items{overflow:hidden;transition:max-height .25s ease}
 .step-group-items.collapsed{max-height:0!important}
 .sidebar-foot{margin-top:auto;padding-top:12px;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+
+/* Dashboard */
+.dash{display:grid;gap:16px}
+.dash-2{grid-template-columns:repeat(2,1fr)}
+.dash-3{grid-template-columns:repeat(3,1fr)}
+.dash-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.dash-2,.dash-3,.dash-4{grid-template-columns:1fr}}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.dcard-accent{border-left:4px solid var(--accent)}
+.dcard-warn{border-left:4px solid var(--risk-mod)}
+.dcard-bad{border-left:4px solid var(--risk-high)}
+.dcard h3{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:0 0 8px;font-weight:700}
+.dcard .dval{font-family:var(--mono);font-size:28px;font-weight:800;line-height:1.1}
+.dcard .dsub{font-size:12px;color:var(--ink-soft);margin-top:4px}
+.dcard .dtag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:6px}
+.dtag-ok{background:#e2f5eb;color:#007a3d}.dtag-warn{background:#fef3cd;color:#856404}.dtag-bad{background:#fdecea;color:#c75444}
+.dgauge{display:flex;justify-content:center;margin:8px 0}
+.dspark{margin-top:8px}
+.dhero{background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:#fff;border-radius:18px;padding:28px 32px;margin-bottom:8px}
+.dhero h1{font-size:22px;font-weight:800;margin:0 0 6px;color:#fff}
+.dhero p{margin:0;font-size:13.5px;opacity:.9}
+.dhero-score{display:flex;align-items:center;gap:20px;margin-top:16px}
+.dhero-num{font-family:var(--mono);font-size:52px;font-weight:900;line-height:1}
+.dhero-ring{width:80px;height:80px;flex-shrink:0}
+.dsection{margin-top:8px}
+.dsection>h2{font-size:14px;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.dphoto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.dphoto-item{text-align:center;padding:10px 6px;border-radius:10px;font-size:11px;line-height:1.3;border:1px solid var(--line)}
+.dphoto-item.done{background:var(--accent-wash);border-color:var(--accent)}
+.dphoto-icon{font-size:22px;margin-bottom:4px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
 
 /* Profile system */
@@ -470,20 +500,33 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
       <div>
         <div style="font-size:13px;font-weight:600;margin-bottom:8px">AI Sağlık Asistanı — API Ayarları</div>
         <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.55">
-          Sağlık asistanını kullanmak için bir Anthropic API anahtarı gerekiyor.
-          Anahtarınız yalnızca bu cihazda (localStorage) saklanır, hiçbir sunucuya gönderilmez.
+          API ayarları <code style="font-size:11px;background:var(--line-soft);padding:2px 6px;border-radius:4px">config.js</code> dosyasından
+          veya aşağıdan düzenlenebilir. Anahtarınız yalnızca bu cihazda saklanır.
         </p>
       </div>
       <div class="field">
-        <label class="field-label"><span>Anthropic API Anahtarı</span></label>
-        <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." style="font-family:var(--mono);font-size:12px">
+        <label class="field-label"><span>AI Sağlayıcı</span></label>
+        <select id="provider-select">
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="openai">OpenAI (GPT)</option>
+          <option value="google">Google (Gemini)</option>
+          <option value="custom">Custom API</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label"><span>API Anahtarı</span></label>
+        <input type="password" id="api-key-input" placeholder="API anahtarınız" style="font-family:var(--mono);font-size:12px">
       </div>
       <div class="field">
         <label class="field-label"><span>Model</span></label>
         <select id="model-select">
-          <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (önerilen)</option>
-          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (hızlı)</option>
-          <option value="claude-opus-4-6">Claude Opus 4.6 (güçlü)</option>
+          <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>
+          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+          <option value="claude-opus-4-6">Claude Opus 4.6</option>
+          <option value="gpt-4o">GPT-4o</option>
+          <option value="gpt-4o-mini">GPT-4o Mini</option>
+          <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
         </select>
       </div>
       <div class="field">
@@ -493,6 +536,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
           <button type="button" data-v="0">Kapalı</button>
         </div>
       </div>
+      <div id="config-info" style="font-size:11px;color:var(--muted);background:var(--line-soft);padding:10px 12px;border-radius:8px;line-height:1.5"></div>
       <div style="display:flex;gap:10px;align-items:center">
         <button class="btn-primary" id="save-settings">Kaydet</button>
         <button class="btn-ghost" id="test-api">Bağlantıyı test et</button>
@@ -500,7 +544,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
       </div>
       <div id="api-test-result"></div>
       <p style="font-size:11px;color:var(--muted);margin:0;line-height:1.5">
-        API anahtarını <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--accent)">console.anthropic.com</a> adresinden alabilirsiniz.
+        Detaylı ayarlar için <code style="font-size:10px;background:var(--line-soft);padding:1px 4px;border-radius:3px">config.js</code> dosyasını düzenleyin.
       </p>
       <div style="border-top:1px solid var(--line);padding-top:14px;margin-top:4px">
         <div style="font-size:13px;font-weight:600;margin-bottom:6px">Kayıtlı veriler</div>
@@ -534,6 +578,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="config.js"></script>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -838,6 +883,11 @@ const STEP_GROUPS=[
   {group:"Yaşam Tarzı",icon:"🏃",items:[
     {id:"ipaq",   label:"Fiziksel Aktivite",  icon:"🏃", desc:"IPAQ kısa form"},
     {id:"sf12",   label:"Genel Sağlık",       icon:"🏥", desc:"SF-12 (12 soru)"}]},
+  {group:"Günlük Takip",icon:"📅",items:[
+    {id:"sleep",label:"Uyku Takibi",icon:"🌙",desc:"süre, kalite, düzen"},
+    {id:"water",label:"Su Tüketimi",icon:"💧",desc:"günlük hedef ve takip"},
+    {id:"mood",label:"Stres & Ruh Hali",icon:"😊",desc:"günlük mood takibi"},
+    {id:"family_hx",label:"Aile Sağlık Geçmişi",icon:"👨‍👩‍👧",desc:"genetik risk faktörleri"}]},
   {group:"Psikolojik Sağlık",icon:"🧠",items:[
     {id:"who5",   label:"Esenlik Ölçeği",     icon:"🌿", desc:"WHO-5 (5 soru)"},
     {id:"phq9",   label:"Depresyon Taraması",  icon:"🧠", desc:"PHQ-9 (9 soru)"},
@@ -855,8 +905,27 @@ const STEP_GROUPS=[
     {id:"wound",  label:"Yara Takibi",         icon:"🩹", desc:"iyileşme, enfeksiyon"},
     {id:"hand",   label:"El / Avuç İçi",       icon:"🤚", desc:"palmaris, eklem"},
     {id:"lip",    label:"Dudak / Ağız Çevresi",icon:"👄", desc:"renk, çatlak, lezyon"}]},
+  {group:"Vitaminler & Mineraller",icon:"💊",items:[
+    {id:"vitamins",label:"Vitamin Rehberi",icon:"🧬",desc:"tüm vitaminler ve mineraller"},
+    {id:"vit_class",label:"Vitamin Sınıflandırma",icon:"📋",desc:"yağda/suda çözünen"},
+    {id:"vit_main",label:"Ana Vitamin Tablosu",icon:"📊",desc:"13 vitamin detaylı"},
+    {id:"vit_daily",label:"Günlük İhtiyaçlar",icon:"📐",desc:"erkek/kadın referans"},
+    {id:"vit_suppl",label:"Takviye Değerlendirme",icon:"💊",desc:"kanıta dayalı"},
+    {id:"vit_symptom",label:"Belirti-Vitamin İlişkisi",icon:"🔍",desc:"eksiklik belirtileri"},
+    {id:"vit_season",label:"Mevsimsel Vitaminler",icon:"🍂",desc:"mevsime göre besinler"},
+    {id:"vit_food",label:"Besin-Vitamin Eşleşmesi",icon:"🥗",desc:"hangi gıda ne sağlar"},
+    {id:"vit_elder",label:"İleri Yaşta Vitamin",icon:"🧓",desc:"yaşlılıkta ihtiyaçlar"},
+    {id:"vit_synergy",label:"Vitamin Sinerjileri",icon:"🤝",desc:"birlikte çalışan vitaminler"},
+    {id:"vit_meals",label:"Günlük Öğün Örnekleri",icon:"🍽",desc:"sinerji öğünleri"}]},
+  {group:"Baharatlar & Aromatikler",icon:"🌶",items:[
+    {id:"spc_main",label:"Baharat Rehberi",icon:"🧂",desc:"25 baharat detaylı"},
+    {id:"spc_root",label:"Kök ve Kabuk Baharatlar",icon:"🫚",desc:"zencefil, zerdeçal, tarçın"},
+    {id:"spc_match",label:"Yemeğe Göre Baharat",icon:"🍲",desc:"hangi yemeğe ne yakışır"}]},
   {group:"Tamamlayıcı Sağlık",icon:"🌿",items:[
-    {id:"comp_health",label:"Doğal Tarifler",icon:"🍵",desc:"bitkisel, beslenme, cilt bakım"}]},
+    {id:"comp_health",label:"Doğal Tarifler",icon:"🍵",desc:"bitkisel, beslenme, cilt bakım"},
+    {id:"recipes",label:"Yemek Tarifleri",icon:"🍽",desc:"sağlıklı yemek tarifleri"},
+    {id:"snacks",label:"Atıştırmalıklar",icon:"🥜",desc:"sağlıklı ara öğün"},
+    {id:"yogurt",label:"Yoğurtlu Karışımlar",icon:"🥣",desc:"yoğurt bazlı tarifler"}]},
   {group:"Rapor",icon:"📊",items:[
     {id:"results",label:"Sonuçlar & Öneriler", icon:"📊", desc:"rapor + plan"}]}
 ];
@@ -896,9 +965,9 @@ function renderSteps(){
     g.items.forEach(s=>{
       const i=idx++;
       const cls=W.done.has(s.id)?"done":i===W.step?"active":"";
-      const check=W.done.has(s.id)?"✓":(i+1);
+      const dot=W.done.has(s.id)?"✓":s.icon||"";
       const d=document.createElement("div");d.className="step-item "+cls;d.dataset.idx=i;
-      d.innerHTML=`<div class="step-dot">${check}</div><div><div style="font-size:13px">${s.label}</div><div style="font-size:11px;color:var(--muted)">${s.desc}</div></div>`;
+      d.innerHTML=`<div class="step-dot">${dot}</div><div style="min-width:0"><div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.label}</div><div style="font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.desc}</div></div>`;
       d.onclick=e=>{e.stopPropagation();W.step=i;
         // Open the group containing this step
         STEP_GROUPS.forEach((_,j)=>_collapsed.add(j));
@@ -917,6 +986,10 @@ function render(){
   if(s.id==="labs")renderLabStep();
   else if(s.id==="basics")renderBasicsStep();
   else if(s.id==="vitals")renderVitalsStep();
+  else if(s.id==="sleep")renderSleepStep();
+  else if(s.id==="water")renderWaterStep();
+  else if(s.id==="mood")renderMoodStep();
+  else if(s.id==="family_hx")renderFamilyHxStep();
   else if(s.id==="ipaq")renderIPAQStep();
   else if(s.id==="who5")renderLikertStep("who5");
   else if(s.id==="sf12")renderLikertStep("sf12");
@@ -928,6 +1001,11 @@ function render(){
   else if(s.id==="tongue")renderTongueStep();
   else if(PHOTO_CONFIGS[s.id])renderGenericPhotoStep(s.id);
   else if(s.id==="comp_health")renderCompHealthStep();
+  else if(s.id==="vitamins")renderVitaminsStep();
+  else if(VIT_SHEETS[s.id])renderVitSheet(s.id);
+  else if(s.id==="recipes")renderRecipesStep();
+  else if(s.id==="snacks")renderSnacksStep();
+  else if(s.id==="yogurt")renderYogurtStep();
   else if(s.id==="results")renderResults();
 }
 
@@ -1934,6 +2012,402 @@ function renderCompHealthStep(){
 }
 function escAttr(s){return s.replace(/"/g,"&quot;").replace(/</g,"&lt;");}
 
+// ============ RECIPES TABLE ============
+const RC_KEY="goodlife_recipes";
+const RC_RULES_KEY="goodlife_recipe_rules";
+const RC_COLS=[{k:"tarih",l:"Tarih",w:"85px"},{k:"kategori",l:"Kategori",w:"100px"},{k:"yemek",l:"Yemek",w:"130px"},{k:"malzeme",l:"Temel malzemeler",w:"200px"},{k:"tarif",l:"Kısa tarif",w:"200px"},{k:"katki",l:"Beslenme katkısı",w:"200px"}];
+const RC_CATEGORIES=["Sulu yemek","Baklagil","Dolma","Köfte","Zeytinyağlı","Çorba","Fırın yemeği","Balık","Yumurtalı yemek","Salata","Diğer"];
+const RC_DEFAULT=[{"tarih":"2026-06-22","kategori":"Sulu yemek","yemek":"Etli taze fasulye","malzeme":"500 g taze fasulye, 200 g yağsız kuşbaşı et, soğan, domates, 1 yemek kaşığı zeytinyağı","tarif":"Soğan ve eti kısa süre çevirin. Domates ve fasulyeyi ekleyip az suyla kısık ateşte pişirin.","katki":"Lif, protein ve demir sağlar. Az yağlı hazırlandığında dengeli bir ana öğündür."},{"tarih":"2026-06-23","kategori":"Sulu yemek","yemek":"Zeytinyağlı taze fasulye","malzeme":"Taze fasulye, domates, soğan, sarımsak, zeytinyağı","tarif":"Soğanı az yağla yumuşatın. Fasulye ve domatesi ekleyerek kendi suyunda pişirin.","katki":"Lif ve antioksidan yönünden zengindir."},{"tarih":"2026-06-24","kategori":"Sulu yemek","yemek":"Etli türlü","malzeme":"Patlıcan, kabak, biber, patates, domates, kuşbaşı et","tarif":"Eti önceden pişirin. Sebzeleri ekleyip az su ve salçayla kısık ateşte pişirin.","katki":"Farklı sebzeler sayesinde vitamin, mineral ve lif çeşitliliği sağlar."},{"tarih":"2026-06-25","kategori":"Sulu yemek","yemek":"Tavuklu bezelye","malzeme":"Bezelye, tavuk göğsü, havuç, patates, soğan","tarif":"Tavuk ve soğanı çevirin. Sebzeleri, salçayı ve sıcak suyu ekleyip pişirin.","katki":"Protein, lif ve kompleks karbonhidrat içerir."},{"tarih":"2026-06-26","kategori":"Sulu yemek","yemek":"Etli bamya","malzeme":"Bamya, kuşbaşı et, domates, limon, soğan","tarif":"Eti ve soğanı pişirin. Domates, bamya ve limon suyunu ekleyip karıştırmadan pişirin.","katki":"Bamya yüksek liflidir ve bağırsak düzenini destekler."},{"tarih":"2026-06-27","kategori":"Sulu yemek","yemek":"Kabak yemeği","malzeme":"Kabak, domates, soğan, dereotu, az bulgur","tarif":"Soğanı yumuşatın. Kabak, domates ve bulgur ekleyerek pişirin.","katki":"Hafif, düşük kalorili ve lifli bir yemektir."},{"tarih":"2026-06-28","kategori":"Baklagil","yemek":"Kuru fasulye","malzeme":"Kuru fasulye, soğan, domates, zeytinyağı","tarif":"Fasulyeyi geceden ıslatın. Suyunu değiştirerek haşlayın; soğan ve domatesli sosla pişirin.","katki":"Bitkisel protein, lif, demir ve folat sağlar."},{"tarih":"2026-06-29","kategori":"Baklagil","yemek":"Etli kuru fasulye","malzeme":"Kuru fasulye, 150–200 g yağsız et, soğan, domates","tarif":"Eti önceden pişirin. Islatılıp haşlanan fasulye ve domatesli sosu ekleyin.","katki":"Protein ve demir içeriği yüksektir."},{"tarih":"2026-06-30","kategori":"Baklagil","yemek":"Nohut yemeği","malzeme":"Nohut, soğan, domates, salça, kimyon","tarif":"Nohudu geceden ıslatın. Haşladıktan sonra soğanlı-domatesli sosla pişirin.","katki":"Uzun süre tokluk sağlayan lif ve bitkisel protein içerir."},{"tarih":"2026-07-01","kategori":"Baklagil","yemek":"Yeşil mercimek","malzeme":"Yeşil mercimek, soğan, havuç, domates, az bulgur","tarif":"Mercimeği kısa süre haşlayın. Soğan, sebze ve bulgurla pişirin.","katki":"Lif, demir ve bitkisel protein açısından güçlüdür."},{"tarih":"2026-07-02","kategori":"Baklagil","yemek":"Barbunya pilaki","malzeme":"Barbunya, havuç, soğan, domates, sarımsak, zeytinyağı","tarif":"Barbunyayı haşlayın. Soğan, havuç ve domatesle kısık ateşte pişirip soğuk servis edin.","katki":"Lifli ve doyurucudur."},{"tarih":"2026-07-03","kategori":"Dolma","yemek":"Zeytinyağlı biber dolması","malzeme":"Dolmalık biber, bulgur, soğan, domates, maydanoz","tarif":"İç harcı çiğden hazırlayın. Biberleri doldurup az suyla kısık ateşte pişirin.","katki":"Bulgur kullanıldığında lif oranı yükselir."},{"tarih":"2026-07-04","kategori":"Dolma","yemek":"Etli biber dolması","malzeme":"Biber, az yağlı kıyma, bulgur, soğan, domates","tarif":"Kıyma, bulgur ve sebzeleri karıştırın. Biberleri doldurup pişirin.","katki":"Protein, sebze ve tahılı birleştirir."},{"tarih":"2026-07-05","kategori":"Dolma","yemek":"Kabak dolması","malzeme":"Kabak, kıyma, bulgur, soğan, domates, dereotu","tarif":"Kabakların içini oyun. İç harcı doldurup domatesli suyla pişirin.","katki":"Kabağın kalorisi düşüktür; kıyma ve bulgurla dengeli olur."},{"tarih":"2026-07-06","kategori":"Dolma","yemek":"Pazı/karalahana sarması","malzeme":"Pazı/karalahana, kıyma veya mercimek, bulgur, soğan","tarif":"Yaprakları haşlayın. Harcı sarıp az suyla pişirin.","katki":"Yapraklı sebzeler folat, lif ve mineraller sağlar."},{"tarih":"2026-07-07","kategori":"Dolma","yemek":"Zeytinyağlı yaprak sarma","malzeme":"Asma yaprağı, bulgur/pirinç, soğan, maydanoz, nane","tarif":"İç harcı hazırlayıp yapraklara sarın. Limonlu suyla pişirin.","katki":"Lifli bir seçenektir."},{"tarih":"2026-07-08","kategori":"Köfte","yemek":"Izgara köfte","malzeme":"Az yağlı kıyma, soğan, maydanoz, kimyon","tarif":"Malzemeleri yoğurup ızgarada pişirin.","katki":"Yüksek kaliteli protein ve demir sağlar."},{"tarih":"2026-07-09","kategori":"Köfte","yemek":"Fırında sebzeli köfte","malzeme":"Köfte harcı, patlıcan, kabak, biber, domates","tarif":"Köfteleri ve sebzeleri tepsiye dizin. Fırında pişirin.","katki":"Kızartmaya göre daha az yağ içerir."},{"tarih":"2026-07-10","kategori":"Köfte","yemek":"İzmir köfte","malzeme":"Köfte, patates, domates, biber","tarif":"Köfte ve patatesleri fırınlayın. Domates sosuyla pişirin.","katki":"Fırında hazırlandığında daha hafiftir."},{"tarih":"2026-07-11","kategori":"Köfte","yemek":"Mercimek köftesi","malzeme":"Kırmızı mercimek, ince bulgur, soğan, maydanoz, kimyon","tarif":"Mercimeği pişirin, bulgur ekleyip şişirin. Soğan ve yeşilliklerle yoğurun.","katki":"Bitkisel protein ve lif sağlar."},{"tarih":"2026-07-12","kategori":"Köfte","yemek":"Tavuk köftesi","malzeme":"Tavuk kıyması, soğan, yulaf unu, maydanoz","tarif":"Malzemeleri yoğurun. Fırında veya yağsız tavada pişirin.","katki":"Düşük doymuş yağlı protein seçeneğidir."},{"tarih":"2026-07-13","kategori":"Köfte","yemek":"Fırında kadınbudu köfte","malzeme":"Yağsız kıyma, bulgur, yumurta, soğan","tarif":"Harcı hazırlayıp fırınlayın.","katki":"Kızartmaya göre yağ düşer. Bulgur lif artırır."},{"tarih":"2026-07-14","kategori":"Zeytinyağlı","yemek":"Pırasa yemeği","malzeme":"Pırasa, havuç, domates, az bulgur, zeytinyağı","tarif":"Sebzeleri doğrayıp az yağ ve suyla pişirin.","katki":"Lif ve prebiyotik bileşenler içerir."},{"tarih":"2026-07-15","kategori":"Zeytinyağlı","yemek":"Enginar","malzeme":"Enginar, bezelye, havuç, limon, dereotu","tarif":"Enginarları sebzelerle limonlu suda pişirin.","katki":"Lif, folat ve antioksidan içerir."},{"tarih":"2026-07-16","kategori":"Zeytinyağlı","yemek":"Kereviz yemeği","malzeme":"Kereviz, havuç, patates, portakal/limon suyu","tarif":"Sebzeleri zeytinyağı ve portakal-limon suyuyla pişirin.","katki":"Lifli ve düşük kalorilidir."},{"tarih":"2026-07-17","kategori":"Zeytinyağlı","yemek":"Ispanak yemeği","malzeme":"Ispanak, soğan, domates, az bulgur","tarif":"Soğanı yumuşatın. Ispanak, domates ve bulgur ekleyip pişirin.","katki":"Folat, lif ve mineraller sağlar."},{"tarih":"2026-07-18","kategori":"Çorba","yemek":"Mercimek çorbası","malzeme":"Kırmızı mercimek, soğan, havuç, kimyon","tarif":"Malzemeleri haşlayıp blenderdan geçirin.","katki":"Bitkisel protein ve lif sağlar."},{"tarih":"2026-07-19","kategori":"Çorba","yemek":"Ezogelin çorbası","malzeme":"Kırmızı mercimek, bulgur, pirinç, domates, nane","tarif":"Malzemeleri birlikte pişirin.","katki":"Baklagil ve tahılları birleştirir."},{"tarih":"2026-07-20","kategori":"Çorba","yemek":"Tarhana çorbası","malzeme":"Tarhana, su, domates, kuru nane","tarif":"Tarhanayı soğuk suyla açıp pişirin.","katki":"Fermente bir üründür; tuz miktarı kontrol edilmeli."},{"tarih":"2026-07-21","kategori":"Fırın yemeği","yemek":"Fırında tavuk-sebze","malzeme":"Tavuk, kabak, havuç, biber, soğan, zeytinyağı","tarif":"Tüm malzemeleri baharatlarla fırında pişirin.","katki":"Protein ve sebzeleri tek öğünde birleştirir."},{"tarih":"2026-07-22","kategori":"Fırın yemeği","yemek":"Karnıyarık","malzeme":"Patlıcan, az yağlı kıyma, soğan, domates","tarif":"Patlıcanları fırında yumuşatın. Kıymalı harçla doldurup pişirin.","katki":"Fırınlama yağ miktarını ciddi ölçüde azaltır."},{"tarih":"2026-07-23","kategori":"Fırın yemeği","yemek":"Sebzeli mücver","malzeme":"Kabak, havuç, yumurta, yulaf unu, dereotu","tarif":"Malzemeleri karıştırıp fırında pişirin.","katki":"Kızartılmadığında hafif ve lifli bir seçenektir."},{"tarih":"2026-07-24","kategori":"Balık","yemek":"Fırında balık","malzeme":"Mevsim balığı, soğan, limon, domates","tarif":"Balığı sebzelerle birlikte fırında pişirin.","katki":"Protein ve omega-3 sağlar."},{"tarih":"2026-07-25","kategori":"Yumurtalı yemek","yemek":"Menemen","malzeme":"Yumurta, domates, biber, az zeytinyağı","tarif":"Biber ve domatesi pişirin. Yumurtaları ekleyin.","katki":"Protein ve sebzeyi bir arada sunar."}];
+const RC_RULES_DEFAULT=[{"konu":"Yağ miktarı","uygulama":"Dört kişilik yemekte 1–2 yemek kaşığı zeytinyağı yeterlidir."},{"konu":"Kızartma","uygulama":"Kızartmak yerine fırınlayın veya ızgara yapın."},{"konu":"Tahıl seçimi","uygulama":"Beyaz pirincin bir kısmını bulgur, karabuğday veya yulafla değiştirin."},{"konu":"Tuz","uygulama":"Salça, peynir ve hazır et suyu zaten tuz içerdiğinden ilave tuzu azaltın."},{"konu":"Protein dengesi","uygulama":"Kırmızı et yerine balık, tavuk, yumurta ve baklagillerle dönüşümlü kullanın."},{"konu":"Bağırsak sağlığı","uygulama":"Baklagilleri geceden ıslatın, ıslatma suyunu dökün, kimyon ekleyin."},{"konu":"Porsiyon düzeni","uygulama":"Tabağın yarısı sebze/salata, dörtte biri protein, dörtte biri bulgur/tam tahıl."},{"konu":"Yan ürünler","uygulama":"Büyük porsiyon pilav yerine yoğurt, cacık, salata veya az bulgur tercih edin."}];
+function getRcData(){try{const r=localStorage.getItem(RC_KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveRcData(d){try{localStorage.setItem(RC_KEY,JSON.stringify(d));}catch(e){}}
+function getRcRules(){try{const r=localStorage.getItem(RC_RULES_KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveRcRules(d){try{localStorage.setItem(RC_RULES_KEY,JSON.stringify(d));}catch(e){}}
+
+function renderRecipesStep(){
+  let data=getRcData();if(!data){data=[...RC_DEFAULT];saveRcData(data);}
+  let rules=getRcRules();if(!rules){rules=[...RC_RULES_DEFAULT];saveRcRules(rules);}
+  let filter="",catFilter="";
+
+  function draw(){
+    let filtered=data;
+    if(catFilter)filtered=filtered.filter(r=>r.kategori===catFilter);
+    if(filter)filtered=filtered.filter(r=>RC_COLS.some(c=>(r[c.k]||"").toLowerCase().includes(filter.toLowerCase())));
+    // Category counts
+    const cats={};data.forEach(r=>{cats[r.kategori]=(cats[r.kategori]||0)+1;});
+    let catHtml=`<button class="btn-ghost ${!catFilter?"btn-active":""}" data-cat="" style="font-size:11px;padding:5px 12px">Tümü (${data.length})</button>`;
+    catHtml+=Object.entries(cats).map(([k,v])=>`<button class="btn-ghost ${catFilter===k?"btn-active":""}" data-cat="${escAttr(k)}" style="font-size:11px;padding:5px 12px">${k} (${v})</button>`).join("");
+    $("#rc-cats").innerHTML=catHtml;
+    $$("[data-cat]").forEach(b=>b.onclick=()=>{catFilter=b.dataset.cat;draw();});
+
+    let tbl=`<div style="overflow-x:auto;border:1.5px solid #a8d5ba;border-radius:10px"><table class="pdf-table" style="min-width:900px"><tr>${RC_COLS.map(c=>`<th style="min-width:${c.w}">${c.l}</th>`).join("")}<th style="min-width:70px">İşlem</th></tr>`;
+    filtered.forEach(r=>{
+      const ri=data.indexOf(r);
+      tbl+=`<tr><td style="font-family:var(--mono);font-size:12px">${r.tarih||""}</td>
+        <td><span class="st-badge st-ok" style="font-size:10px">${r.kategori||""}</span></td>
+        <td style="font-weight:600">${r.yemek||""}</td>
+        <td style="font-size:12px">${r.malzeme||""}</td>
+        <td style="font-size:12px">${r.tarif||""}</td>
+        <td style="font-size:12px;color:var(--accent-deep)">${r.katki||""}</td>
+        <td><button class="rc-edit" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">✏️</button>
+            <button class="rc-del" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">🗑</button></td></tr>`;
+    });
+    tbl+=`</table></div><p style="font-size:11px;color:var(--muted);margin-top:8px">${data.length} tarif${filter||catFilter?" ("+filtered.length+" gösteriliyor)":""}</p>`;
+    $("#rc-table").innerHTML=tbl;
+    $$(".rc-edit").forEach(b=>b.onclick=()=>openRcModal(Number(b.dataset.ri)));
+    $$(".rc-del").forEach(b=>b.onclick=()=>{if(!confirm("Bu tarifi silmek istediğinize emin misiniz?"))return;data.splice(Number(b.dataset.ri),1);saveRcData(data);draw();});
+  }
+
+  function openRcModal(ri){
+    const isNew=ri===-1;
+    const row=isNew?{tarih:new Date().toISOString().slice(0,10),kategori:"Sulu yemek",yemek:"",malzeme:"",tarif:"",katki:""}:data[ri];
+    const modal=document.createElement("div");
+    modal.className="chat-overlay open";modal.id="rc-modal";
+    modal.innerHTML=`<div style="width:560px;max-width:95%;max-height:90vh;overflow-y:auto;background:var(--card);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.18);padding:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h3 style="margin:0;font-size:17px;font-weight:700">${isNew?"🍽 Yeni tarif ekle":"✏️ Tarifi düzenle"}</h3>
+        <button id="rc-m-close" style="border:0;background:transparent;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Tarih</span></label><input type="date" id="rcm-tarih" value="${row.tarih||""}" style="font:inherit;font-size:13px;width:100%"></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Kategori</span></label><select id="rcm-kategori" style="font:inherit;font-size:13px;width:100%">${RC_CATEGORIES.map(c=>`<option ${row.kategori===c?"selected":""}>${c}</option>`).join("")}</select></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Yemek adı</span></label><input type="text" id="rcm-yemek" value="${escAttr(row.yemek||"")}" placeholder="Yemek adı" style="font:inherit;font-size:13px;width:100%"></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Temel malzemeler</span></label><textarea id="rcm-malzeme" rows="2" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Malzemeler">${escHtml(row.malzeme||"")}</textarea></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Kısa tarif</span></label><textarea id="rcm-tarif" rows="3" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Hazırlanışı">${escHtml(row.tarif||"")}</textarea></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Beslenme katkısı</span></label><textarea id="rcm-katki" rows="2" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Beslenme açısından">${escHtml(row.katki||"")}</textarea></div>
+      <div style="display:flex;gap:10px;margin-top:20px"><button class="btn-primary" id="rc-m-save" style="flex:1">${isNew?"Ekle":"Kaydet"}</button><button class="btn-ghost" id="rc-m-cancel">İptal</button></div>
+    </div>`;
+    document.body.appendChild(modal);
+    modal.onclick=e=>{if(e.target===modal)modal.remove();};
+    $("#rc-m-close").onclick=()=>modal.remove();
+    $("#rc-m-cancel").onclick=()=>modal.remove();
+    $("#rc-m-save").onclick=()=>{
+      const nr={tarih:$("#rcm-tarih").value,kategori:$("#rcm-kategori").value,yemek:$("#rcm-yemek").value,malzeme:$("#rcm-malzeme").value,tarif:$("#rcm-tarif").value,katki:$("#rcm-katki").value};
+      if(!nr.yemek.trim()){alert("Yemek adı boş olamaz.");return;}
+      if(isNew)data.unshift(nr);else Object.assign(data[ri],nr);
+      saveRcData(data);modal.remove();draw();
+    };
+    setTimeout(()=>$("#rcm-yemek")?.focus(),100);
+  }
+
+  // Rules section
+  let rulesHtml=`<details style="margin-top:20px"><summary style="font-size:14px;font-weight:700;cursor:pointer;color:var(--accent-deep);padding:8px 0">📏 Sağlıklı Pişirme Kuralları (${rules.length})</summary>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:12px">${rules.map(r=>`<div class="comp-item">
+      <div class="ci-name">${r.konu}</div><div class="ci-detail">${r.uygulama}</div></div>`).join("")}</div></details>`;
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🍽 Yemek Tarifleri</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Sağlıklı Türk mutfağı tarifleri. Az yağlı, lifli, dengeli öğünler.</p>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <input type="text" id="rc-filter" placeholder="🔍 Ara (yemek, malzeme, tarif...)" style="flex:1;min-width:200px;font:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--line);border-radius:10px">
+      <button class="btn-primary" id="rc-add" style="white-space:nowrap">+ Yeni tarif ekle</button>
+    </div>
+    <div id="rc-cats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"></div>
+    <div id="rc-table"></div>
+    ${rulesHtml}`;
+  draw();
+  $("#rc-filter").oninput=e=>{filter=e.target.value;draw();};
+  $("#rc-add").onclick=()=>openRcModal(-1);
+}
+
+// ============ SNACKS TABLE ============
+const SN_KEY="goodlife_snacks";
+const SN_COLS=[{k:"tarih",l:"Tarih",w:"85px"},{k:"ad",l:"Atıştırmalık",w:"160px"},{k:"malzeme",l:"Malzemeler",w:"220px"},{k:"hazirlanis",l:"Hazırlanışı",w:"220px"},{k:"katki",l:"Beslenme katkısı",w:"220px"}];
+const SN_DEFAULT=[{"tarih":"2026-06-22","ad":"Elma ve ceviz","malzeme":"1 küçük elma, 2 tam ceviz","hazirlanis":"Elmayı dilimleyip cevizle tüketin.","katki":"Lif, sağlıklı yağ ve tokluk sağlar."},{"tarih":"2026-06-22","ad":"Muzlu fıstık ezmesi","malzeme":"Yarım küçük muz, 1 tatlı kaşığı şekersiz fıstık ezmesi","hazirlanis":"Muzun üzerine fıstık ezmesini sürün.","katki":"Enerji ve tokluk sağlar. Fıstık ezmesi miktarı ölçülü olmalıdır."},{"tarih":"2026-06-22","ad":"Havuç ve humus","malzeme":"1 havuç, 2 yemek kaşığı humus","hazirlanis":"Havucu çubuk şeklinde kesip humusa batırarak tüketin.","katki":"Lif ve bitkisel protein içerir."},{"tarih":"2026-06-22","ad":"Salatalık ve peynir","malzeme":"1 küçük salatalık, 30–40 g az tuzlu peynir","hazirlanis":"Salatalığı dilimleyip peynirle birlikte tüketin.","katki":"Protein, kalsiyum ve sıvı desteği sağlar."},{"tarih":"2026-06-22","ad":"Haşlanmış yumurta","malzeme":"1 yumurta, karabiber, kırmızı biber","hazirlanis":"Yumurtayı haşlayıp baharatla tüketin.","katki":"Yüksek kaliteli protein içerir ve uzun süre tok tutar."},{"tarih":"2026-06-22","ad":"Leblebi karışımı","malzeme":"1 küçük avuç sarı leblebi, 1 yemek kaşığı kuru üzüm","hazirlanis":"Karıştırarak tüketin.","katki":"Lif ve bitkisel protein sağlar."},{"tarih":"2026-06-22","ad":"Badem ve mandalina","malzeme":"8–10 çiğ badem, 1 mandalina","hazirlanis":"Birlikte tüketin.","katki":"Sağlıklı yağ, lif ve C vitamini sağlar."},{"tarih":"2026-06-22","ad":"Avokadolu tam tahıllı ekmek","malzeme":"1 ince dilim tam tahıllı ekmek, ¼ avokado, limon","hazirlanis":"Avokadoyu ezip ekmeğe sürün.","katki":"Lif ve doymamış yağ içerir."},{"tarih":"2026-06-22","ad":"Domatesli lor ekmeği","malzeme":"1 ince dilim tam tahıllı ekmek, 2 yemek kaşığı lor, domates","hazirlanis":"Lor ve domatesi ekmeğin üzerine yerleştirin.","katki":"Protein ve lif sağlar."},{"tarih":"2026-06-22","ad":"Fırında nohut","malzeme":"Yarım su bardağı haşlanmış nohut, kimyon, kırmızı biber","hazirlanis":"Nohudu baharatlayıp fırında gevrekleşene kadar pişirin.","katki":"Lif ve bitkisel protein yönünden zengindir."},{"tarih":"2026-06-22","ad":"Fırında elma","malzeme":"1 elma, tarçın, 1 tatlı kaşığı ceviz","hazirlanis":"Elmayı dilimleyip tarçınla fırınlayın, üzerine ceviz ekleyin.","katki":"Tatlı ihtiyacını ilave şeker olmadan karşılar."},{"tarih":"2026-06-22","ad":"Yulaf topları","malzeme":"3 yemek kaşığı yulaf, 1 tatlı kaşığı fıstık ezmesi, yarım muz","hazirlanis":"Malzemeleri ezip küçük toplar yapın, buzdolabında bekletin.","katki":"Lif ve enerji sağlar. Porsiyon 2–3 topla sınırlandırılmalı."},{"tarih":"2026-06-22","ad":"Hurmaya ceviz dolgusu","malzeme":"1–2 hurma, 1 tam ceviz","hazirlanis":"Hurmanın çekirdeğini çıkarıp içine ceviz koyun.","katki":"Tatlı isteğini azaltır ancak şeker içeriği yüksektir."},{"tarih":"2026-06-22","ad":"Patlamış mısır","malzeme":"2–3 yemek kaşığı mısır, az yağ, baharat","hazirlanis":"Tencerede az yağla patlatın. Fazla tuz eklemeyin.","katki":"Lifli ve hacimli bir atıştırmalıktır."},{"tarih":"2026-06-22","ad":"Kakaolu muz dilimleri","malzeme":"Yarım muz, 1 çay kaşığı şekersiz kakao","hazirlanis":"Muz dilimlerinin üzerine kakao serpin.","katki":"İlave şeker kullanmadan tatlı alternatifi oluşturur."},{"tarih":"2026-06-22","ad":"Kenevir tohumlu meyve tabağı","malzeme":"1 küçük meyve, 1 yemek kaşığı kenevir tohumu","hazirlanis":"Meyveyi doğrayıp üzerine kenevir tohumu serpin.","katki":"Lif, protein ve doymamış yağ içerir."},{"tarih":"2026-06-22","ad":"Tahinli elma","malzeme":"1 küçük elma, 1 tatlı kaşığı tahin, tarçın","hazirlanis":"Elma dilimlerinin üzerine tahin ve tarçın ekleyin.","katki":"Sağlıklı yağ ve mineral sağlar."},{"tarih":"2026-06-22","ad":"Kefir ve tarçın","malzeme":"1 su bardağı sade kefir, bir tutam tarçın","hazirlanis":"Karıştırıp soğuk tüketin.","katki":"Protein ve fermente ürün desteği sağlar."},{"tarih":"2026-06-22","ad":"Peynirli biber ruloları","malzeme":"Kırmızı biber, 2 yemek kaşığı lor veya labne","hazirlanis":"Biber şeritlerinin içine peyniri koyup sarın.","katki":"Hafif, proteinli ve sebze ağırlıklı bir seçenektir."},{"tarih":"2026-06-22","ad":"Zeytinli mini tabak","malzeme":"4–5 zeytin, salatalık, domates, 30 g peynir","hazirlanis":"Küçük bir tabakta birlikte servis edin.","katki":"Protein, yağ ve sebze dengesi sağlar."}];
+function getSnData(){try{const r=localStorage.getItem(SN_KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveSnData(d){try{localStorage.setItem(SN_KEY,JSON.stringify(d));}catch(e){}}
+
+function renderSnacksStep(){
+  let data=getSnData();if(!data){data=[...SN_DEFAULT];saveSnData(data);}
+  let filter="";
+  function draw(){
+    const filtered=filter?data.filter(r=>SN_COLS.some(c=>(r[c.k]||"").toLowerCase().includes(filter.toLowerCase()))):data;
+    let tbl=`<div style="overflow-x:auto;border:1.5px solid #a8d5ba;border-radius:10px"><table class="pdf-table" style="min-width:800px"><tr>${SN_COLS.map(c=>`<th style="min-width:${c.w}">${c.l}</th>`).join("")}<th style="min-width:70px">İşlem</th></tr>`;
+    filtered.forEach(r=>{const ri=data.indexOf(r);
+      tbl+=`<tr><td style="font-family:var(--mono);font-size:12px">${r.tarih||""}</td>
+        <td style="font-weight:600">${r.ad||""}</td>
+        <td style="font-size:12px">${r.malzeme||""}</td>
+        <td style="font-size:12px">${r.hazirlanis||""}</td>
+        <td style="font-size:12px;color:var(--accent-deep)">${r.katki||""}</td>
+        <td><button class="sn-edit" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">✏️</button>
+            <button class="sn-del" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">🗑</button></td></tr>`;
+    });
+    tbl+=`</table></div><p style="font-size:11px;color:var(--muted);margin-top:8px">${data.length} kayıt${filter?" ("+filtered.length+" gösteriliyor)":""}</p>`;
+    $("#sn-table").innerHTML=tbl;
+    $$(".sn-edit").forEach(b=>b.onclick=()=>openSnModal(Number(b.dataset.ri)));
+    $$(".sn-del").forEach(b=>b.onclick=()=>{if(!confirm("Silmek istediğinize emin misiniz?"))return;data.splice(Number(b.dataset.ri),1);saveSnData(data);draw();});
+  }
+  function openSnModal(ri){
+    const isNew=ri===-1;
+    const row=isNew?{tarih:new Date().toISOString().slice(0,10),ad:"",malzeme:"",hazirlanis:"",katki:""}:data[ri];
+    const modal=document.createElement("div");modal.className="chat-overlay open";modal.id="sn-modal";
+    modal.innerHTML=`<div style="width:560px;max-width:95%;max-height:90vh;overflow-y:auto;background:var(--card);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.18);padding:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h3 style="margin:0;font-size:17px;font-weight:700">${isNew?"🥜 Yeni atıştırmalık ekle":"✏️ Düzenle"}</h3>
+        <button id="sn-m-close" style="border:0;background:transparent;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Tarih</span></label><input type="date" id="snm-tarih" value="${row.tarih||""}" style="font:inherit;font-size:13px;width:100%"></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Atıştırmalık adı</span></label><input type="text" id="snm-ad" value="${escAttr(row.ad||"")}" placeholder="Atıştırmalık adı" style="font:inherit;font-size:13px;width:100%"></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Malzemeler</span></label><textarea id="snm-malzeme" rows="2" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Malzemeler">${escHtml(row.malzeme||"")}</textarea></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Hazırlanışı</span></label><textarea id="snm-hazirlanis" rows="3" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Nasıl hazırlanır">${escHtml(row.hazirlanis||"")}</textarea></div>
+      <div class="field" style="margin-bottom:14px"><label class="field-label"><span>Beslenme katkısı</span></label><textarea id="snm-katki" rows="2" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="Beslenme açısından">${escHtml(row.katki||"")}</textarea></div>
+      <div style="display:flex;gap:10px;margin-top:20px"><button class="btn-primary" id="sn-m-save" style="flex:1">${isNew?"Ekle":"Kaydet"}</button><button class="btn-ghost" id="sn-m-cancel">İptal</button></div>
+    </div>`;
+    document.body.appendChild(modal);
+    modal.onclick=e=>{if(e.target===modal)modal.remove();};
+    $("#sn-m-close").onclick=()=>modal.remove();
+    $("#sn-m-cancel").onclick=()=>modal.remove();
+    $("#sn-m-save").onclick=()=>{
+      const nr={tarih:$("#snm-tarih").value,ad:$("#snm-ad").value,malzeme:$("#snm-malzeme").value,hazirlanis:$("#snm-hazirlanis").value,katki:$("#snm-katki").value};
+      if(!nr.ad.trim()){alert("Atıştırmalık adı boş olamaz.");return;}
+      if(isNew)data.unshift(nr);else Object.assign(data[ri],nr);
+      saveSnData(data);modal.remove();draw();
+    };
+    setTimeout(()=>$("#snm-ad")?.focus(),100);
+  }
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🥜 Sağlıklı Atıştırmalıklar</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Ara öğünler için sağlıklı ve doyurucu atıştırmalık tarifleri.</p>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <input type="text" id="sn-filter" placeholder="🔍 Ara (ad, malzeme, katkı...)" style="flex:1;min-width:200px;font:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--line);border-radius:10px">
+      <button class="btn-primary" id="sn-add" style="white-space:nowrap">+ Yeni atıştırmalık ekle</button>
+    </div>
+    <div id="sn-table"></div>`;
+  draw();
+  $("#sn-filter").oninput=e=>{filter=e.target.value;draw();};
+  $("#sn-add").onclick=()=>openSnModal(-1);
+}
+
+// ============ VITAMIN SHEETS (from Excel) ============
+const VIT_SHEETS={
+vit_class:{title:"📋 Vitamin Sınıflandırması",desc:"Yağda ve suda çözünen vitaminlerin temel özellikleri ve riskleri.",
+  h:["Grup","Vitaminler","Genel özellik","Temel risk"],
+  r:[["Yağda çözünenler","A, D, E, K","Yağ içeren öğünlerle daha iyi emilir. Karaciğer ve yağ dokusunda depolanabilir.","Gereksiz yüksek doz takviyelerde birikme ve toksisite riski belirgindir."],["Suda çözünenler","C, B1, B2, B3, B5, B6, B7, B9, B12","Büyük bölümü vücutta sınırlı depolanır, düzenli alınmalıdır.","\"Fazlası idrarla atılır\" düşüncesi yanlıştır. B6, niasin ve C yüksek dozlarda zarar verebilir."],["Özel durum","B12","Suda çözünmesine rağmen karaciğerde önemli miktarda depolanabilir.","Sinir hasarı ve kansızlık gelişebilir; nörolojik zarar her zaman geri dönmeyebilir."]]},
+vit_main:{title:"📊 Ana Vitamin Tablosu",desc:"13 temel vitaminin detaylı fizyolojik görevleri, kaynakları ve uyarıları.",
+  h:["Vitamin","Temel görevleri","Gıda kaynakları","Takviye kullanım alanı","Eksiklikte görülen durumlar","Fazla kullanım uyarısı"],
+  r:[["A vitamini","Görme, bağışıklık, hücre farklılaşması, büyüme","Karaciğer, yumurta, süt; havuç, bal kabağı, ıspanak","Kanıtlanmış eksiklik ve emilim bozuklukları","Gece körlüğü, göz kuruluğu, enfeksiyonlara yatkınlık","Yüksek doz retinol karaciğere zarar verir. Gebelikte doğumsal kusur riski."],["D vitamini","Kalsiyum emilimi, kemik sağlığı, kas ve sinir","Yağlı balık, yumurta sarısı, güneş ışığı","Eksiklik, raşitizm, osteomalazi","Kemik ağrısı, kas güçsüzlüğü, raşitizm","Kontrolsüz yüksek doz hiperkalsemi ve böbrek hasarı yapabilir."],["E vitamini","Antioksidan, hücre zarı koruması, bağışıklık","Badem, fındık, ayçiçeği, bitkisel yağlar, avokado","Kanıtlanmış eksiklik ve yağ emilim bozuklukları","Sinir-kas sorunları, denge bozukluğu","Yüksek doz kanama ve hemorajik inme riskini artırabilir."],["K vitamini","Kan pıhtılaşması, kemik metabolizması","Ispanak, pazı, kara lahana, brokoli","Yenidoğanlarda koruyucu uygulama","Kolay kanama ve morarma","Warfarin kullananlar K vitamini alımını tutarlı tutmalı."],["C vitamini","Kolajen, yara iyileşmesi, antioksidan, demir emilimi","Biber, turunçgiller, kivi, çilek, brokoli","Skorbüt tedavisi; demir emilimi desteği","Diş eti kanaması, yorgunluk, yara gecikmesi","Soğuk algınlığını önlemez. Yüksek doz ishal ve bulantı yapabilir."],["B1 – Tiamin","Enerji metabolizması, sinir fonksiyonları","Tam tahıllar, baklagiller, ayçiçeği çekirdeği","Eksiklik ve alkol kullanım bozukluğu","Beriberi; Wernicke tablosu","Düzenli alım gerekir, eksiklik acil nörolojik sonuçlara yol açar."],["B2 – Riboflavin","Enerji üretimi, hücre büyümesi","Süt, yoğurt, yumurta, mantar, ıspanak","Eksiklik; migrende araştırma aşamasında","Ağız köşesi çatlağı, cilt değişiklikleri, kansızlık","Düşük toksisiteye sahiptir."],["B3 – Niasin","Enerji metabolizması, hücresel reaksiyonlar","Tavuk, balık, yer fıstığı, baklagiller","Eksiklik; bazı lipid bozukluklarında reçeteli","Pellagra: dermatit, ishal, nörolojik sorunlar","30mg+ nikotinik asit kızarma yapar. Çok yüksek doz karaciğer hasarı."],["B5 – Pantotenik asit","Yağ, protein, karbonhidrat metabolizması","Et, yumurta, tam tahıllar, mantar, avokado","Eksiklik çok nadir","Yorgunluk, uyuşma, ayaklarda yanma","Çok yüksek doz ishal yapabilir."],["B6 – Piridoksin","Protein metabolizması, nörotransmiterler, hemoglobin","Nohut, balık, tavuk, patates, muz","Kanıtlanmış eksiklik","Kansızlık, depresyon, cilt sorunları","Uzun süre yüksek doz ciddi duyu siniri hasarı yapar."],["B7 – Biyotin","Yağ asidi ve glikoz metabolizması","Yumurta, et, kuruyemiş, tatlı patates","Kanıtlanmış eksiklik","Saç incelmesi, deri döküntüsü","Yüksek doz tiroid ve kalp testlerini bozabilir."],["B9 – Folat","DNA üretimi, hücre bölünmesi, kan hücreleri","Ispanak, baklagiller, turunçgiller","Gebelikte nöral tüp kusuru önleme","Megaloblastik kansızlık, yorgunluk","Yüksek folik asit B12 eksikliğini maskeleyebilir."],["B12 – Kobalamin","DNA sentezi, kırmızı kan hücresi, sinir koruması","Et, balık, yumurta, süt ürünleri","Veganlarda, emilim bozukluğunda","Kansızlık, uyuşma, denge, unutkanlık","Folat kansızlığı düzeltir ama B12 sinir hasarını düzeltmez."]]},
+vit_daily:{title:"📐 Günlük Referans Miktarlar",desc:"Yetişkin erkek ve kadınlar için günlük vitamin ihtiyaçları.",
+  h:["Vitamin","Yetişkin erkek","Yetişkin kadın","Açıklama"],
+  r:[["A","900 mcg RAE","700 mcg RAE","RAE farklı A vitamini biçimlerini karşılaştırır."],["D","15 mcg / 600 IU","15 mcg / 600 IU","71 yaş üzeri 20 mcg/800 IU."],["E","15 mg","15 mg","Alfa-tokoferol olarak."],["K","120 mcg","90 mcg","AI değeridir."],["C","90 mg","75 mg","Sigara içenlerde +35 mg."],["B1","1,2 mg","1,1 mg","Tiamin."],["B2","1,3 mg","1,1 mg","Riboflavin."],["B3","16 mg NE","14 mg NE","NE: niasin eşdeğeri."],["B5","5 mg","5 mg","AI değeridir."],["B6","1,3 mg","1,3 mg","51+ yaşta erkek 1,7 / kadın 1,5 mg."],["B7","30 mcg","30 mcg","AI değeridir."],["B9","400 mcg DFE","400 mcg DFE","Gebelikte artar."],["B12","2,4 mcg","2,4 mcg","Emilim sorunu varsa eksiklik olabilir."]]},
+vit_suppl:{title:"💊 Takviye Değerlendirme",desc:"Yaygın vitamin takviyelerinin kanıta dayalı değerlendirmesi.",
+  h:["Ürün","Halk arasında kullanım","Kanıta dayalı değerlendirme","Önemli uyarı"],
+  r:[["D vitamini","Kemikler, bağışıklık, enerji","Eksiklikte gerekli. Herkese yüksek doz desteklenmez.","Tedavi dozu kan testi ve klinik duruma göre belirlenmeli."],["B12","Yorgunluk, unutkanlık, sinir","B12 eksikliğinde etkili. Normal düzeyde enerji ilacı değil.","Eksiklik nedeni araştırılmalı."],["C vitamini","Bağışıklık, soğuk algınlığı","Eksikliği önler. Soğuk algınlığını engellemez.","Yüksek doz sindirim sorunu ve böbrek taşı riski."],["Folik asit","Gebelik, kansızlık, saç","Gebelikte nöral tüp önlemede güçlü kanıt.","B12 değerlendirilmeden yüksek doz uygun değil."],["B kompleks","Yorgunluk, stres, zihin","Eksiklikte yararlı. Dengeli beslenende ek enerji kanıtı yok.","Bazı ürünler gereksiz yüksek B6 ve niasin içerir."],["Biyotin","Saç dökülmesi, tırnak","Gerçek eksiklikte etkili. Genel saç dökülmesinde kanıt zayıf.","Tiroid ve troponin testlerini bozabilir."],["Multivitamin","Beslenme sigortası","Yetersiz beslenende boşluk kapatır. Dengeli beslenmenin yerini tutmaz.","Toplam doz gereksiz yükselebilir."],["E vitamini","Cilt, kalp, antioksidan","Eksiklik dışında rutin yüksek doz önerilmez.","Kan sulandırıcı ve cerrahi öncesi kanama riski."],["A/Beta-karoten","Göz, cilt, bağışıklık","Eksiklikte gerekli. Dengeli beslenende yüksek doz önerilmez.","Gebelikte yüksek retinol, sigara içenlerde beta-karoten sakıncalı."]]},
+vit_symptom:{title:"🔍 Belirti-Vitamin İlişkisi",desc:"Yaygın belirtilerin hangi vitamin eksiklikleriyle ilişkili olabileceği.",
+  h:["Belirti","İlişkili vitaminler","Başka olası nedenler"],
+  r:[["Yorgunluk","B12, folat, B1, B6, D","Demir eksikliği, tiroid, uyku yetersizliği, enfeksiyon, depresyon"],["Saç dökülmesi","Biyotin, D, folat, B12","Demir, çinko eksikliği, tiroid, hormonlar, genetik"],["Uyuşma ve karıncalanma","B12, B1, B6 eksikliği/fazlalığı","Diyabet, bel-boyun, sinir sıkışması"],["Kas güçsüzlüğü","D, E, B1","Elektrolit, tiroid, nörolojik/kas hastalıkları"],["Ağız köşesi çatlağı","B2, B6, folat, B12","Demir eksikliği, mantar, tahriş"],["Kolay morarma","C veya K","İlaçlar, trombosit, karaciğer hastalıkları"],["Unutkanlık","B12, folat, B1","Uyku, depresyon, ilaçlar, tiroid, nörolojik"],["Kemik ağrısı","D","Osteoporoz, eklem-kas hastalıkları, travma"]]},
+vit_season:{title:"🍂 Mevsimsel Vitaminler",desc:"Her mevsimde öne çıkan besinler ve vitamin katkıları.",
+  h:["Mevsim","Öne çıkan besinler","Başlıca vitaminler","Vücuttaki katkıları","Tüketim önerisi"],
+  r:[["İlkbahar","Enginar, kuşkonmaz, bezelye, bakla, semizotu, çilek","Folat, C, K, A öncülleri","Hücre bölünmesi, kan üretimi, kolajen, pıhtılaşma","Enginarı zeytinyağlı; çileği çiğ tüketin."],["İlkbahar","Çağla, badem, fındık, ayçiçeği","E vitamini, B grubu","Oksidatif koruma, enerji metabolizması","Tuzsuz, bir küçük avuçla sınırlı."],["Yaz","Biber, domates, maydanoz, semizotu, taze fasulye","C, K, folat, A öncülleri","Kolajen, demir emilimi, hücre yenilenmesi","Salata veya kısa pişirme ile."],["Yaz","Kayısı, şeftali, kavun, karpuz","A öncülleri, C vitamini","Görme, cilt, bağışıklık","Meyve suyu yerine meyvenin kendisi."],["Yaz","Kabak, patlıcan, bamya","Folat, C, K, B vitaminleri","Lif ve bağırsak düzeni","Kızartma yerine fırın/ızgara/sulu yemek."],["Sonbahar","Bal kabağı, havuç, kırmızı biber","Beta-karoten, A öncüleri","Görme, hücre farklılaşması, bağışıklık","Çorba veya fırın sebze olarak."],["Sonbahar","Elma, armut, üzüm, nar","C vitamini, polifenoller, lif","Vitamin + lif + bitkisel bileşik çeşitliliği","Kabuğuyla, porsiyon kontrolüyle."],["Sonbahar","Mantar","B2, B3, B5; bazı türlerde D2","Enerji metabolizması","Kültür mantarı tercih edin."],["Kış","Portakal, mandalina, greyfurt, kivi","C vitamini, folat","Kolajen ve demir emilimi","Posasıyla tüketin."],["Kış","Brokoli, karnabahar, lahana","C, K, folat","Pıhtılaşma, hücre bölünmesi, antioksidan","Buharda veya kısa süre pişirin."],["Kış","Ispanak, pazı, pırasa, roka","Folat, K, A öncüleri","Kan hücresi, görme, kemik","Zeytinyağıyla tüketim emilimi artırır."],["Kış","Havuç, kereviz, turp","A öncüleri, C vitamini","Görme, cilt, bağışıklık, lif","Çiğ salata ve pişmiş yemeği dönüşümlü."]]},
+vit_food:{title:"🥗 Besin-Vitamin Eşleşmesi",desc:"Hangi besin grubu hangi vitaminleri sağlar.",
+  h:["Besin grubu","Sağladığı vitaminler","Örnekler"],
+  r:[["Yumurta","B12, B2, A; az D","Haşlanmış yumurta, omlet, menemen"],["Süt ürünleri","B12, B2; ürüne göre A ve D","Yoğurt, kefir, süt, peynir"],["Balık","B12, B6; yağlı balıklarda D","Sardalya, somon, uskumru, hamsi"],["Et ve tavuk","B12, B6, B3, B2","Yağsız kırmızı et, tavuk, hindi"],["Kuru baklagiller","Folat, B1, B6","Mercimek, nohut, kuru fasulye"],["Tam tahıllar","B1, B3, B6","Yulaf, bulgur, tam buğday"],["Kuruyemiş ve tohumlar","E vitamini, bazı B vitaminleri","Badem, fındık, ayçiçeği çekirdeği"],["Zenginleştirilmiş ürünler","Ürüne göre D, B12 veya folik asit","Etiketinde eklenen vitamin yazan ürünler"]]},
+vit_elder:{title:"🧓 İleri Yaşta Vitamin İhtiyaçları",desc:"Yaşlılıkta öne çıkan vitamin/mineral gereksinimleri ve takviye yaklaşımı.",
+  h:["Vitamin/mineral","Referans miktar","Neden önemli?","Başlıca kaynaklar","Takviye yaklaşımı"],
+  r:[["D vitamini","51-70y: 15mcg; 70+: 20mcg","Kalsiyum emilimi, kemik, kas fonksiyonu","Yağlı balık, yumurta sarısı, D eklenmiş ürünler","Kan düzeyi ve klinik durum birlikte değerlendirilmeli."],["Kalsiyum","51-70y kadın: 1200mg; erkek: 1000mg; 70+: 1200mg","Kemik kaybı ve kırılganlık önleme","Yoğurt, süt, peynir, sardalya","Önce besin alımı hesaplanmalı, eksik takviyeyle tamamlanmalı."],["B12","2,4 mcg","Kan hücreleri, DNA, sinir sistemi. Mide asidi azalması emilimi bozar.","Balık, et, yumurta, süt ürünleri","50 yaş+ zenginleştirilmiş ürün veya takviye önerilebilir."],["B6","51+ erkek: 1,7mg; kadın: 1,5mg","Protein metabolizması, hemoglobin, bağışıklık, sinir","Nohut, balık, tavuk, patates, muz","Eksiklik saptanmadan yüksek doz kullanılmamalı."],["Folat/B9","400 mcg DFE","DNA sentezi, kırmızı kan hücresi üretimi","Ispanak, baklagiller, brokoli, portakal","Yüksek folik asit öncesi B12 değerlendirilmeli."],["C vitamini","E: 90mg; K: 75mg","Kolajen, yara iyileşmesi, demir emilimi","Biber, turunçgiller, kivi, brokoli","Sebze-meyveden karşılanır; yüksek doz gereksiz."],["Magnezyum","E: 400-420mg; K: 310-320mg","Kas, sinir, kemik, enerji metabolizması","Kuruyemiş, baklagil, tam tahıl, ıspanak","Böbrek yetersizliğinde kontrolsüz takviye tehlikeli."],["Demir","Menopoz sonrası/erkeklerde düşük","Kansızlık yapar ama yaşlılıkta tek neden beslenme değil","Et, tavuk, balık, mercimek, nohut","Ferritin ve kan sayımı görülmeden başlanmamalı."]]},
+vit_synergy:{title:"🤝 Vitamin-Mineral Sinerjileri",desc:"Birlikte daha etkili çalışan vitamin-mineral kombinasyonları.",
+  h:["Eşleşme","Nasıl çalışırlar?","Gıda örnekleri","Dikkat"],
+  r:[["D + Kalsiyum","D vitamini kalsiyum emilimini destekler. Kalsiyum kemik minerali.","Yoğurt + yumurta; sardalya + salata","Yüksek doz birlikte hiperkalsemi ve taş riski."],["C + Demir","C vitamini bitkisel demirin emilimini artırır.","Mercimek + limonlu salata; nohut + domates","Demir yüklenmesi hastalığında dikkat."],["B12 + Folat","İkisi DNA sentezi ve kan hücresi üretiminde birlikte çalışır.","Yumurta + ıspanak; yoğurt + yeşillik","Yüksek folat B12 eksikliğini maskeleyebilir."],["A,D,E,K + Yağ","Yağda çözünen vitaminler yağla emilir.","Havuç + zeytinyağı; ıspanak + yoğurt","Bir miktar zeytinyağı veya ceviz yeterli."],["K + D + Kalsiyum","Üçü kemik metabolizmasının farklı aşamalarında rol alır.","Yeşil sebze + yoğurt; yumurta + peynir + salata","Warfarin kullananlar K takviyesini doktorsuz almamalı."],["B6 + B12 + Folat","Homosistein metabolizmasında birlikte görev alırlar.","Balık + yeşil sebze; tavuk + nohutlu salata","Homosistein düşürmesi kalp/demans önlediği anlamına gelmez."]]},
+vit_meals:{title:"🍽 Günlük Sinerji Öğünleri",desc:"Vitamin sinerjilerini günlük öğünlerde nasıl uygulayabilirsiniz.",
+  h:["Öğün","Sinerji"],
+  r:[["Yeşil mercimek + kırmızı biberli salata","Bitkisel demir + C vitamini"],["Kuru fasulye + limonlu roka salatası","Bitkisel demir + C vitamini"],["Ispanaklı yumurta","Folat + B12; yağda çözünen bileşik emilimi"],["Sardalya + yoğurtlu salata","D vitamini + kalsiyum"],["Yoğurt + yulaf + meyve","B12, kalsiyum, B vitaminleri ve lif"],["Etli sebze yemeği + brokoli","B12 + folat"],["Havuçlu salata + zeytinyağı","Beta-karoten + besin yağı"],["Nohutlu salata + domates ve limon","Demir + C vitamini"]]},
+spc_main:{title:"🧂 Baharat Rehberi",desc:"25 baharat ve aromatik bitkinin lezzet, kullanım ve uyarıları.",
+  h:["Baharat","Lezzet ve aroma","Kullanılabileceği yemekler","Kullanım önerisi","Önemli not"],
+  r:[["Karabiber","Keskin, sıcak ve aromatik","Çorbalar, et, tavuk, yumurta, sebze","Taze çekilmiş olarak pişirme sonunda eklenebilir.","Fazlası reflü ve mide hassasiyetini artırabilir."],["Kırmızı toz biber","Tatlı veya hafif acı","Sulu yemekler, çorbalar, köfte, yumurta","Yağda yakmadan kısa süre ısıtılmalıdır.","Çok sıcak yağda yanarsa acı ve isli tat oluşturur."],["Pul biber","Acı, meyvemsi","Kebap, köfte, çorba, yoğurtlu mezeler","Servis sırasında veya pişirme sonunda eklenebilir.","Reflü, gastrit veya bağırsak hassasiyetinde azaltılmalı."],["İsot","İsli, koyu ve orta acı","Çiğ köfte, kebap, mercimek, yumurta","Hafif nemlendirilerek yemeklere eklenebilir.","Ürün kalitesi ve saklama koşulları önemlidir."],["Kimyon","Topraksı, sıcak, hafif acı","Kuru fasulye, nohut, mercimek, köfte","½–1 çay kaşığı yeterlidir.","Baklagillerin lezzetini dengeler."],["Sumak","Ekşi ve meyvemsi","Salata, soğan, kebap, mercimek, yoğurt","Limon yerine veya limonla birlikte kullanılabilir.","Tuz eklenmiş karışımlarda etiket kontrol edilmeli."],["Kekik","Yoğun, otsu, hafif keskin","Et, tavuk, balık, domates, patates","Kurusu pişirme sırasında; tazesi sona doğru.","Çok miktarı yemeği acılaştırabilir."],["Kuru nane","Ferah, serinletici","Çorba, cacık, yoğurt, dolma, baklagiller","Pişirme sonunda veya serviste eklenebilir.","Nane bazı kişilerde reflüyü artırabilir."],["Biberiye","Reçinemsi, kuvvetli","Fırın patates, tavuk, kuzu, balık","Az miktarda; uzun dallar servis öncesi çıkarılmalı.","Baskın aroması diğer tatları örtebilir."],["Fesleğen","Tatlı, taze ve aromatik","Domates sosu, makarna, salata, tavuk","Taze fesleğen pişirme sonunda eklenmelidir.","Kuru ve taze aroması farklıdır."],["Dereotu","Ferah, hafif anasonumsu","Kabak, balık, yoğurt, bakla, zeytinyağlılar","Pişirme sonunda veya çiğ kullanılabilir.","Uzun pişirmede aroması azalır."],["Maydanoz","Taze ve hafif biberimsi","Salata, köfte, çorba, dolma, omlet","Çiğ veya pişirme sonunda eklenebilir.","İyi yıkanmalı ve kurutulmalıdır."],["Kişniş tohumu","Narenciyemsi, sıcak","Et, tavuk, baklagil, turşu, köri","Hafif kavrulup öğütülünce aroması güçlenir.","Yaprağı ve tohumu farklı lezzette."],["Rezene tohumu","Tatlı ve anasonumsu","Balık, ekmek, sebze yemekleri, bitki çayı","Hafif ezilerek kullanılabilir.","Mutfak miktarları tercih edilmeli."],["Anason","Belirgin tatlı aroma","Hamur işleri, içecekler, kompostolar","Küçük miktarlarda kullanılır.","Fazlası yemeğin tadını baskılar."],["Defne yaprağı","Otsu, odunsu","Etli yemekler, balık, kuru fasulye, çorba","1–2 yaprak eklenip servis öncesi çıkarılır.","Yaprak bütün olarak yenmemelidir."],["Yenibahar","Tarçın, karanfil, karabiber andıran","Dolma, iç pilav, köfte, et yemekleri","Az miktarda yeterlidir.","Dolma harcında ölçülü eklenmelidir."],["Karanfil","Keskin, tatlı ve yoğun","Komposto, sıcak içecek, pilav, tatlı","1–3 adet çoğunlukla yeterlidir.","Karanfil yağı çok daha yoğundur, gelişigüzel kullanılmamalı."],["Kakule","Narenciyemsi, çiçeksi, sıcak","Kahve, sütlü tatlı, pilav, et","Tohumları hafif ezilerek kullanılabilir.","Fazlası sabunsu/parfümsü tat verebilir."],["Muskat","Sıcak, tatlı ve odunsu","Beşamel sos, patates, ıspanak, sütlü yemekler","Küçük bir tutam rendelenmelidir.","Fazla tüketilmemelidir."],["Safran","Çiçeksi, hafif balımsı","Pilav, balık, sütlü tatlı, çorba","Birkaç tel sıcak suda bekletilip eklenebilir.","Taklit ürünlere karşı güvenilir satıcı seçilmeli."],["Hardal tohumu","Keskin ve hafif acı","Et, tavuk, turşu, salata sosu","Tohum veya öğütülerek kullanılabilir.","Hazır soslarda tuz ve şeker kontrol edilmeli."],["Çörek otu","Hafif acı ve soğanımsı","Ekmek, yoğurt, salata, peynir","Öğütülmeden veya hafif ezilerek serpilebilir.","Gıda miktarı ile çörek otu yağı aynı değildir."],["Mahlep","Bademsi, kiraz çekirdeği andıran","Poğaça, çörek, ekmek","Hamura az miktarda eklenir.","Fazlası acı tat oluşturabilir."],["Susam","Fındıksı","Ekmek, salata, sebze ve tahin","Hafif kavrularak veya çiğ kullanılabilir.","Susam önemli bir alerjendir."]]},
+spc_root:{title:"🫚 Kök ve Kabuk Baharatlar",desc:"Zencefil, zerdeçal, tarçın, sarımsak ve çemen otu — bilimsel değerlendirme.",
+  h:["Baharat","Mutfaktaki kullanımı","Bilimsel değerlendirme","Dikkat edilmesi gerekenler"],
+  r:[["Zencefil","Çorba, tavuk, balık, sebze, sıcak içecekler","Bazı bulantı türlerinde yararlı olabilir; form ve doz önemlidir.","Mide rahatsızlığı, yanma, ishal yapabilir. İlaç kullananlarda değerlendirilmeli."],["Zerdeçal","Mercimek, pirinç, tavuk, sebze, çorba","Kurkumin üzerine çok çalışma var ancak kesin tedavi söylenemez.","Yoğun kullanım bulantı, reflü, ishal veya kabızlık yapabilir."],["Tarçın","Yoğurt, yulaf, meyve, sütlü tatlı, et","Diyabet tedavisinde yararlılığı kesin değildir.","Cassia tarçını yüksek dozda uygun değil. Karaciğer/diyabet ilacı ile dikkat."],["Sarımsak","Sulu yemek, çorba, yoğurt, et, balık, sebze","Bazı preparatlar kan basıncında sınırlı düşüş sağlayabilir.","Yoğun takviye kanama riskini etkileyebilir. Kan sulandırıcı kullananlar dikkatli."],["Çemen otu","Pastırma çemeni, baharat karışımları, ekmek, baklagil","Kan şekeri ve süt üretiminde araştırılmış; sonuçlar kesin değil.","Büyük miktarlar sindirim sorunu ve kan şekeri düşüşü yapabilir. Gebelikte dikkat."]]},
+spc_match:{title:"🍲 Yemeğe Göre Baharat Eşleşmesi",desc:"Hangi yemek grubuna hangi baharatlar yakışır, örnek karışımlar.",
+  h:["Yemek grubu","Uygun baharatlar","Örnek karışım"],
+  r:[["Kuru fasulye ve nohut","Kimyon, karabiber, kırmızı biber, kekik, defne","½ çay kaşığı kimyon + ½ çay kaşığı kırmızı biber"],["Mercimek yemekleri ve çorbaları","Kimyon, zerdeçal, nane, karabiber, pul biber","Kimyon + nane + az zerdeçal"],["Kırmızı et","Karabiber, kekik, kimyon, biberiye, sarımsak","Kekik + karabiber + sarımsak"],["Köfte","Kimyon, karabiber, kırmızı biber, yenibahar","500g kıymaya 1 çay kaşığı kimyon + ½ çay kaşığı karabiber"],["Tavuk","Kekik, kırmızı biber, zerdeçal, köri, sarımsak","Kekik + kırmızı biber + az zerdeçal"],["Balık","Karabiber, dereotu, defne, kişniş, biberiye","Dereotu + karabiber + limon"],["Sebze yemekleri","Kekik, fesleğen, nane, zerdeçal, sumak","Kekik + karabiber veya zerdeçal + kimyon"],["Dolma ve sarma","Nane, yenibahar, karabiber, sumak, tarçın","Nane + yenibahar + çok az tarçın"],["Yoğurt ve cacık","Nane, sumak, pul biber, dereotu, çörek otu","Nane + sumak veya dereotu + çörek otu"],["Yumurta","Karabiber, pul biber, kekik, zerdeçal","Karabiber + pul biber"],["Patates","Kekik, biberiye, kırmızı biber, karabiber","Biberiye + kırmızı biber"],["Pirinç ve bulgur","Zerdeçal, yenibahar, karabiber, safran","Az zerdeçal + karabiber"],["Meyve ve yoğurt","Tarçın, zencefil, kakule, karanfil","Tarçın + çok az zencefil"],["Sütlü tatlılar","Tarçın, kakule, vanilya, muskat","Tarçın + kakule"]]}
+};
+
+function renderVitSheet(id){
+  const s=VIT_SHEETS[id];if(!s)return;
+  let filter="";
+  function draw(){
+    const f=filter.toLowerCase();
+    const rows=f?s.r.filter(r=>r.some(c=>c.toLowerCase().includes(f))):s.r;
+    let html;
+    if(s.h.length<=3){
+      // Card layout for simple tables
+      html=rows.map(r=>`<div class="comp-item" style="border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;font-size:14px;margin-bottom:6px;color:var(--ink)">${r[0]}</div>
+        ${r.slice(1).map((c,i)=>`<div style="font-size:12.5px;line-height:1.55;margin-top:4px"><b style="color:var(--accent-deep)">${s.h[i+1]}:</b> ${c}</div>`).join("")}
+      </div>`).join("");
+    }else{
+      // Table layout
+      html=`<div style="overflow-x:auto;border:1.5px solid #a8d5ba;border-radius:10px"><table class="pdf-table" style="min-width:${s.h.length*150}px"><tr>${s.h.map(h=>`<th>${h}</th>`).join("")}</tr>`;
+      rows.forEach(r=>{html+=`<tr>${r.map((c,i)=>`<td style="${i===0?"font-weight:600":"font-size:12.5px"}">${c}</td>`).join("")}</tr>`;});
+      html+=`</table></div>`;
+    }
+    html+=`<p style="font-size:11px;color:var(--muted);margin-top:8px">${s.r.length} kayıt${filter?" ("+rows.length+" gösteriliyor)":""}</p>`;
+    $("#vs-content").innerHTML=html;
+  }
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${s.title}</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">${s.desc}</p>
+    <input type="text" id="vs-filter" placeholder="🔍 Ara..." style="width:100%;max-width:500px;font:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:14px">
+    <div id="vs-content"></div>`;
+  draw();
+  $("#vs-filter").oninput=e=>{filter=e.target.value;draw();};
+}
+
+// ============ VITAMINS & MINERALS ============
+const VIT_DATA=[
+  {grup:"Yağda çözünen",ad:"A Vitamini (Retinol)",gorevi:"Görme, bağışıklık, cilt sağlığı, hücre büyümesi",kaynaklar:"Havuç, tatlı patates, ıspanak, karaciğer, yumurta, süt",eksiklik:"Gece körlüğü, kuru cilt, bağışıklık zayıflığı",fazlasi:"Karaciğer toksisitesi, baş ağrısı, bulantı",gunluk:"700–900 µg",ipucu:"Beta-karoten (bitkisel) vücutta A vitaminine dönüşür. Yağla birlikte alınınca emilimi artar."},
+  {grup:"Yağda çözünen",ad:"D Vitamini (Kolekalsiferol)",gorevi:"Kalsiyum emilimi, kemik sağlığı, bağışıklık, ruh hali",kaynaklar:"Güneş ışığı, yağlı balık (somon, uskumru), yumurta sarısı, mantar",eksiklik:"Kemik erimesi, kas güçsüzlüğü, depresyon, sık enfeksiyon",fazlasi:"Hiperkalsemi, böbrek taşı",gunluk:"15–20 µg (600–800 IU)",ipucu:"Türkiye'de eksiklik çok yaygın. Kış aylarında takviye önerilir. Kan testi ile kontrol edin."},
+  {grup:"Yağda çözünen",ad:"E Vitamini (Tokoferol)",gorevi:"Antioksidan, hücre zarı koruması, cilt sağlığı",kaynaklar:"Badem, fındık, ayçiçeği yağı, zeytinyağı, avokado, ıspanak",eksiklik:"Nadir; sinir hasarı, kas güçsüzlüğü",fazlasi:"Kanama riski (yüksek dozda)",gunluk:"15 mg",ipucu:"Doğal formları (d-alfa tokoferol) sentetikten daha etkilidir."},
+  {grup:"Yağda çözünen",ad:"K Vitamini (Filokinon/Menakinon)",gorevi:"Kan pıhtılaşması, kemik metabolizması",kaynaklar:"Koyu yeşil yapraklı sebzeler (ıspanak, brokoli), lahana, natto",eksiklik:"Kanama eğilimi, kemik zayıflığı",fazlasi:"Nadir; kan sulandırıcılarla etkileşim",gunluk:"90–120 µg",ipucu:"K1 bitkisel, K2 fermente gıdalarda bulunur. Warfarin kullananlar dikkatli olmalı."},
+  {grup:"Suda çözünen",ad:"B1 Vitamini (Tiamin)",gorevi:"Enerji metabolizması, sinir sistemi",kaynaklar:"Tam tahıllar, baklagiller, et, ayçiçeği çekirdeği",eksiklik:"Beriberi, yorgunluk, sinir hasarı",fazlasi:"Nadir (fazlası idrarla atılır)",gunluk:"1.1–1.2 mg",ipucu:"Alkol tüketimi B1 emilimini azaltır."},
+  {grup:"Suda çözünen",ad:"B2 Vitamini (Riboflavin)",gorevi:"Enerji üretimi, cilt ve göz sağlığı",kaynaklar:"Süt, yoğurt, yumurta, badem, ıspanak, mantar",eksiklik:"Ağız kenarı çatlakları, göz hassasiyeti",fazlasi:"Nadir",gunluk:"1.1–1.3 mg",ipucu:"Işığa duyarlıdır; süt cam şişede saklanmamalıdır."},
+  {grup:"Suda çözünen",ad:"B3 Vitamini (Niasin)",gorevi:"Enerji metabolizması, DNA onarımı, kolesterol düzenleme",kaynaklar:"Tavuk, balık, yer fıstığı, mantar, tam tahıllar",eksiklik:"Pellagra (dermatit, ishal, demans)",fazlasi:"Yüz kızarması, karaciğer hasarı (yüksek dozda)",gunluk:"14–16 mg",ipucu:"Triptofandan da sentezlenebilir."},
+  {grup:"Suda çözünen",ad:"B5 Vitamini (Pantotenik asit)",gorevi:"Yağ asidi sentezi, enerji metabolizması",kaynaklar:"Hemen her gıdada: et, yumurta, brokoli, avokado, tam tahıl",eksiklik:"Çok nadir; yorgunluk, uyuşukluk",fazlasi:"Nadir",gunluk:"5 mg",ipucu:"Adı 'her yerde bulunan' anlamına gelir — dengeli beslenmede eksiklik olmaz."},
+  {grup:"Suda çözünen",ad:"B6 Vitamini (Piridoksin)",gorevi:"Protein metabolizması, nörotransmitter üretimi, bağışıklık",kaynaklar:"Tavuk, balık, patates, muz, nohut, ceviz",eksiklik:"Anemi, depresyon, cilt döküntüsü, ağız yaraları",fazlasi:"Sinir hasarı (çok yüksek dozda)",gunluk:"1.3–1.7 mg",ipucu:"Hamilelikte bulantıya karşı kullanılabilir (doktor onayıyla)."},
+  {grup:"Suda çözünen",ad:"B7 Vitamini (Biotin)",gorevi:"Yağ, karbonhidrat metabolizması, saç-tırnak sağlığı",kaynaklar:"Yumurta (pişmiş), badem, tatlı patates, ıspanak",eksiklik:"Saç dökülmesi, cilt döküntüsü (nadir)",fazlasi:"Nadir; tiroid test sonuçlarını etkileyebilir",gunluk:"30 µg",ipucu:"Çiğ yumurta akı biotin emilimini engeller."},
+  {grup:"Suda çözünen",ad:"B9 Vitamini (Folat/Folik asit)",gorevi:"DNA sentezi, hücre bölünmesi, kırmızı kan hücresi yapımı",kaynaklar:"Koyu yeşil yapraklar, baklagiller, narenciye, karaciğer",eksiklik:"Megaloblastik anemi, nöral tüp defektleri (hamilelikte)",fazlasi:"B12 eksikliğini maskeleyebilir",gunluk:"400 µg (hamilelikte 600 µg)",ipucu:"Hamilelik planlanıyorsa 3 ay önceden takviye başlanmalı."},
+  {grup:"Suda çözünen",ad:"B12 Vitamini (Kobalamin)",gorevi:"Sinir sistemi, DNA sentezi, kırmızı kan hücresi yapımı",kaynaklar:"Et, balık, süt, yumurta, peynir (sadece hayvansal kaynak)",eksiklik:"Megaloblastik anemi, uyuşma/karıncalanma, hafıza sorunları",fazlasi:"Nadir (fazlası atılır)",gunluk:"2.4 µg",ipucu:"Veganlarda mutlaka takviye gerekir. Yaşlılarda emilim azalır."},
+  {grup:"Suda çözünen",ad:"C Vitamini (Askorbik asit)",gorevi:"Antioksidan, bağışıklık, kolajen sentezi, demir emilimi",kaynaklar:"Narenciye, kivi, biber, çilek, brokoli, kuşburnu",eksiklik:"Skorbüt (diş eti kanaması, yara iyileşme gecikmesi)",fazlasi:"Böbrek taşı riski, ishal (çok yüksek dozda)",gunluk:"75–90 mg",ipucu:"Demirli gıdalarla birlikte alınınca demir emilimi artar. Pişirmede kaybolur."},
+  {grup:"Mineral",ad:"Kalsiyum (Ca)",gorevi:"Kemik ve diş yapısı, kas kasılması, sinir iletimi",kaynaklar:"Süt, yoğurt, peynir, brokoli, badem, susam",eksiklik:"Osteoporoz, kas krampları, diş çürüğü",fazlasi:"Böbrek taşı, damar sertliği",gunluk:"1000–1200 mg",ipucu:"D vitamini kalsiyum emilimini artırır. Demir ile aynı anda alınmamalı."},
+  {grup:"Mineral",ad:"Demir (Fe)",gorevi:"Hemoglobin yapımı, oksijen taşınması, enerji",kaynaklar:"Kırmızı et, karaciğer, ıspanak, mercimek, pekmez",eksiklik:"Demir eksikliği anemisi, yorgunluk, solgunluk",fazlasi:"Hemokromatoz, organ hasarı",gunluk:"8–18 mg (kadınlarda yüksek)",ipucu:"Hayvansal demir (hem demir) bitkisel demirden daha iyi emilir. C vitamini emilimi artırır."},
+  {grup:"Mineral",ad:"Magnezyum (Mg)",gorevi:"Kas/sinir fonksiyonu, enerji üretimi, kemik sağlığı",kaynaklar:"Koyu yeşil yapraklar, badem, ceviz, muz, bitter çikolata, baklagil",eksiklik:"Kas krampları, yorgunluk, uykusuzluk, kaygı",fazlasi:"İshal, düşük tansiyon",gunluk:"310–420 mg",ipucu:"Stres magnezyum tüketimini artırır. Gece alınırsa uyku kalitesini artırabilir."},
+  {grup:"Mineral",ad:"Çinko (Zn)",gorevi:"Bağışıklık, yara iyileşmesi, tat/koku duyusu",kaynaklar:"Et, kabak çekirdeği, nohut, mercimek, peynir",eksiklik:"Sık enfeksiyon, yavaş yara iyileşmesi, saç dökülmesi",fazlasi:"Bulantı, bakır eksikliği",gunluk:"8–11 mg",ipucu:"Soğuk algınlığı süresini kısaltabilir. Bakırla dengelenmeli."},
+  {grup:"Mineral",ad:"Potasyum (K)",gorevi:"Kan basıncı düzenleme, kas fonksiyonu, sıvı dengesi",kaynaklar:"Muz, avokado, patates, ıspanak, kuru kayısı, fasulye",eksiklik:"Kas güçsüzlüğü, kalp ritim bozukluğu",fazlasi:"Kalp ritim bozukluğu (böbrek hastalarında tehlikeli)",gunluk:"2600–3400 mg",ipucu:"Tuz azaltmak + potasyum artırmak tansiyonu düşürmenin en etkili yoludur."},
+  {grup:"Mineral",ad:"Selenyum (Se)",gorevi:"Antioksidan, tiroid fonksiyonu, bağışıklık",kaynaklar:"Brezilya cevizi, balık, et, yumurta, tam tahıl",eksiklik:"Tiroid sorunları, bağışıklık zayıflığı",fazlasi:"Selenoz (saç/tırnak kaybı)",gunluk:"55 µg",ipucu:"Günde 1–2 Brezilya cevizi günlük ihtiyacı karşılar."},
+  {grup:"Mineral",ad:"İyot (I)",gorevi:"Tiroid hormonu üretimi, metabolizma düzenleme",kaynaklar:"İyotlu tuz, deniz ürünleri, süt, yumurta",eksiklik:"Guatr, hipotiroidi, zeka geriliği (fetüste)",fazlasi:"Tiroid fonksiyon bozukluğu",gunluk:"150 µg",ipucu:"İyotlu tuz kullanımı basit ama etkili bir korumadır."},
+  {grup:"Eser element",ad:"Omega-3 yağ asitleri",gorevi:"Beyin sağlığı, kalp koruma, antiinflamatuar",kaynaklar:"Somon, sardalya, uskumru, ceviz, keten tohumu, chia",eksiklik:"Konsantrasyon güçlüğü, kuru cilt, eklem ağrısı",fazlasi:"Kanama riski (çok yüksek dozda)",gunluk:"250–500 mg EPA+DHA",ipucu:"Haftada 2–3 porsiyon yağlı balık yeterlidir. Bitkisel ALA dönüşümü düşüktür."},
+  {grup:"Eser element",ad:"Probiyotikler",gorevi:"Bağırsak florası dengesi, bağışıklık, sindirim",kaynaklar:"Yoğurt, kefir, turşu, tarhana, kimchi",eksiklik:"Sindirim sorunları, şişkinlik, sık enfeksiyon",fazlasi:"Genellikle güvenli; bağışıklığı baskılanmışlarda dikkat",gunluk:"1–10 milyar CFU",ipucu:"Doğal fermente gıdalar en iyi kaynaktır. Antibiyotik sonrası özellikle önerilir."},
+  {grup:"Eser element",ad:"Lif (Diyet lifi)",gorevi:"Bağırsak düzeni, kolesterol düşürme, kan şekeri kontrolü, tokluk",kaynaklar:"Baklagiller, tam tahıl, sebze, meyve, keten/chia tohumu",eksiklik:"Kabızlık, yüksek kolesterol, kan şekeri dalgalanmaları",fazlasi:"Gaz, şişkinlik (birden artırılırsa)",gunluk:"25–38 g",ipucu:"Yavaş artırın ve bol su için. Çözünür lif (yulaf) kolesterolü düşürür, çözünmez lif bağırsağı düzenler."}
+];
+
+function renderVitaminsStep(){
+  let filter="",groupFilter="";
+  const groups=[...new Set(VIT_DATA.map(v=>v.grup))];
+
+  function draw(){
+    let data=VIT_DATA;
+    if(groupFilter)data=data.filter(v=>v.grup===groupFilter);
+    if(filter){const f=filter.toLowerCase();data=data.filter(v=>Object.values(v).some(s=>s.toLowerCase().includes(f)));}
+
+    let grpHtml=`<button class="btn-ghost ${!groupFilter?"btn-active":""}" data-vg="" style="font-size:11px;padding:5px 12px">Tümü (${VIT_DATA.length})</button>`;
+    const gc={};VIT_DATA.forEach(v=>{gc[v.grup]=(gc[v.grup]||0)+1;});
+    grpHtml+=Object.entries(gc).map(([k,v])=>`<button class="btn-ghost ${groupFilter===k?"btn-active":""}" data-vg="${escAttr(k)}" style="font-size:11px;padding:5px 12px">${k} (${v})</button>`).join("");
+    $("#vit-grps").innerHTML=grpHtml;
+    $$("[data-vg]").forEach(b=>b.onclick=()=>{groupFilter=b.dataset.vg;draw();});
+
+    let html=`<div style="display:flex;flex-direction:column;gap:14px">`;
+    data.forEach(v=>{
+      html+=`<div class="comp-item" style="border-radius:14px;padding:16px 18px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:700;color:var(--ink)">${v.ad}</span>
+          <span class="st-badge ${v.grup==="Mineral"?"st-lo":v.grup==="Eser element"?"st-na":"st-ok"}" style="font-size:9px">${v.grup}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:12.5px;line-height:1.55">
+          <div><b style="color:var(--accent-deep)">Görevi:</b> ${v.gorevi}</div>
+          <div><b style="color:var(--accent-deep)">Kaynaklar:</b> ${v.kaynaklar}</div>
+          <div><b style="color:var(--risk-mod)">Eksikliğinde:</b> ${v.eksiklik}</div>
+          <div><b style="color:var(--risk-high)">Fazlasında:</b> ${v.fazlasi}</div>
+          <div><b>Günlük ihtiyaç:</b> ${v.gunluk}</div>
+          <div><b>💡 İpucu:</b> ${v.ipucu}</div>
+        </div>
+      </div>`;
+    });
+    html+=`</div><p style="font-size:11px;color:var(--muted);margin-top:10px">${VIT_DATA.length} kayıt${filter||groupFilter?" ("+data.length+" gösteriliyor)":""} · Bilgiler genel referanstır, kişisel ihtiyaçlar farklılık gösterebilir.</p>`;
+    $("#vit-list").innerHTML=html;
+  }
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🧬 Vitamin & Mineral Rehberi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">Tüm vitaminler ve mineraller — ne işe yarar, hangi gıdalarda bulunur, eksiklik ve fazlalık belirtileri.</p>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <input type="text" id="vit-filter" placeholder="🔍 Ara (vitamin adı, kaynak, eksiklik...)" style="flex:1;min-width:200px;font:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--line);border-radius:10px">
+    </div>
+    <div id="vit-grps" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"></div>
+    <div id="vit-list"></div>`;
+  draw();
+  $("#vit-filter").oninput=e=>{filter=e.target.value;draw();};
+}
+
+// ============ GENERIC TABLE SCREEN BUILDER ============
+function buildTableScreen(cfg){
+  let data;try{const r=localStorage.getItem(cfg.key);data=r?JSON.parse(r):null;}catch(e){data=null;}
+  if(!data){data=[...cfg.defaults];try{localStorage.setItem(cfg.key,JSON.stringify(data));}catch(e){}}
+  let filter="";
+  function save(){try{localStorage.setItem(cfg.key,JSON.stringify(data));}catch(e){}}
+  function draw(){
+    const f=filter.toLowerCase();
+    const filtered=f?data.filter(r=>cfg.cols.some(c=>(r[c.k]||"").toLowerCase().includes(f))):data;
+    let tbl=`<div style="overflow-x:auto;border:1.5px solid #a8d5ba;border-radius:10px"><table class="pdf-table" style="min-width:800px"><tr>${cfg.cols.map(c=>`<th style="min-width:${c.w}">${c.l}</th>`).join("")}<th style="min-width:70px">İşlem</th></tr>`;
+    filtered.forEach(r=>{const ri=data.indexOf(r);
+      tbl+=`<tr>${cfg.cols.map(c=>`<td style="${c.s||""}">${r[c.k]||""}</td>`).join("")}
+        <td><button class="gt-edit" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">✏️</button>
+            <button class="gt-del" data-ri="${ri}" style="border:0;background:transparent;cursor:pointer;font-size:13px">🗑</button></td></tr>`;
+    });
+    tbl+=`</table></div><p style="font-size:11px;color:var(--muted);margin-top:8px">${data.length} kayıt${filter?" ("+filtered.length+" gösteriliyor)":""}</p>`;
+    $("#gt-table").innerHTML=tbl;
+    $$(".gt-edit").forEach(b=>b.onclick=()=>openModal(Number(b.dataset.ri)));
+    $$(".gt-del").forEach(b=>b.onclick=()=>{if(!confirm("Silmek istediğinize emin misiniz?"))return;data.splice(Number(b.dataset.ri),1);save();draw();});
+  }
+  function openModal(ri){
+    const isNew=ri===-1;const row=isNew?cfg.empty():data[ri];
+    const modal=document.createElement("div");modal.className="chat-overlay open";modal.id="gt-modal";
+    modal.innerHTML=`<div style="width:560px;max-width:95%;max-height:90vh;overflow-y:auto;background:var(--card);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.18);padding:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h3 style="margin:0;font-size:17px;font-weight:700">${isNew?cfg.addTitle:cfg.editTitle}</h3>
+        <button id="gt-m-close" style="border:0;background:transparent;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      ${cfg.cols.map(c=>`<div class="field" style="margin-bottom:14px"><label class="field-label"><span>${c.l}</span></label>
+        ${c.type==="date"?`<input type="date" id="gtm-${c.k}" value="${row[c.k]||""}" style="font:inherit;font-size:13px;width:100%">`
+        :c.type==="select"?`<select id="gtm-${c.k}" style="font:inherit;font-size:13px;width:100%">${(c.options||[]).map(o=>`<option ${row[c.k]===o?"selected":""}>${o}</option>`).join("")}</select>`
+        :c.long?`<textarea id="gtm-${c.k}" rows="3" style="font:inherit;font-size:13px;width:100%;resize:vertical" placeholder="${c.l}">${escHtml(row[c.k]||"")}</textarea>`
+        :`<input type="text" id="gtm-${c.k}" value="${escAttr(row[c.k]||"")}" placeholder="${c.l}" style="font:inherit;font-size:13px;width:100%">`}</div>`).join("")}
+      <div style="display:flex;gap:10px;margin-top:20px"><button class="btn-primary" id="gt-m-save" style="flex:1">${isNew?"Ekle":"Kaydet"}</button><button class="btn-ghost" id="gt-m-cancel">İptal</button></div>
+    </div>`;
+    document.body.appendChild(modal);
+    modal.onclick=e=>{if(e.target===modal)modal.remove();};
+    $("#gt-m-close").onclick=()=>modal.remove();
+    $("#gt-m-cancel").onclick=()=>modal.remove();
+    $("#gt-m-save").onclick=()=>{
+      const nr={};cfg.cols.forEach(c=>{nr[c.k]=$("#gtm-"+c.k)?.value||"";});
+      if(cfg.required&&!nr[cfg.required].trim()){alert("Zorunlu alan boş olamaz.");return;}
+      if(isNew)data.unshift(nr);else Object.assign(data[ri],nr);
+      save();modal.remove();draw();
+    };
+    setTimeout(()=>$("#gtm-"+(cfg.required||cfg.cols[1]?.k))?.focus(),100);
+  }
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">${cfg.icon} ${cfg.title}</h1>
+    <p style="color:var(--ink-soft);margin:0 0 16px">${cfg.desc}</p>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <input type="text" id="gt-filter" placeholder="🔍 Ara..." style="flex:1;min-width:200px;font:inherit;font-size:13px;padding:10px 14px;border:1px solid var(--line);border-radius:10px">
+      <button class="btn-primary" id="gt-add" style="white-space:nowrap">+ ${cfg.addBtn}</button>
+    </div>
+    <div id="gt-table"></div>
+    ${cfg.footer||""}`;
+  draw();
+  $("#gt-filter").oninput=e=>{filter=e.target.value;draw();};
+  $("#gt-add").onclick=()=>openModal(-1);
+}
+
+// ============ YOGURT SCREEN ============
+const YG_DEFAULT=[{"tarih":"2026-06-22","ad":"Yulaflı meyveli yoğurt","malzeme":"4 yemek kaşığı yoğurt, 2 yemek kaşığı yulaf, yarım elma veya armut","hazirlanis":"Malzemeleri karıştırıp 5–10 dakika bekletin.","katki":"Protein ve lif sağlar, uzun süre tok tutabilir."},{"tarih":"2026-06-22","ad":"Tarçınlı elmalı yoğurt","malzeme":"1 küçük kâse yoğurt, yarım elma, ¼ çay kaşığı tarçın","hazirlanis":"Elmayı doğrayıp yoğurt ve tarçınla karıştırın.","katki":"Tatlı ihtiyacına daha dengeli bir alternatif oluşturur."},{"tarih":"2026-06-22","ad":"Muzlu kakaolu yoğurt","malzeme":"Yoğurt, yarım muz, 1 çay kaşığı kakao","hazirlanis":"Muzu ezip diğer malzemelerle karıştırın.","katki":"İlave şekersiz tatlı alternatifi sağlar."},{"tarih":"2026-06-22","ad":"Cevizli tarçınlı yoğurt","malzeme":"Yoğurt, 2 tam ceviz, tarçın","hazirlanis":"Cevizi kırıp yoğurda ekleyin.","katki":"Protein ve sağlıklı yağ içerir."},{"tarih":"2026-06-22","ad":"Kenevir tohumlu yoğurt","malzeme":"Yoğurt, 1 yemek kaşığı kenevir tohumu, tarçın","hazirlanis":"Tüm malzemeleri karıştırın.","katki":"Protein ve doymamış yağ içeriğini artırır."},{"tarih":"2026-06-22","ad":"Keten tohumlu yoğurt","malzeme":"Yoğurt, 1 tatlı kaşığı öğütülmüş keten tohumu","hazirlanis":"Karıştırıp birkaç dakika bekletin.","katki":"Lif alımını artırabilir."},{"tarih":"2026-06-22","ad":"Chia tohumlu yoğurt","malzeme":"Yoğurt, 1 tatlı kaşığı chia, birkaç dilim meyve","hazirlanis":"Karıştırıp 15–20 dakika bekletin.","katki":"Lif ve tokluk sağlar."},{"tarih":"2026-06-22","ad":"Ballı zencefilli yoğurt","malzeme":"Yoğurt, 1 çay kaşığı bal, çok az taze zencefil","hazirlanis":"Zencefili ince rendeleyip karıştırın.","katki":"Aromatik ve hafif tatlı bir seçenektir."},{"tarih":"2026-06-22","ad":"Ballı tarçınlı yoğurt","malzeme":"Yoğurt, 1 çay kaşığı bal, tarçın","hazirlanis":"Karıştırarak tüketin.","katki":"Tatlı isteğini azaltabilir."},{"tarih":"2026-06-22","ad":"Orman meyveli yoğurt","malzeme":"Yoğurt, çilek, yaban mersini veya böğürtlen","hazirlanis":"Meyveleri doğrayıp yoğurda ekleyin.","katki":"Lif, protein ve antioksidan sağlar."},{"tarih":"2026-06-22","ad":"Armutlu cevizli yoğurt","malzeme":"Yoğurt, yarım armut, 2 tam ceviz","hazirlanis":"Doğrayıp karıştırın.","katki":"Lif ve sağlıklı yağ içerir."},{"tarih":"2026-06-22","ad":"Havuçlu tarçınlı yoğurt","malzeme":"Yoğurt, yarım küçük rendelenmiş havuç, tarçın, 1 ceviz","hazirlanis":"Malzemeleri karıştırın.","katki":"Havuçlu kek tadını andıran daha hafif bir alternatif."},{"tarih":"2026-06-22","ad":"Kabak çekirdekli yoğurt","malzeme":"Yoğurt, 1 yemek kaşığı kabak çekirdeği içi, kuru nane","hazirlanis":"Karıştırıp tüketin.","katki":"Protein, sağlıklı yağ ve mineral sağlar."},{"tarih":"2026-06-22","ad":"Tahinli yoğurt","malzeme":"Yoğurt, 1 tatlı kaşığı tahin, tarçın","hazirlanis":"Homojen olana kadar karıştırın.","katki":"Tokluk sağlar ancak tahin miktarı sınırlı tutulmalı."},{"tarih":"2026-06-22","ad":"Hurma parçalı yoğurt","malzeme":"Yoğurt, 1 küçük hurma, ceviz","hazirlanis":"Hurmayı ince doğrayıp yoğurda ekleyin.","katki":"İlave şeker olmadan tatlılık sağlar."},{"tarih":"2026-06-22","ad":"Meyveli buzlu yoğurt","malzeme":"Yoğurt, çilek veya muz","hazirlanis":"Blenderdan geçirip kalıplara dökün ve dondurun.","katki":"Dondurmaya göre daha proteinli alternatif."},{"tarih":"2026-06-22","ad":"Naneli salatalıklı yoğurt","malzeme":"Yoğurt, salatalık, nane, dereotu","hazirlanis":"Salatalığı rendeleyip yoğurt ve yeşilliklerle karıştırın.","katki":"Hafif, ferah ve düşük kalorili."},{"tarih":"2026-06-22","ad":"Avokadolu yoğurt ezmesi","malzeme":"Yoğurt, ¼ avokado, limon, dereotu","hazirlanis":"Avokadoyu ezip yoğurtla karıştırın.","katki":"Protein ve sağlıklı yağ içerir."},{"tarih":"2026-06-22","ad":"Nohutlu yoğurt kasesi","malzeme":"Yoğurt, 3 yemek kaşığı haşlanmış nohut, kimyon, nane","hazirlanis":"Malzemeleri karıştırın.","katki":"Doyurucu, protein ve lif içerir."},{"tarih":"2026-06-22","ad":"Semizotlu yoğurt","malzeme":"Yoğurt, semizotu, sarımsak isteğe bağlı","hazirlanis":"Semizotunu doğrayıp yoğurtla karıştırın.","katki":"Sebze ve yoğurdu birleştiren hafif bir seçenek."},{"tarih":"2026-06-22","ad":"Pancarlı yoğurt","malzeme":"Yoğurt, 2 yemek kaşığı haşlanmış rendelenmiş pancar","hazirlanis":"Karıştırıp soğuk tüketin.","katki":"Lifli ve renkli bir meze veya ara öğündür."},{"tarih":"2026-06-22","ad":"Dereotlu lorlu yoğurt","malzeme":"Yoğurt, 1 yemek kaşığı lor, dereotu","hazirlanis":"Tüm malzemeleri karıştırın.","katki":"Protein miktarı yüksek, tuz oranı düşük tutulabilir."}];
+
+function renderYogurtStep(){
+  buildTableScreen({
+    key:"goodlife_yogurt",title:"Yoğurtlu Karışımlar",icon:"🥣",
+    desc:"Yoğurt bazlı sağlıklı ara öğün ve tatlı alternatifleri.",
+    addBtn:"Yeni karışım ekle",addTitle:"🥣 Yeni yoğurt karışımı ekle",editTitle:"✏️ Karışımı düzenle",
+    required:"ad",
+    cols:[
+      {k:"tarih",l:"Tarih",w:"85px",type:"date",s:"font-family:var(--mono);font-size:12px"},
+      {k:"ad",l:"Yoğurt karışımı",w:"160px",s:"font-weight:600"},
+      {k:"malzeme",l:"Malzemeler",w:"220px",long:true,s:"font-size:12px"},
+      {k:"hazirlanis",l:"Hazırlanışı",w:"220px",long:true,s:"font-size:12px"},
+      {k:"katki",l:"Beslenme katkısı",w:"220px",long:true,s:"font-size:12px;color:var(--accent-deep)"}
+    ],
+    empty:()=>({tarih:new Date().toISOString().slice(0,10),ad:"",malzeme:"",hazirlanis:"",katki:""}),
+    defaults:YG_DEFAULT
+  });
+}
+
 // ============ TREND & COMPOSITE ANALYSIS ============
 function buildTrendSection(){
   if(W.labHistory.length<2)return "";
@@ -2417,6 +2891,258 @@ function updateBasicsViz(){
   }
 }
 
+// ============ DAILY TRACKING: Sleep, Water, Mood, Family History ============
+const TRACK_KEY=()=>"goodlife_track_"+activeProfileId;
+function getTrack(){try{return JSON.parse(localStorage.getItem(TRACK_KEY()))||{};}catch(e){return {};}}
+function saveTrack(d){try{localStorage.setItem(TRACK_KEY(),JSON.stringify(d));}catch(e){}}
+const today=()=>new Date().toISOString().slice(0,10);
+
+// ── SLEEP ──
+function renderSleepStep(){
+  const tk=getTrack();if(!tk.sleep)tk.sleep=[];
+  const todayEntry=tk.sleep.find(s=>s.date===today());
+  const nextIdx=STEPS.findIndex(s=>s.id==="sleep")+1;
+
+  function drawHistory(){
+    const last7=tk.sleep.slice(0,7);
+    if(!last7.length)return `<p style="color:var(--muted);font-size:13px">Henüz kayıt yok.</p>`;
+    const avgDur=last7.reduce((s,e)=>s+e.duration,0)/last7.length;
+    const avgQual=last7.reduce((s,e)=>s+e.quality,0)/last7.length;
+    return `<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+      <div class="dcard dcard-accent" style="flex:1;min-width:140px"><h3>Ort. süre</h3><div class="dval">${avgDur.toFixed(1)}</div><div class="dsub">saat/gece</div>
+        <span class="dtag ${avgDur>=7?"dtag-ok":avgDur>=6?"dtag-warn":"dtag-bad"}">${avgDur>=7?"İyi":avgDur>=6?"Yetersiz":"Kötü"}</span></div>
+      <div class="dcard dcard-accent" style="flex:1;min-width:140px"><h3>Ort. kalite</h3><div class="dval">${avgQual.toFixed(1)}</div><div class="dsub">/10</div>
+        <span class="dtag ${avgQual>=7?"dtag-ok":avgQual>=5?"dtag-warn":"dtag-bad"}">${avgQual>=7?"İyi":avgQual>=5?"Orta":"Kötü"}</span></div>
+      <div class="dcard dcard-accent" style="flex:1;min-width:140px"><h3>Son ${last7.length} gün</h3><div class="dval">${last7.length}</div><div class="dsub">kayıt</div></div>
+    </div>
+    <div style="overflow-x:auto;border:1.5px solid #a8d5ba;border-radius:10px"><table class="pdf-table"><tr><th>Tarih</th><th>Yatış</th><th>Kalkış</th><th>Süre</th><th>Kalite</th><th>Uyanma</th><th>Not</th></tr>
+    ${last7.map(s=>`<tr><td style="font-family:var(--mono);font-size:12px">${s.date}</td><td>${s.bedtime||"?"}</td><td>${s.wakeup||"?"}</td>
+      <td style="font-weight:600;color:${s.duration>=7?"var(--accent)":s.duration>=6?"var(--risk-mod)":"var(--risk-high)"}">${s.duration}s</td>
+      <td><span class="dtag ${s.quality>=7?"dtag-ok":s.quality>=5?"dtag-warn":"dtag-bad"}">${s.quality}/10</span></td>
+      <td>${s.wakeups||0}</td><td style="font-size:12px">${s.note||""}</td></tr>`).join("")}</table></div>`;
+  }
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">🌙 Uyku Takibi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Uyku süresi ve kalitesi kronik hastalık riskini doğrudan etkiler. Günlük kayıt tutun.</p>
+    <div class="panel"><h2>Bugünün kaydı${todayEntry?" ✅":""}</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div class="field"><label class="field-label"><span>Yatış saati</span></label><input type="time" id="sl-bed" value="${todayEntry?.bedtime||"23:00"}"></div>
+        <div class="field"><label class="field-label"><span>Kalkış saati</span></label><input type="time" id="sl-wake" value="${todayEntry?.wakeup||"07:00"}"></div>
+        <div class="field"><label class="field-label"><span>Gece uyanma</span></label><input type="number" id="sl-wakeups" min="0" max="10" value="${todayEntry?.wakeups||0}"></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label class="field-label"><span>Uyku kalitesi (1-10)</span></label>
+        <div style="display:flex;gap:6px" id="sl-qual">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button type="button" data-v="${n}" class="btn-ghost ${(todayEntry?.quality||7)===n?"btn-active":""}" style="width:36px;height:36px;padding:0;font-size:13px;font-weight:700;border-radius:50%">${n}</button>`).join("")}</div>
+      </div>
+      <div class="field" style="margin-top:8px"><label class="field-label"><span>Not (opsiyonel)</span></label><input type="text" id="sl-note" value="${todayEntry?.note||""}" placeholder="Uykuyla ilgili not..."></div>
+      <div class="actions" style="margin-top:12px"><button class="btn-primary" id="sl-save">Kaydet</button><button class="btn-ghost" id="sl-skip">Atla →</button></div>
+    </div>
+    <div class="panel"><h2>📊 Uyku geçmişi</h2><div id="sl-history">${drawHistory()}</div></div>
+    <div class="panel" style="background:var(--accent-wash);border-color:var(--accent)"><h2 style="color:var(--accent-deep)">💡 Uyku hijyeni önerileri</h2>
+      <div style="font-size:13px;color:var(--ink-soft);line-height:1.7">
+        Yetişkinler için önerilen: <b>7-9 saat</b>. Her gün aynı saatte yatıp kalkın. Yatmadan 1 saat önce ekranları kapatın.
+        Yatak odası karanlık, sessiz ve serin (18-20°C) olmalı. Kafein öğleden sonra sınırlandırılmalı. Alkol uyku kalitesini bozar.
+      </div></div>`;
+  $$("#sl-qual button").forEach(b=>b.onclick=()=>{$$("#sl-qual button").forEach(x=>x.classList.remove("btn-active"));b.classList.add("btn-active");});
+  $("#sl-save").onclick=()=>{
+    const bed=$("#sl-bed").value,wake=$("#sl-wake").value;
+    const bh=parseInt(bed.split(":")[0]),bm=parseInt(bed.split(":")[1]),wh=parseInt(wake.split(":")[0]),wm=parseInt(wake.split(":")[1]);
+    let dur=((wh*60+wm)-(bh*60+bm))/60;if(dur<0)dur+=24;
+    const qual=Number($("#sl-qual .btn-active")?.dataset?.v||7);
+    const entry={date:today(),bedtime:bed,wakeup:wake,duration:Math.round(dur*10)/10,quality:qual,wakeups:Number($("#sl-wakeups").value)||0,note:$("#sl-note").value};
+    const idx2=tk.sleep.findIndex(s=>s.date===today());
+    if(idx2>=0)tk.sleep[idx2]=entry;else tk.sleep.unshift(entry);
+    tk.sleep.sort((a,b)=>b.date.localeCompare(a.date));
+    saveTrack(tk);W.done.add("sleep");saveState();renderSteps();
+    $("#sl-history").innerHTML=drawHistory();
+  };
+  $("#sl-skip").onclick=()=>{W.step=nextIdx;render();};
+}
+
+// ── WATER ──
+function renderWaterStep(){
+  const tk=getTrack();if(!tk.water)tk.water=[];
+  const todayW=tk.water.find(w=>w.date===today());
+  const weight=W.basics?.weight||70;
+  const target=Math.round(weight*0.033*10)/10;
+  const nextIdx=STEPS.findIndex(s=>s.id==="water")+1;
+  let glasses=todayW?.glasses||0;
+
+  function drawWater(){
+    const pct=Math.min(glasses*0.25/target*100,100);
+    const liters=(glasses*0.25).toFixed(2);
+    const ok=parseFloat(liters)>=target;
+    return `<div style="display:flex;align-items:center;gap:24px;margin:16px 0">
+      <div style="width:80px;height:180px;border:3px solid ${ok?"var(--accent)":"var(--line)"};border-radius:0 0 16px 16px;position:relative;overflow:hidden;background:var(--card)">
+        <div style="position:absolute;bottom:0;width:100%;height:${pct}%;background:${ok?"var(--accent)":"#7ec8e3"};transition:height .3s;border-radius:0 0 13px 13px"></div>
+        <div style="position:absolute;width:100%;text-align:center;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:16px;font-weight:800;color:${ok?"#fff":"var(--ink)"}">${liters}L</div>
+      </div>
+      <div>
+        <div style="font-size:28px;font-weight:800;font-family:var(--mono);color:${ok?"var(--accent)":"var(--ink)"}">${glasses} bardak</div>
+        <div style="font-size:13px;color:var(--muted)">= ${liters} litre / hedef ${target}L</div>
+        <span class="dtag ${ok?"dtag-ok":"dtag-warn"}" style="margin-top:8px">${ok?"Hedefe ulaştı ✓":Math.round(pct)+"% tamamlandı"}</span>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <button class="btn-primary" id="w-add" style="font-size:18px;width:44px;height:44px;padding:0;border-radius:50%">+</button>
+          <button class="btn-ghost" id="w-sub" style="font-size:18px;width:44px;height:44px;padding:0;border-radius:50%">−</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function drawHistory(){
+    const last7=tk.water.slice(0,7);
+    if(last7.length<2)return "";
+    return `<div style="display:flex;gap:8px;align-items:flex-end;height:100px;margin-top:16px">${last7.reverse().map(w=>{
+      const h=Math.min(w.glasses*0.25/target*100,100);
+      const ok=w.glasses*0.25>=target;
+      return `<div style="flex:1;text-align:center"><div style="height:${h}px;background:${ok?"var(--accent)":"#7ec8e3"};border-radius:4px 4px 0 0;min-height:4px"></div><div style="font-size:9px;color:var(--muted);margin-top:4px">${w.date.slice(5)}</div></div>`;
+    }).join("")}</div>`;
+  }
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">💧 Su Tüketim Takibi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Günlük hedefiniz: <b>${target} litre</b> (${weight} kg × 33ml/kg). Her bardak ≈ 250ml.</p>
+    <div class="panel"><h2>Bugün</h2><div id="w-display">${drawWater()}</div></div>
+    <div class="panel"><h2>📊 Son 7 gün</h2><div id="w-history">${drawHistory()}</div></div>
+    <div class="actions"><button class="btn-ghost" id="w-skip">Devam et →</button></div>`;
+
+  function wireButtons(){
+    $("#w-add").onclick=()=>{glasses++;saveTodayWater();};
+    $("#w-sub").onclick=()=>{if(glasses>0)glasses--;saveTodayWater();};
+  }
+  function saveTodayWater(){
+    const idx2=tk.water.findIndex(w=>w.date===today());
+    const entry={date:today(),glasses};
+    if(idx2>=0)tk.water[idx2]=entry;else tk.water.unshift(entry);
+    tk.water.sort((a,b)=>b.date.localeCompare(a.date));
+    saveTrack(tk);W.done.add("water");saveState();renderSteps();
+    $("#w-display").innerHTML=drawWater();wireButtons();
+    $("#w-history").innerHTML=drawHistory();
+  }
+  wireButtons();
+  $("#w-skip").onclick=()=>{W.step=nextIdx;render();};
+}
+
+// ── MOOD ──
+const MOOD_EMOJI=["😫","😢","😕","😐","🙂","😊","😄","😁","🤩","🌟"];
+function renderMoodStep(){
+  const tk=getTrack();if(!tk.mood)tk.mood=[];
+  const todayM=tk.mood.find(m=>m.date===today());
+  const nextIdx=STEPS.findIndex(s=>s.id==="mood")+1;
+  const triggers=["İş/okul","İlişki","Sağlık","Para","Uyku","Yalnızlık","Aile","Belirsizlik","Olumlu olay","Diğer"];
+
+  function drawHistory(){
+    const last14=tk.mood.slice(0,14);
+    if(last14.length<2)return "";
+    const avg=last14.reduce((s,m)=>s+m.score,0)/last14.length;
+    return `<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div class="dcard dcard-accent" style="flex:1"><h3>14 gün ortalaması</h3><div class="dval">${avg.toFixed(1)}</div><div class="dsub">/10 · ${MOOD_EMOJI[Math.round(avg)-1]||"😐"}</div></div>
+      <div class="dcard dcard-accent" style="flex:1"><h3>Kayıt sayısı</h3><div class="dval">${last14.length}</div><div class="dsub">gün</div></div>
+    </div>
+    <div style="display:flex;gap:4px;align-items:flex-end;height:80px;margin-bottom:8px">${last14.reverse().map(m=>{
+      const h=m.score*8;const c=m.score>=7?"var(--accent)":m.score>=5?"var(--risk-mod)":"var(--risk-high)";
+      return `<div style="flex:1;text-align:center" title="${m.date}: ${m.score}/10"><div style="height:${h}px;background:${c};border-radius:3px 3px 0 0;min-height:3px"></div><div style="font-size:8px;margin-top:2px">${MOOD_EMOJI[m.score-1]||""}</div></div>`;
+    }).join("")}</div>`;
+  }
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">😊 Stres & Ruh Hali Günlüğü</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Günlük ruh halinizi takip edin. Trendler psikolojik sağlık skorlarıyla birlikte değerlendirilir.</p>
+    <div class="panel"><h2>Bugün nasıl hissediyorsunuz?${todayM?" ✅":""}</h2>
+      <div style="display:flex;gap:8px;justify-content:center;margin:16px 0" id="mood-pick">${MOOD_EMOJI.map((e,i)=>`<button type="button" data-v="${i+1}" class="btn-ghost ${(todayM?.score||0)===i+1?"btn-active":""}" style="font-size:24px;width:44px;height:44px;padding:0;border-radius:50%" title="${i+1}/10">${e}</button>`).join("")}</div>
+      <div class="field"><label class="field-label"><span>Bugünkü tetikleyici (opsiyonel)</span></label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="mood-triggers">${triggers.map(t=>`<button type="button" data-tg="${t}" class="btn-ghost ${todayM?.triggers?.includes(t)?"btn-active":""}" style="font-size:11px;padding:5px 12px">${t}</button>`).join("")}</div>
+      </div>
+      <div class="field" style="margin-top:8px"><label class="field-label"><span>Not</span></label><input type="text" id="mood-note" value="${todayM?.note||""}" placeholder="Bugün hakkında kısa not..."></div>
+      <div class="actions" style="margin-top:12px"><button class="btn-primary" id="mood-save">Kaydet</button><button class="btn-ghost" id="mood-skip">Atla →</button></div>
+    </div>
+    <div class="panel"><h2>📊 Ruh hali trendi</h2><div id="mood-history">${drawHistory()}</div></div>`;
+  $$("#mood-pick button").forEach(b=>b.onclick=()=>{$$("#mood-pick button").forEach(x=>x.classList.remove("btn-active"));b.classList.add("btn-active");});
+  $$("#mood-triggers button").forEach(b=>b.onclick=()=>b.classList.toggle("btn-active"));
+  $("#mood-save").onclick=()=>{
+    const score=Number($("#mood-pick .btn-active")?.dataset?.v||5);
+    const trigs=[...document.querySelectorAll("#mood-triggers .btn-active")].map(b=>b.dataset.tg);
+    const entry={date:today(),score,triggers:trigs,note:$("#mood-note").value};
+    const idx2=tk.mood.findIndex(m=>m.date===today());
+    if(idx2>=0)tk.mood[idx2]=entry;else tk.mood.unshift(entry);
+    tk.mood.sort((a,b)=>b.date.localeCompare(a.date));
+    saveTrack(tk);W.done.add("mood");saveState();renderSteps();
+    $("#mood-history").innerHTML=drawHistory();
+  };
+  $("#mood-skip").onclick=()=>{W.step=nextIdx;render();};
+}
+
+// ── FAMILY HEALTH HISTORY ──
+const FH_CONDITIONS=[
+  {id:"heart",label:"Kalp hastalığı / Kalp krizi",icon:"❤️",riskKeys:["ascvd"]},
+  {id:"stroke",label:"İnme (Felç)",icon:"🧠",riskKeys:["ascvd"]},
+  {id:"diabetes",label:"Tip 2 Diyabet",icon:"🩸",riskKeys:["dm"]},
+  {id:"hypertension",label:"Hipertansiyon",icon:"🫀",riskKeys:["ht"]},
+  {id:"kidney",label:"Kronik böbrek hastalığı",icon:"🫘",riskKeys:["ckd"]},
+  {id:"cancer_breast",label:"Meme kanseri",icon:"🎀",riskKeys:[]},
+  {id:"cancer_colon",label:"Kolon kanseri",icon:"🟤",riskKeys:[]},
+  {id:"cancer_prostate",label:"Prostat kanseri",icon:"🔵",riskKeys:[]},
+  {id:"cancer_lung",label:"Akciğer kanseri",icon:"🫁",riskKeys:[]},
+  {id:"osteoporosis",label:"Osteoporoz",icon:"🦴",riskKeys:[]},
+  {id:"thyroid",label:"Tiroid hastalığı",icon:"🦋",riskKeys:[]},
+  {id:"mental",label:"Depresyon / Anksiyete",icon:"😔",riskKeys:[]},
+  {id:"alzheimer",label:"Alzheimer / Demans",icon:"🧩",riskKeys:[]},
+  {id:"autoimmune",label:"Otoimmün hastalık",icon:"🛡",riskKeys:[]}
+];
+const FH_MEMBERS=["Anne","Baba","Kardeş","Büyükanne (anne)","Büyükbaba (anne)","Büyükanne (baba)","Büyükbaba (baba)"];
+
+function renderFamilyHxStep(){
+  const tk=getTrack();if(!tk.familyHx)tk.familyHx={};
+  const fh=tk.familyHx;
+  const nextIdx=STEPS.findIndex(s=>s.id==="family_hx")+1;
+
+  function draw(){
+    const anyData=Object.keys(fh).length>0;
+    let riskSummary="";
+    if(anyData){
+      const condCounts={};
+      for(const[cond,members]of Object.entries(fh)){
+        if(members.length)condCounts[cond]=members;
+      }
+      const highRisk=Object.entries(condCounts).filter(([c,m])=>m.some(x=>["Anne","Baba","Kardeş"].includes(x)));
+      if(highRisk.length){
+        riskSummary=`<div class="ai-result" style="margin-top:16px"><h4>⚠️ Birinci derece akraba risk faktörleri</h4>
+          ${highRisk.map(([c,m])=>{const cond=FH_CONDITIONS.find(f=>f.id===c);
+            return `<div class="ar-row"><span class="ar-icon">${cond?.icon||"🔴"}</span><span><b>${cond?.label||c}:</b> ${m.join(", ")} → Riskiniz ${m.length>=2?"önemli ölçüde":"belirgin"} artmış. Erken tarama önerilir.</span></div>`;
+          }).join("")}</div>`;
+      }
+    }
+
+    let grid=FH_CONDITIONS.map(c=>{
+      const sel=fh[c.id]||[];
+      return `<div class="dcard" style="padding:12px 14px;border-left:3px solid ${sel.length?"var(--risk-mod)":"var(--line)"}">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span>${c.icon}</span><span style="font-size:12.5px;font-weight:600">${c.label}</span>
+          ${sel.length?`<span class="dtag dtag-warn" style="margin-left:auto">${sel.length} kişi</span>`:""}</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">${FH_MEMBERS.map(m=>`<button type="button" class="btn-ghost fh-btn ${sel.includes(m)?"btn-active":""}" data-cond="${c.id}" data-mem="${m}" style="font-size:10px;padding:3px 8px">${m.split(" ")[0]}</button>`).join("")}</div>
+      </div>`;
+    }).join("");
+
+    $("#fh-grid").innerHTML=grid+riskSummary;
+    $$(".fh-btn").forEach(b=>b.onclick=()=>{
+      const cond=b.dataset.cond,mem=b.dataset.mem;
+      if(!fh[cond])fh[cond]=[];
+      const idx2=fh[cond].indexOf(mem);
+      if(idx2>=0)fh[cond].splice(idx2,1);else fh[cond].push(mem);
+      if(!fh[cond].length)delete fh[cond];
+      tk.familyHx=fh;saveTrack(tk);draw();
+    });
+  }
+
+  $("#content").innerHTML=`
+    <h1 style="font-size:24px;font-weight:700;margin:0 0 6px">👨‍👩‍👧 Aile Sağlık Geçmişi</h1>
+    <p style="color:var(--ink-soft);margin:0 0 20px">Birinci derece akrabalardaki (anne, baba, kardeş) hastalıklar riskinizi 2-4 kat artırabilir. Her hastalık için ilgili aile üyelerini seçin.</p>
+    <div id="fh-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px"></div>
+    <div class="actions" style="margin-top:20px"><button class="btn-primary" id="fh-save">Kaydet ve devam et →</button><button class="btn-ghost" id="fh-skip">Atla →</button></div>`;
+  draw();
+  $("#fh-save").onclick=()=>{W.done.add("family_hx");saveState();W.step=nextIdx;render();};
+  $("#fh-skip").onclick=()=>{W.step=nextIdx;render();};
+}
+
 // ============ STEP: IPAQ ============
 function renderIPAQStep(){
   // If already completed, show summary
@@ -2648,145 +3374,262 @@ function renderLikertStep(id){
 // ============ RESULTS ============
 function renderResults(){
   W.done.add("results");renderSteps();saveState();
-  const b=W.basics||{};const l=W.labs;const bmi=b.bmi;
-  // Merge labs + basics for risk prediction
+  const b=W.basics||{};const l=W.labs;const bmi=b.bmi;const vt=W.vitals||{};const sc=W.scores;
   const allVals={...b,...l};
 
-  // Critical values table
-  const critRows=[];
-  const addCrit=(label,val,unit,lo,hi,ideal)=>{
-    if(val===undefined||val===null||val==="")return;
-    const cls=val<lo||val>hi?"bad":(ideal&&(val<ideal[0]||val>ideal[1])?"warn":"ok");
-    critRows.push({label,val,unit,range:`${lo} – ${hi}`,ideal:ideal?`${ideal[0]} – ${ideal[1]}`:"",cls});
-  };
-  addCrit("Açlık glukozu",l.fasting_glucose,"mg/dL",74,106,[74,99]);
-  addCrit("Total kolesterol",l.total_chol,"mg/dL",0,200,[0,199]);
-  addCrit("HDL kolesterol",l.hdl,"mg/dL",40,150,[40,60]);
-  addCrit("Kreatinin",l.creatinine,"mg/dL",.7,1.3,[.7,1.2]);
-  addCrit("eGFR",l.egfr,"mL/dk",90,200,[90,120]);
-  addCrit("Hemoglobin",l.hemoglobin,"g/dL",12,17,[13,16]);
-  addCrit("Albümin",l.albumin,"g/dL",3.5,5.2,[3.5,5]);
-  if(bmi)addCrit("BKİ",bmi,"kg/m²",18.5,24.9,[18.5,24.9]);
-  if(b.sbp)addCrit("Sistolik KB",b.sbp,"mmHg",90,120,[90,119]);
+  // Health Score (0-100)
+  let hscore=50,hparts=0,htotal=0;
+  const addH=(v,w)=>{if(v!=null){hparts+=v*w;htotal+=w;}};
+  if(bmi){const s=bmi>=18.5&&bmi<=24.9?100:bmi<=27?70:bmi<=30?40:20;addH(s,2);}
+  if(vt.sbp){const s=vt.sbp<=120?100:vt.sbp<=130?80:vt.sbp<=140?50:20;addH(s,2);}
+  if(vt.hr){const s=vt.hr>=60&&vt.hr<=100?100:vt.hr>=50&&vt.hr<=110?70:30;addH(s,1);}
+  if(vt.spo2){addH(vt.spo2>=95?100:vt.spo2>=90?60:20,1);}
+  if(l.fasting_glucose){const s=l.fasting_glucose<=106?100:l.fasting_glucose<=126?60:20;addH(s,2);}
+  if(l.total_chol){addH(l.total_chol<=200?100:l.total_chol<=240?60:20,1);}
+  if(l.hemoglobin){addH(l.hemoglobin>=12&&l.hemoglobin<=17?100:50,1);}
+  if(sc.who5){addH(sc.who5.pct>=60?100:sc.who5.pct>=30?60:20,1);}
+  if(sc.phq9){addH(sc.phq9.score<=4?100:sc.phq9.score<=9?70:sc.phq9.score<=14?40:10,1);}
+  if(htotal)hscore=Math.round(hparts/htotal);
+  const hcls=hscore>=75?"ok":hscore>=50?"warn":"bad";
+  const hlabel=hscore>=75?"İyi":hscore>=50?"Orta":"Dikkat";
 
-  const critHtml=critRows.length?`<div class="panel"><h2>🔬 Mevcut Değerleriniz — Kritik Karşılaştırma</h2>
-    <table class="crit-table"><tr><th>Parametre</th><th>Değeriniz</th><th>Normal</th><th>İdeal</th><th>Durum</th></tr>
-    ${critRows.map(c=>`<tr><td>${c.label}</td><td class="val ${c.cls}">${c.val} ${c.unit}</td><td>${c.range}</td><td>${c.ideal||"—"}</td>
-      <td class="${c.cls}">${c.cls==="ok"?"✅ Normal":c.cls==="warn"?"⚠️ Sınırda":"🔴 Anormal"}</td></tr>`).join("")}
-    </table></div>`:"";
+  // SVG helpers
+  function gaugeArc(pct,color,r,w){
+    const R=r||36,W2=w||7,cx=R+4,cy=R+4;
+    const a=Math.PI*1.25,b2=Math.PI*1.25-Math.PI*1.5*(Math.min(pct,100)/100);
+    const x1=cx+R*Math.cos(a),y1=cy-R*Math.sin(a),x2=cx+R*Math.cos(b2),y2=cy-R*Math.sin(b2);
+    const lg=pct>50?1:0;
+    return `<svg width="${(R+4)*2}" height="${(R+4)*2}" viewBox="0 0 ${(R+4)*2} ${(R+4)*2}">
+      <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--line-soft)" stroke-width="${W2}" stroke-dasharray="5 3" opacity=".5"/>
+      <path d="M${x1},${y1}A${R},${R} 0 ${lg} 0 ${x2},${y2}" fill="none" stroke="${color}" stroke-width="${W2}" stroke-linecap="round"/>
+      <text x="${cx}" y="${cy+2}" text-anchor="middle" font-size="14" font-weight="800" fill="${color}" font-family="var(--mono)">${Math.round(pct)}</text></svg>`;
+  }
+  function sparkSvg(vals,lo,hi,w,h){
+    if(!vals||vals.length<2)return "";
+    const W2=w||100,H=h||28,pad=3;
+    const mn=Math.min(lo!=null?lo:Math.min(...vals),Math.min(...vals))*0.9,mx=Math.max(hi!=null?hi:Math.max(...vals),Math.max(...vals))*1.1;
+    const rng=mx-mn||1;
+    const pts=vals.map((v,i)=>[pad+i/(vals.length-1)*(W2-2*pad),pad+(1-(v-mn)/rng)*(H-2*pad)]);
+    const rlo=lo!=null?pad+(1-(lo-mn)/rng)*(H-2*pad):H,rhi=hi!=null?pad+(1-(hi-mn)/rng)*(H-2*pad):0;
+    return `<svg viewBox="0 0 ${W2} ${H}" style="width:${W2}px;height:${H}px">
+      <rect x="0" y="${rhi}" width="${W2}" height="${Math.max(0,rlo-rhi)}" fill="rgba(0,166,81,.1)" rx="2"/>
+      <polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+      ${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="var(--accent)"/>`).join("")}</svg>`;
+  }
+  function miniBar(val,mn,mx,color){
+    const pct=Math.min(Math.max((val-mn)/(mx-mn)*100,0),100);
+    return `<div style="height:5px;background:var(--line-soft);border-radius:3px;margin-top:4px"><div style="width:${pct}%;height:100%;background:${color||'var(--accent)'};border-radius:3px"></div></div>`;
+  }
 
   // Risk scores
-  const risks=MODULES.map(mod=>{
-    const vals={};mod.features.forEach(f=>{vals[f.key]=allVals[f.key]??f.def;});
-    const r=predict(mod,vals);
-    return{name:mod.name,pct:(r.probability*100).toFixed(1),band:r.band,
-      cls:r.band==="high"?"rv-high":r.band==="moderate"?"rv-mod":"rv-low",
-      bandTr:r.band==="high"?"Yüksek":r.band==="moderate"?"Orta":"Düşük"};
-  });
-  const riskHtml=`<div class="panel"><h2>📈 Hastalık Risk Tahminleri</h2>
-    <div class="risk-grid">${risks.map(r=>`<div class="risk-card"><h4>${r.name}</h4>
-      <div class="rv ${r.cls}">%${r.pct}</div><div class="rb ${r.cls}">${r.bandTr} risk</div></div>`).join("")}</div>
-    <p class="note">Risk skorları toplanan verilerinize (form + tahlil) göre hesaplanmıştır. Daha fazla veri girdikçe doğruluk artar.</p></div>`;
+  const risks=[];
+  function logit(coeffs){let lp=coeffs._intercept||0;for(const[k,c]of Object.entries(coeffs)){if(k==="_intercept")continue;const v=allVals[k];if(v===undefined)return null;lp+=v*c;}return 1/(1+Math.exp(-lp));}
+  const ascvd=logit({_intercept:-8.2,age:.064,sex:.6,sbp:.02,smoker:.55,diabetes:.8,total_chol:.005,hdl:-.02});
+  const ht=logit({_intercept:-6.5,age:.055,sex:.3,bmi:.08,smoker:.4,diabetes:.5,activity:-.3});
+  const dm=logit({_intercept:-7.8,age:.05,bmi:.1,fasting_glucose:.03,hypertension:.6,activity:-.4});
+  const ckd=logit({_intercept:-7.0,age:.05,creatinine:1.5,hypertension:.7,diabetes:.8,egfr:-.02});
+  if(ascvd!=null)risks.push({name:"Kardiyovasküler",pct:ascvd*100,icon:"❤️"});
+  if(ht!=null)risks.push({name:"Hipertansiyon",pct:ht*100,icon:"🫀"});
+  if(dm!=null)risks.push({name:"Tip 2 Diyabet",pct:dm*100,icon:"🩸"});
+  if(ckd!=null)risks.push({name:"Böbrek Hast.",pct:ckd*100,icon:"🫘"});
 
-  // Assessment scores
-  let assHtml="";
-  const sc=W.scores;
-  if(Object.keys(sc).length){
-    const cards=[];
-    if(sc.who5)cards.push(`<div class="risk-card"><h4>Esenlik (WHO-5)</h4><div class="rv ${sc.who5.pct>=50?"rv-low":"rv-high"}">%${sc.who5.pct}</div><div class="rb">${sc.who5.band}</div></div>`);
-    if(sc.phq9)cards.push(`<div class="risk-card"><h4>Depresyon (PHQ-9)</h4><div class="rv ${sc.phq9.score<=9?"rv-low":sc.phq9.score<=14?"rv-mod":"rv-high"}">${sc.phq9.score}/27</div><div class="rb">${sc.phq9.band}</div></div>`);
-    if(sc.gad7)cards.push(`<div class="risk-card"><h4>Anksiyete (GAD-7)</h4><div class="rv ${sc.gad7.score<=9?"rv-low":sc.gad7.score<=14?"rv-mod":"rv-high"}">${sc.gad7.score}/21</div><div class="rb">${sc.gad7.band}</div></div>`);
-    if(sc.ipaq)cards.push(`<div class="risk-card"><h4>Aktivite (IPAQ)</h4><div class="rv ${sc.ipaq.cat==="Yüksek"?"rv-low":sc.ipaq.cat==="Orta"?"rv-mod":"rv-high"}">${sc.ipaq.met}</div><div class="rb">MET-dk/hf · ${sc.ipaq.cat}</div></div>`);
-    if(sc.sf12)cards.push(`<div class="risk-card"><h4>SF-12 Fiziksel</h4><div class="rv ${sc.sf12.pcs>=50?"rv-low":"rv-mod"}">${sc.sf12.pcs}</div><div class="rb">/100</div></div>
-      <div class="risk-card"><h4>SF-12 Mental</h4><div class="rv ${sc.sf12.mcs>=50?"rv-low":"rv-mod"}">${sc.sf12.mcs}</div><div class="rb">/100</div></div>`);
-    assHtml=`<div class="panel"><h2>🧠 Anket Sonuçları</h2><div class="risk-grid">${cards.join("")}</div></div>`;
+  // Vital cards
+  const vCards=[];
+  if(vt.hr)vCards.push({l:"Nabız",v:vt.hr,u:"bpm",icon:"💓",ok:vt.hr>=60&&vt.hr<=100});
+  if(vt.sbp)vCards.push({l:"Tansiyon",v:`${vt.sbp}/${vt.dbp||"?"}`,u:"mmHg",icon:"🔴",ok:vt.sbp<=120&&(vt.dbp||80)<=80});
+  if(vt.temp)vCards.push({l:"Ateş",v:vt.temp,u:"°C",icon:"🌡",ok:vt.temp>=36.1&&vt.temp<=37.2});
+  if(vt.spo2)vCards.push({l:"SpO₂",v:"%"+vt.spo2,u:"",icon:"🫁",ok:vt.spo2>=95});
+  if(vt.rr)vCards.push({l:"Solunum",v:vt.rr,u:"/dk",icon:"🌬",ok:vt.rr>=12&&vt.rr<=20});
+  if(vt.glucose_r)vCards.push({l:"Kan Şekeri",v:vt.glucose_r,u:"mg/dL",icon:"🩸",ok:vt.glucose_r>=70&&vt.glucose_r<=140});
+
+  // Lab trends
+  const labTrends=[];
+  if(W.labHistory.length>=2){
+    const sorted=[...W.labHistory].sort((a,b2)=>a.date.split(".").reverse().join("").localeCompare(b2.date.split(".").reverse().join("")));
+    ["fasting_glucose","total_chol","hdl","creatinine","hemoglobin","egfr"].forEach(k=>{
+      const vals=sorted.map(h=>h.labs[k]).filter(v=>v!=null);
+      if(vals.length>=2){const ref=LAB_REF.find(r=>r.key===k);labTrends.push({name:ref?.name||k,vals,lo:ref?.lo,hi:ref?.hi,unit:ref?.unit||"",last:vals[vals.length-1],prev:vals[vals.length-2]});}
+    });
   }
 
-  // Crisis
-  let crisis="";
-  if(sc.phq9&&sc.phq9.selfHarm)crisis=`<div class="crisis"><h3>Önemli — destek mevcut</h3>
-    <p>Yanıtınız kendinize zarar verme düşünceleri olabileceğini gösteriyor. Acil tehlike varsa <b>112</b>'yi arayın.
-      Güvendiğiniz birine ulaşın ve bir ruh sağlığı uzmanıyla görüşün.</p></div>`;
+  // Psych scores
+  const psy=[];
+  if(sc.who5)psy.push({name:"Esenlik (WHO-5)",val:sc.who5.pct,max:100,ok:sc.who5.pct>=60,lbl:sc.who5.band});
+  if(sc.sf12)psy.push({name:"Fiziksel (SF-12)",val:sc.sf12.pcs,max:100,ok:sc.sf12.pcs>=50,lbl:"PCS "+sc.sf12.pcs});
+  if(sc.sf12)psy.push({name:"Mental (SF-12)",val:sc.sf12.mcs,max:100,ok:sc.sf12.mcs>=50,lbl:"MCS "+sc.sf12.mcs});
+  if(sc.phq9)psy.push({name:"Depresyon (PHQ-9)",val:27-sc.phq9.score,max:27,ok:sc.phq9.score<=4,lbl:sc.phq9.band});
+  if(sc.gad7)psy.push({name:"Anksiyete (GAD-7)",val:21-sc.gad7.score,max:21,ok:sc.gad7.score<=4,lbl:sc.gad7.band});
+  if(sc.ipaq)psy.push({name:"Aktivite (IPAQ)",val:Math.min(sc.ipaq.met,3000),max:3000,ok:sc.ipaq.met>=600,lbl:sc.ipaq.cat});
 
-  // Recommendations as cards
+  // Photo cross-correlation analysis
+  const photoIds=["urine","stool","nail","tongue","eye","skin","leg","teeth","hair","wound","hand","lip"];
+  const photoLabels={urine:"🧪 İdrar",stool:"🔬 Dışkı",nail:"💅 Tırnak",tongue:"👅 Dil",eye:"👁 Göz",skin:"🔎 Cilt",leg:"🦶 Bacak",teeth:"🦷 Diş",hair:"💇 Saç",wound:"🩹 Yara",hand:"🤚 El",lip:"👄 Dudak"};
+  const donePh=photoIds.filter(id=>W.done.has(id));
+
+  // Cross-correlations between visual analyses + labs
+  const crossFindings=[];
+  const ps=k=>W.scores[k];
+  // Anemia pattern
+  {const signs=[];
+    if(ps("nail")&&/soluk|beyaz/i.test(ps("nail").renk))signs.push("💅 Soluk tırnak yatağı");
+    if(ps("lip")&&/soluk/i.test(ps("lip").dudak_rengi))signs.push("👄 Soluk dudak");
+    if(ps("tongue")&&/soluk/i.test(ps("tongue").renk))signs.push("👅 Soluk dil");
+    if(ps("eye")&&/soluk|beyaz/i.test(ps("eye").sklera_rengi))signs.push("👁 Soluk konjonktiva");
+    if(ps("hand")&&/soluk/i.test(ps("hand").avuç_rengi))signs.push("🤚 Soluk avuç içi");
+    if(l.hemoglobin&&l.hemoglobin<13)signs.push("🔬 Düşük hemoglobin ("+l.hemoglobin+")");
+    if(signs.length>=2)crossFindings.push({title:"🩸 Anemi Paterni",cls:"bad",signs,detail:"Birden fazla bölgede solgunluk + düşük hemoglobin birlikteliği anemi göstergesidir. Demir, B12 ve folik asit düzeyleri kontrol edilmelidir.",recs:["Demir açısından zengin gıdalar (kırmızı et, ıspanak, mercimek)","B12 ve folik asit taraması","C vitamini ile demir emilimini artırın"]});
+  }
+  // Liver/jaundice pattern
+  {const signs=[];
+    if(ps("eye")&&/sarı/i.test(ps("eye").sklera_rengi))signs.push("👁 Sarı sklera (ikter)");
+    if(ps("urine")&&/koyu|kahve/i.test(ps("urine").renk))signs.push("🧪 Koyu idrar");
+    if(ps("stool")&&/soluk|kil/i.test(ps("stool").renk))signs.push("🔬 Soluk dışkı");
+    if(ps("hand")&&/kırmızı|eritem/i.test(ps("hand").avuç_rengi))signs.push("🤚 Palmar eritem");
+    if(ps("nail")&&/sarı/i.test(ps("nail").renk))signs.push("💅 Sarı tırnak");
+    if(signs.length>=2)crossFindings.push({title:"🟡 Karaciğer / Safra Paterni",cls:"bad",signs,detail:"Sarı sklera + koyu idrar + soluk dışkı kombinasyonu karaciğer veya safra yolu sorununa işaret edebilir. Acil değerlendirme önerilir.",recs:["Karaciğer fonksiyon testleri (ALT, AST, bilirubin)","Alkol ve hepatotoksik ilaç kullanımını gözden geçirin","Gastroenteroloji konsültasyonu"]});
+  }
+  // Dehydration pattern
+  {const signs=[];
+    if(ps("urine")&&/koyu|kehribar/i.test(ps("urine").renk))signs.push("🧪 Koyu idrar");
+    if(ps("urine")&&/hafif dehidrasyon|dehidrasyon/i.test(ps("urine").hidrasyon))signs.push("🧪 Dehidrasyon tespiti");
+    if(ps("lip")&&/kuru|çatlak/i.test(ps("lip").çatlak||""))signs.push("👄 Kuru/çatlak dudak");
+    if(ps("tongue")&&/çatlak|kuru/i.test(ps("tongue").doku||""))signs.push("👅 Çatlak dil");
+    if(ps("skin")&&/kuru/i.test(JSON.stringify(ps("skin"))))signs.push("🔎 Kuru cilt");
+    if(signs.length>=2)crossFindings.push({title:"💧 Dehidrasyon Paterni",cls:"warn",signs,detail:"Koyu idrar, kuru dudak ve çatlak dil birlikteliği yetersiz sıvı alımını gösterir. Günlük en az 2 litre su hedefleyin.",recs:["Günde 8-10 bardak su","Kafein ve alkol sınırlandırın","Sıvı açısından zengin meyveler (karpuz, salatalık)"]});
+  }
+  // Nutritional deficiency pattern
+  {const signs=[];
+    if(ps("nail")&&/kırılgan|çizgi|çukur/i.test(ps("nail").doku||""))signs.push("💅 Kırılgan/çizgili tırnak");
+    if(ps("hair")&&/seyrek|dökülme/i.test(ps("hair").saç_yoğunluğu||""))signs.push("💇 Saç seyrelmesi");
+    if(ps("lip")&&/var/i.test(ps("lip").köşe_çatlağı||""))signs.push("👄 Ağız köşesi çatlağı (angular stomatit)");
+    if(ps("tongue")&&/kırmızı|koyu/i.test(ps("tongue").renk||""))signs.push("👅 Kırmızı/koyu dil");
+    if(ps("teeth")&&/kanama|kırmızı/i.test(JSON.stringify(ps("teeth"))))signs.push("🦷 Diş eti kanaması");
+    if(signs.length>=2)crossFindings.push({title:"⚡ Beslenme Yetersizliği Paterni",cls:"warn",signs,detail:"Tırnak kırılganlığı, saç dökülmesi ve ağız köşesi çatlağı kombinasyonu demir, çinko, B2/B12 veya biotin eksikliğine işaret edebilir.",recs:["Tam kan sayımı + demir, ferritin, B12, çinko kontrolü","Dengeli beslenme: et, yumurta, baklagil, yeşil yapraklar","Gerekirse multivitamin takviyesi (doktor onayıyla)"]});
+  }
+  // Circulation / peripheral pattern
+  {const signs=[];
+    if(ps("leg")&&/ödem|şiş|belirgin/i.test(ps("leg").ödem||""))signs.push("🦶 Bacak ödemi");
+    if(ps("leg")&&/var/i.test(ps("leg").varis||""))signs.push("🦶 Varis");
+    if(ps("nail")&&/mavi|mor/i.test(ps("nail").renk||""))signs.push("💅 Mavi/morumsu tırnak");
+    if(ps("lip")&&/mavi|mor/i.test(ps("lip").dudak_rengi||""))signs.push("👄 Siyanotik dudak");
+    if(ps("hand")&&/soğuk|mor/i.test(JSON.stringify(ps("hand"))))signs.push("🤚 Soğuk/morumsu eller");
+    if(vt.spo2&&vt.spo2<95)signs.push("🫁 Düşük SpO₂ (%"+vt.spo2+")");
+    if(signs.length>=2)crossFindings.push({title:"💜 Dolaşım / Oksijenlenme Paterni",cls:"bad",signs,detail:"Periferik siyanoz, ödem ve düşük oksijen birlikteliği kalp veya akciğer sorununa işaret edebilir.",recs:["Kardiyoloji değerlendirmesi","Akciğer fonksiyon testi","Egzersiz tolerans değerlendirmesi"]});
+  }
+  // Fungal/infection pattern
+  {const signs=[];
+    if(ps("nail")&&/sarı|kalın|mantar/i.test(JSON.stringify(ps("nail"))))signs.push("💅 Sarı/kalın tırnak");
+    if(ps("tongue")&&/beyaz.*kaplama|kandidiyazis/i.test(JSON.stringify(ps("tongue"))))signs.push("👅 Beyaz kaplama (pamukçuk)");
+    if(ps("skin")&&/döküntü|mantar/i.test(JSON.stringify(ps("skin"))))signs.push("🔎 Cilt döküntüsü");
+    if(ps("hair")&&/kızarıklık|mantar|pullu/i.test(ps("hair").saç_derisi||""))signs.push("💇 Saç derisi kızarıklığı");
+    if(signs.length>=2)crossFindings.push({title:"🍄 Mantar / Enfeksiyon Paterni",cls:"warn",signs,detail:"Birden fazla bölgede mantar belirtisi sistemik yatkınlık gösterebilir. Diyabet ve bağışıklık durumu değerlendirilmelidir.",recs:["Açlık kan şekeri ve HbA1c kontrolü","Dermatoloji konsültasyonu","Hijyen ve nemli ortamlardan kaçınma"]});
+  }
+  // Thyroid pattern
+  {const signs=[];
+    if(ps("hair")&&/seyrek|dökülme|diffüz/i.test(JSON.stringify(ps("hair"))))signs.push("💇 Yaygın saç dökülmesi");
+    if(ps("nail")&&/kırılgan/i.test(ps("nail").doku||""))signs.push("💅 Kırılgan tırnak");
+    if(ps("skin")&&/kuru/i.test(JSON.stringify(ps("skin"))))signs.push("🔎 Kuru cilt");
+    if(ps("eye")&&/şiş|protrüzyon/i.test(JSON.stringify(ps("eye"))))signs.push("👁 Göz çevresinde şişlik");
+    if(ps("tongue")&&/şiş/i.test(ps("tongue").doku||""))signs.push("👅 Şiş dil (diş izleri)");
+    if(signs.length>=2)crossFindings.push({title:"🦋 Tiroid Paterni",cls:"warn",signs,detail:"Saç dökülmesi, kuru cilt, kırılgan tırnak ve şiş dil kombinasyonu tiroid fonksiyon bozukluğunu düşündürebilir.",recs:["TSH, sT3, sT4 kontrolü","Endokrinoloji değerlendirmesi","İyotlu tuz kullanımını kontrol edin"]});
+  }
+  // Diabetes skin pattern
+  {const signs=[];
+    if(ps("wound")&&/yavaş|enfeksiyon|var/i.test(JSON.stringify(ps("wound"))))signs.push("🩹 Yavaş iyileşen yara");
+    if(ps("leg")&&/pigment|karart/i.test(JSON.stringify(ps("leg"))))signs.push("🦶 Bacakta pigmentasyon");
+    if(ps("teeth")&&/şiş|kanama/i.test(JSON.stringify(ps("teeth"))))signs.push("🦷 Diş eti sorunu");
+    if(l.fasting_glucose&&l.fasting_glucose>126)signs.push("🔬 Yüksek glukoz ("+l.fasting_glucose+")");
+    if(vt.glucose_r&&vt.glucose_r>200)signs.push("🩸 Yüksek anlık şeker ("+vt.glucose_r+")");
+    if(signs.length>=2)crossFindings.push({title:"🍬 Diyabetik Komplikasyon Paterni",cls:"bad",signs,detail:"Yavaş yara iyileşmesi, diş eti sorunları ve yüksek kan şekeri diyabetik komplikasyon riskini gösterir.",recs:["HbA1c kontrolü","Diyabetik ayak bakımı eğitimi","Diş hekimi kontrolü","Göz dibi muayenesi"]});
+  }
+  // GI / digestion pattern
+  {const signs=[];
+    if(ps("stool")&&(ps("stool").bristol_tip<=2||ps("stool").bristol_tip>=6))signs.push("🔬 Anormal dışkı (Bristol Tip "+ps("stool").bristol_tip+")");
+    if(ps("tongue")&&/sarı|kalın/i.test(JSON.stringify(ps("tongue"))))signs.push("👅 Sarı/kalın dil kaplaması");
+    if(ps("lip")&&/kuru|çatlak/i.test(JSON.stringify(ps("lip"))))signs.push("👄 Kuru dudak");
+    if(ps("stool")&&/yeşil|sarı/i.test(ps("stool").renk||""))signs.push("🔬 Anormal dışkı rengi");
+    if(signs.length>=2)crossFindings.push({title:"🫄 Sindirim Sistemi Paterni",cls:"warn",signs,detail:"Anormal dışkı, dil kaplaması ve sindirim belirtileri birlikteliği bağırsak florasının dengesizliğine veya malabsorpsiyona işaret edebilir.",recs:["Probiyotik gıdalar (yoğurt, kefir)","Lif alımını kademeli artırın","Bol su için, işlenmiş gıdaları azaltın"]});
+  }
+
+  // Recommendations
   const recs=genRecs(b,l,bmi,sc);
-  // SVG line-art icons per recommendation keyword
-  const ICONS={
-    glisemik:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3C14 3 6 12 6 17a8 8 0 0016 0c0-5-8-14-8-14z"/><path d="M10 18h8M12 21h4"/></svg>`,
-    kalp:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 25s-9-6-9-13a5 5 0 019-2 5 5 0 019 2c0 7-9 13-9 13z"/></svg>`,
-    kilo:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="10"/><path d="M14 8v6l4 2"/></svg>`,
-    demir:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21l7-14 7 14"/><path d="M9.5 17h9"/></svg>`,
-    akdeniz:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c-3 4-7 5-7 10a7 7 0 0014 0c0-5-4-6-7-10z"/><path d="M14 12v8M11 16h6"/></svg>`,
-    hareket:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5" r="2.5"/><path d="M14 8v6M10 24l4-10 4 10M8 16h5M15 16h5"/></svg>`,
-    kas:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16c0-3 2-6 4-6s3 2 4 2 2-2 4-2 4 3 4 6"/><path d="M6 16c0 3 2 5 4 5s3-1 4-1 2 1 4 1 4-2 4-5"/></svg>`,
-    uyku:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15A9 9 0 1112 6a7 7 0 009 9z"/></svg>`,
-    saat:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="10"/><path d="M14 8v6l3 3"/></svg>`,
-    psikoloji:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 22c0-3 2-5 5-5s5 2 5 5"/><circle cx="14" cy="11" r="5"/><path d="M12 10h4M12 13h4"/></svg>`,
-    nefes:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l2-5 4 10 2-5h8"/></svg>`,
-    sosyal:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="9" r="3"/><circle cx="18" cy="9" r="3"/><path d="M4 22c0-3 3-5 6-5h0c1.5 0 2.8.5 4 1.2A8.1 8.1 0 0118 17c3 0 6 2 6 5"/></svg>`,
-    hba1c:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h12v6a8 8 0 01-12 0z"/><path d="M10 21h8M14 15v6"/><circle cx="14" cy="8" r="2"/></svg>`,
-    lipid:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="18" height="20" rx="3"/><path d="M9 10h10M9 14h6M9 18h8"/></svg>`,
-    tarama:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M20 20l5 5"/></svg>`,
-    vitamin:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="5"/><path d="M14 3v4M14 21v4M3 14h4M21 14h4M6.3 6.3l2.8 2.8M18.9 18.9l2.8 2.8M6.3 21.7l2.8-2.8M18.9 9.1l2.8-2.8"/></svg>`,
-    bobrek:`<svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5c-4 2-5 7-4 12s4 7 5 7c2 0 3-2 4-2s2 2 4 2 4-2 5-7-1-10-4-12c-2-1-3 1-5 1s-3-2-5-1z"/></svg>`,
-  };
-  // Map each rec to an icon key
-  function recIcon(r){
-    const t=(r.t||"").toLowerCase();
-    if(t.includes("glisemik")||t.includes("şeker"))return ICONS.glisemik;
-    if(t.includes("kalp")||t.includes("dostu"))return ICONS.kalp;
-    if(t.includes("kilo")||t.includes("kalori"))return ICONS.kilo;
-    if(t.includes("demir")||t.includes("b12"))return ICONS.demir;
-    if(t.includes("akdeniz"))return ICONS.akdeniz;
-    if(t.includes("150")||t.includes("hareket")||t.includes("aktivite"))return ICONS.hareket;
-    if(t.includes("kas"))return ICONS.kas;
-    if(t.includes("hijyen")||t.includes("uyku hijyen"))return ICONS.uyku;
-    if(t.includes("saat")||t.includes("7-9"))return ICONS.saat;
-    if(t.includes("psikoloj")||t.includes("profesyonel"))return ICONS.psikoloji;
-    if(t.includes("gevşeme")||t.includes("nefes"))return ICONS.nefes;
-    if(t.includes("sosyal")||t.includes("hobi"))return ICONS.sosyal;
-    if(t.includes("hba1c"))return ICONS.hba1c;
-    if(t.includes("lipid")||t.includes("kolesterol test"))return ICONS.lipid;
-    if(t.includes("tarama")||t.includes("kolorektal")||t.includes("mammo")||t.includes("psa"))return ICONS.tarama;
-    if(t.includes("vitamin"))return ICONS.vitamin;
-    if(t.includes("nefroloji")||t.includes("böbrek"))return ICONS.bobrek;
-    if(r.cat==="nutrition")return ICONS.akdeniz;
-    if(r.cat==="exercise")return ICONS.hareket;
-    if(r.cat==="sleep")return ICONS.uyku;
-    if(r.cat==="stress")return ICONS.nefes;
-    return ICONS.lipid;
+  const recCats={nutrition:"🥗",exercise:"🏃",medical:"🩺",mental:"🧠",lifestyle:"🌙"};
+
+  // BUILD HTML
+  let html=`<div class="dhero"><h1>🌿 The Good Life — Sağlık Dashboardunuz</h1><p>Tüm verileriniz bütünleşik olarak analiz edildi.</p>
+    <div class="dhero-score"><div class="dhero-ring">${gaugeArc(hscore,hscore>=75?"#fff":hscore>=50?"#ffe0a0":"#ffb0a0",34,6)}</div>
+      <div><div class="dhero-num">${hscore}</div><div style="font-size:13px;opacity:.85">Genel Sağlık Skoru · ${hlabel}</div></div>
+      <div style="margin-left:auto;text-align:right;font-size:12px;opacity:.8">${b.age?b.age+" yaş · "+(b.sex===1?"Erkek":"Kadın")+"<br>":""}${bmi?"BKİ "+bmi+" · "+(bmi<18.5?"Zayıf":bmi<=24.9?"Normal":bmi<=29.9?"Kilolu":"Obez")+"<br>":""}${W.done.size}/${STEPS.length} adım tamamlandı</div>
+    </div></div>`;
+
+  // Vitals
+  if(bmi||vCards.length){
+    const n=Math.min((bmi?1:0)+vCards.length,4);
+    html+=`<div class="dsection"><h2>📊 Vücut & Vital Bulgular</h2><div class="dash dash-${n}">`;
+    if(bmi){const bc=bmi<=24.9?"var(--accent)":bmi<=29.9?"var(--risk-mod)":"var(--risk-high)";
+      html+=`<div class="dcard ${bmi>24.9?"dcard-warn":"dcard-accent"}"><h3>Vücut Kitle İndeksi</h3><div class="dval" style="color:${bc}">${bmi}</div><div class="dsub">kg/m² · ${b.height} cm · ${b.weight} kg</div><span class="dtag ${bmi<=24.9?"dtag-ok":bmi<=29.9?"dtag-warn":"dtag-bad"}">${bmi<18.5?"Zayıf":bmi<=24.9?"Normal":bmi<=29.9?"Kilolu":"Obez"}</span>${miniBar(bmi,15,40,bc)}</div>`;}
+    for(const vc of vCards){html+=`<div class="dcard ${vc.ok?"dcard-accent":"dcard-bad"}"><h3>${vc.icon} ${vc.l}</h3><div class="dval" style="color:${vc.ok?"var(--accent)":"var(--risk-high)"}">${vc.v}</div><div class="dsub">${vc.u}</div><span class="dtag ${vc.ok?"dtag-ok":"dtag-bad"}">${vc.ok?"Normal":"Dikkat"}</span></div>`;}
+    html+=`</div></div>`;
   }
-  const priLabel={h:"Öncelikli",m:"Önerilen",l:"Genel"};
-  const secMeta={nutrition:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c-3 4-7 5-7 10a7 7 0 0014 0c0-5-4-6-7-10z"/><path d="M14 12v8"/></svg>`,title:"Beslenme Önerileri",bg:"#e8f5e9"},
-    exercise:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="5" r="2.5"/><path d="M14 8v6M10 24l4-10 4 10M8 16h5M15 16h5"/></svg>`,title:"Egzersiz Planı",bg:"#e3f2fd"},
-    sleep:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15A9 9 0 1112 6a7 7 0 009 9z"/></svg>`,title:"Uyku Düzeni",bg:"#f3e5f5"},
-    stress:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l2-5 4 10 2-5h8"/></svg>`,title:"Stres Yönetimi",bg:"#fff3e0"},
-    medical:{icon:`<svg viewBox="0 0 28 28" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="18" height="20" rx="3"/><path d="M9 10h10M9 14h6M9 18h8"/></svg>`,title:"Tıbbi Test Önerileri",bg:"#fce4ec"}};
-  let recHtml="";
-  for(const[cat,meta]of Object.entries(secMeta)){
-    const items=recs.filter(r=>r.cat===cat);if(!items.length)continue;
-    recHtml+=`<div class="rec-section">
-      <h3><span class="sec-icon" style="background:${meta.bg}">${meta.icon}</span>${meta.title}</h3>
-      <div class="rec-grid">${items.map(r=>`<div class="rec-card">
-        <div class="rc-top">
-          <div class="rc-icon pri-${r.p}">${recIcon(r)}</div>
-          <div><div class="rc-title">${r.t}</div><span class="rc-pri p-${r.p}">${priLabel[r.p]}</span></div>
+
+  // Risks
+  if(risks.length){
+    html+=`<div class="dsection"><h2>📈 Hastalık Risk Tahminleri</h2><div class="dash dash-${Math.min(risks.length,4)}">`;
+    for(const r of risks){const c=r.pct<10?"var(--accent)":r.pct<20?"var(--risk-mod)":"var(--risk-high)";
+      html+=`<div class="dcard" style="text-align:center"><h3>${r.icon} ${r.name}</h3><div class="dgauge">${gaugeArc(r.pct,c)}</div><div style="font-family:var(--mono);font-size:20px;font-weight:800;color:${c}">%${r.pct.toFixed(1)}</div><span class="dtag ${r.pct<10?"dtag-ok":r.pct<20?"dtag-warn":"dtag-bad"}">${r.pct<10?"Düşük":r.pct<20?"Orta":"Yüksek"}</span></div>`;}
+    html+=`</div></div>`;
+  }
+
+  // Lab trends
+  if(labTrends.length){
+    html+=`<div class="dsection"><h2>🔬 Tahlil Trendleri</h2><div class="dash dash-3">`;
+    for(const t of labTrends){const chg=t.last-t.prev;const arrow=chg>0.01?"↑":chg<-0.01?"↓":"→";const bad=t.lo!=null&&(t.last<t.lo||t.last>t.hi);
+      html+=`<div class="dcard ${bad?"dcard-bad":"dcard-accent"}"><h3>${t.name}</h3><div style="display:flex;align-items:baseline;gap:6px"><span class="dval" style="font-size:22px;color:${bad?"var(--risk-high)":"var(--accent)"}">${t.last}</span><span style="font-size:12px;color:var(--muted)">${t.unit}</span><span style="font-size:13px;font-weight:700;color:${bad?"var(--risk-high)":"var(--accent)"};margin-left:auto">${arrow}${chg>0?"+":""}${chg.toFixed(1)}</span></div><div class="dspark">${sparkSvg(t.vals,t.lo,t.hi)}</div></div>`;}
+    html+=`</div></div>`;
+  }
+
+  // Psych
+  if(psy.length){
+    html+=`<div class="dsection"><h2>🧠 Psikolojik & Aktivite Skorları</h2><div class="dash dash-3">`;
+    for(const p of psy){const pct=Math.round(p.val/p.max*100);
+      html+=`<div class="dcard ${p.ok?"dcard-accent":"dcard-warn"}"><h3>${p.name}</h3><div style="display:flex;align-items:center;gap:12px">${gaugeArc(pct,p.ok?"var(--accent)":"var(--risk-mod)",24,5)}<div><div style="font-size:12px;font-weight:600;color:${p.ok?"var(--accent)":"var(--risk-mod)"}">%${pct}</div><div style="font-size:11px;color:var(--muted)">${p.lbl}</div></div></div></div>`;}
+    html+=`</div></div>`;
+  }
+
+  // Photos + cross-correlation
+  // Cross-correlation HTML
+  let crossHtml="";
+  if(crossFindings.length){
+    crossHtml=`<div class="dsection"><h2>🔗 Görsel Analiz Çapraz Değerlendirme <span style="font-size:12px;font-weight:400;color:var(--muted)">${crossFindings.length} patern tespit edildi</span></h2>
+      <div class="dash" style="grid-template-columns:1fr;gap:12px">${crossFindings.map(cf=>`<div class="dcard dcard-${cf.cls}" style="border-left-width:5px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:16px;font-weight:800">${cf.title}</span>
+          <span class="dtag dtag-${cf.cls}">${cf.cls==="bad"?"Önemli":cf.cls==="warn"?"Dikkat":"Bilgi"}</span>
         </div>
-        <div class="rc-desc">${r.d}</div>
-      </div>`).join("")}</div>
-    </div>`;
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">${cf.signs.map(s=>`<span style="font-size:12px;background:var(--line-soft);padding:3px 10px;border-radius:8px">${s}</span>`).join("")}</div>
+        <div style="font-size:13px;line-height:1.6;color:var(--ink-soft);margin-bottom:10px">${cf.detail}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">${cf.recs.map(r=>`<span style="font-size:11.5px;background:var(--accent-wash);color:var(--accent-deep);padding:4px 10px;border-radius:8px">💡 ${r}</span>`).join("")}</div>
+      </div>`).join("")}</div></div>`;
   }
 
-  $("#content").innerHTML=`
-    <div class="res-hero"><h1>🌿 The Good Life — Sağlık Raporunuz</h1>
-      <p>Tüm verileriniz analiz edildi. Mevcut durumunuz, risk tahminleriniz ve kişisel önerileriniz aşağıda.</p></div>
-    ${critHtml}${riskHtml}${assHtml}${crisis}
-    <div class="panel"><h2>💡 Kişiselleştirilmiş Yaşam Önerileri</h2>${recHtml}</div>
-    <p class="note">Bu rapor bir <b>tarama</b> aracıdır, tıbbi tanı yerine geçmez. Sonuçları bir sağlık profesyoneliyle değerlendirin.
-      Daha fazla adım tamamladıkça öneriler daha kişisel hale gelir.</p>
-    <div class="actions"><button class="btn-ghost" onclick="W.step=0;render()">Başa dön</button></div>`;
-}
+  html+=crossHtml;
 
+  html+=`<div class="dsection"><h2>📷 Görsel Sağlık Analizi <span style="font-size:12px;font-weight:400;color:var(--muted)">${donePh.length}/${photoIds.length}</span></h2>
+    <div class="dphoto-grid">${photoIds.map(id=>{const done=W.done.has(id);const s2=W.scores[id];
+      return `<div class="dphoto-item ${done?"done":""}"><div class="dphoto-icon">${(photoLabels[id]||"").split(" ")[0]}</div><div style="font-weight:${done?600:400}">${(photoLabels[id]||id).split(" ").slice(1).join(" ")||id}</div>${done?`<div style="font-size:10px;color:var(--accent);margin-top:2px">✓</div>`:`<div style="font-size:10px;color:var(--muted)">—</div>`}</div>`;
+    }).join("")}</div></div>`;
+
+  // Recommendations
+  if(recs.length){
+    html+=`<div class="dsection"><h2>💡 Kişiselleştirilmiş Öneriler</h2><div class="dash dash-2">`;
+    for(const r of recs.slice(0,12)){
+      html+=`<div class="dcard ${r.p==="h"?"dcard-bad":r.p==="m"?"dcard-warn":"dcard-accent"}"><div style="display:flex;gap:8px;align-items:flex-start"><span style="font-size:18px;flex-shrink:0">${recCats[r.cat]||"💡"}</span><div><div style="font-size:13px;font-weight:600">${r.t}</div><div style="font-size:12px;color:var(--ink-soft);margin-top:2px;line-height:1.5">${r.d}</div></div></div></div>`;}
+    html+=`</div></div>`;
+  }
+
+  html+=`<p style="font-size:11px;color:var(--muted);margin-top:20px;text-align:center;line-height:1.6">Bu rapor bir <b>tarama</b> aracıdır, tıbbi tanı yerine geçmez. Daha fazla adım tamamladıkça dashboard zenginleşir.</p>`;
+  $("#content").innerHTML=html;
+}
 function genRecs(b,l,bmi,sc){
   const r=[];
   if(l.fasting_glucose>100||b.diabetes){r.push({cat:"nutrition",p:"h",t:"Düşük glisemik indeksli beslenme",d:"Rafine şeker ve beyaz un sınırlayın. Tam tahıl, baklagil ve sebze ağırlıklı beslenin."});
@@ -2811,7 +3654,10 @@ function genRecs(b,l,bmi,sc){
 
 // ============ AI AGENT ============
 const SETTINGS_KEY="goodlife_settings_v1";
-let agentSettings={apiKey:"",model:"claude-sonnet-4-6",tts:true};
+// AI settings: loaded from config.js, overridable from Settings panel
+const _cfg=typeof AI_CONFIG!=="undefined"?AI_CONFIG:{provider:"anthropic",anthropic:{apiKey:"",model:"claude-sonnet-4-6",endpoint:"https://api.anthropic.com/v1/messages",version:"2023-06-01",maxTokens:1024,headers:{"anthropic-dangerous-direct-browser-access":"true"}},openai:{apiKey:"",model:"gpt-4o",endpoint:"https://api.openai.com/v1/chat/completions",maxTokens:1024},google:{apiKey:"",model:"gemini-2.0-flash",endpoint:"https://generativelanguage.googleapis.com/v1beta/models",maxTokens:1024},custom:{apiKey:"",model:"",endpoint:"",maxTokens:1024,headers:{}},tts:true,language:"tr-TR",chatHistoryLimit:50,vision:{provider:"",model:"",maxTokens:500}};
+const _prov=_cfg[_cfg.provider]||_cfg.anthropic;
+let agentSettings={apiKey:_prov.apiKey||"",model:_prov.model||"claude-sonnet-4-6",tts:_cfg.tts!==false,provider:_cfg.provider||"anthropic"};
 try{const s=localStorage.getItem(SETTINGS_KEY);if(s)agentSettings={...agentSettings,...JSON.parse(s)};}catch(e){}
 
 const chatHistory=loadChat();
@@ -2945,10 +3791,19 @@ function initSettings(){
   const overlay=$("#settings-overlay");
   $("#open-settings").onclick=()=>{
     overlay.classList.add("open");
+    if($("#provider-select"))$("#provider-select").value=agentSettings.provider||"anthropic";
     $("#api-key-input").value=agentSettings.apiKey||"";
     $("#model-select").value=agentSettings.model;
     const ttsBtns=$$("#tts-toggle button");
     ttsBtns.forEach(b=>b.classList.toggle("on",Number(b.dataset.v)===(agentSettings.tts?1:0)));
+    // Config info
+    const ci=$("#config-info");
+    if(ci){
+      const p=agentSettings.provider||"anthropic";
+      const hasConfigKey=_cfg[p]?.apiKey;
+      ci.innerHTML=`<b>Aktif:</b> ${p} · ${agentSettings.model}<br>`+
+        (hasConfigKey?`<span style="color:var(--accent)">✓ config.js'den API anahtarı yüklendi</span>`:`<span>config.js'de anahtar yok — yukarıdan girin</span>`);
+    }
     // Data summary
     const parts=[];
     if(W.done.size)parts.push(`${W.done.size} adım tamamlandı`);
@@ -2965,6 +3820,7 @@ function initSettings(){
   });
 
   $("#save-settings").onclick=()=>{
+    agentSettings.provider=$("#provider-select")?.value||"anthropic";
     agentSettings.apiKey=$("#api-key-input").value.trim();
     agentSettings.model=$("#model-select").value;
     const ttsOn=$('#tts-toggle button.on');
@@ -3053,6 +3909,63 @@ document.addEventListener('keydown',e=>{
 document.addEventListener('dragstart',e=>e.preventDefault());
 // Disable print screen detection (limited)
 document.addEventListener('keyup',e=>{if(e.key==='PrintScreen')navigator.clipboard?.writeText('');});
+// ============ UNIVERSAL AI API ============
+async function callAI({system,messages,maxTokens,imageBase64,imageType}){
+  const p=agentSettings.provider||_cfg.provider||"anthropic";
+  const pc=_cfg[p]||_cfg.anthropic;
+  const key=agentSettings.apiKey||pc.apiKey;
+  if(!key)throw new Error("API anahtarı tanımlı değil. Ayarlar'dan veya config.js'den girin.");
+  const model=agentSettings.model||pc.model;
+  const mt=maxTokens||pc.maxTokens||1024;
+
+  if(p==="openai"||p==="custom"){
+    const msgs=[];
+    if(system)msgs.push({role:"system",content:system});
+    for(const m of messages){
+      if(m.image){
+        msgs.push({role:m.role,content:[{type:"text",text:m.text||""},{type:"image_url",image_url:{url:m.image}}]});
+      }else msgs.push({role:m.role,content:m.text||m.content||""});
+    }
+    const hdrs={"Content-Type":"application/json","Authorization":"Bearer "+key,...(pc.headers||{})};
+    const res=await fetch(pc.endpoint,{method:"POST",headers:hdrs,body:JSON.stringify({model,max_tokens:mt,messages:msgs})});
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message||JSON.stringify(data.error));
+    return data.choices?.[0]?.message?.content||"";
+  }
+  if(p==="google"){
+    const parts=[];
+    if(system)parts.push({text:"System: "+system});
+    for(const m of messages){
+      if(m.image){
+        const b64=m.image.includes(",")?m.image.split(",")[1]:m.image;
+        parts.push({inline_data:{mime_type:m.imageType||"image/jpeg",data:b64}});
+      }
+      if(m.text)parts.push({text:m.text});
+    }
+    const url=`${pc.endpoint}/${model}:generateContent?key=${key}`;
+    const res=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts}],generationConfig:{maxOutputTokens:mt}})});
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message||JSON.stringify(data.error));
+    return data.candidates?.[0]?.content?.parts?.[0]?.text||"";
+  }
+  // Default: Anthropic
+  const contentArr=[];
+  for(const m of messages){
+    const parts=[];
+    if(m.image){
+      const b64=m.image.includes(",")?m.image.split(",")[1]:m.image;
+      parts.push({type:"image",source:{type:"base64",media_type:m.imageType||"image/jpeg",data:b64}});
+    }
+    if(m.text)parts.push({type:"text",text:m.text});
+    contentArr.push({role:m.role,content:parts.length===1&&parts[0].type==="text"?m.text:parts});
+  }
+  const hdrs={"Content-Type":"application/json","x-api-key":key,"anthropic-version":pc.version||"2023-06-01",...(pc.headers||{})};
+  const res=await fetch(pc.endpoint||"https://api.anthropic.com/v1/messages",{method:"POST",headers:hdrs,body:JSON.stringify({model,max_tokens:mt,system:system||undefined,messages:contentArr})});
+  const data=await res.json();
+  if(data.error)throw new Error(data.error.message||JSON.stringify(data.error));
+  return data.content?.[0]?.text||"";
+}
+
 // ============ INIT ============
 initSettings();
 initChat();
